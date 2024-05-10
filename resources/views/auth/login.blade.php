@@ -1,212 +1,249 @@
-<!doctype html>
-
-<html
-  lang="en"
-  class="light-style layout-wide customizer-hide"
-  dir="ltr"
-  data-theme="theme-default"
-  data-assets-path="/assets/"
-  data-template="vertical-menu-template"
-  data-style="light">
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
-
-    <title>Login | Treework</title>
-
-    <meta name="description" content="" />
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/assets/img/favicon/favicon.ico" />
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&ampdisplay=swap"
-      rel="stylesheet" />
-
-    <!-- Icons -->
-    <link rel="stylesheet" href="/assets/vendor/fonts/remixicon/remixicon.css" />
-    <link rel="stylesheet" href="/assets/vendor/fonts/flag-icons.css" />
-
-    <!-- Menu waves for no-customizer fix -->
-    <link rel="stylesheet" href="/assets/vendor/libs/node-waves/node-waves.css" />
-
-    <!-- Core CSS -->
-    <link rel="stylesheet" href="/assets/vendor/css/rtl/core.css" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="/assets/vendor/css/rtl/theme-default.css" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="/assets/css/demo.css" />
-
-    <!-- Vendors CSS -->
-    <link rel="stylesheet" href="/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
-    <link rel="stylesheet" href="/assets/vendor/libs/typeahead-js/typeahead.css" />
-    <!-- Vendor -->
-    <link rel="stylesheet" href="/assets/vendor/libs/@form-validation/form-validation.css" />
-
-    <!-- Page CSS -->
-    <!-- Page -->
-    <link rel="stylesheet" href="/assets/vendor/css/pages/page-auth.css" />
-
-    <!-- Helpers -->
-    <script src="/assets/vendor/js/helpers.js"></script>
-    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
-    <!--? Template customizer: To hide customizer set displayCustomizer value false in config.js.  -->
-    <script src="/assets/vendor/js/template-customizer.js"></script>
-    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-    <script src="/assets/js/config.js"></script>
-  </head>
-
-  <body>
-    <!-- Content -->
-
-    <div class="authentication-wrapper authentication-cover">
-      <!-- Logo -->
-      <a href="index.html" class="auth-cover-brand d-flex align-items-center gap-2">
-        <span class="app-brand-logo demo">
-          
-        </span>
-        <span class="app-brand-text demo text-heading fw-semibold">Treework</span>
-      </a>
-      <!-- /Logo -->
-      <div class="authentication-inner row m-0">
-        <!-- /Left Section -->
-        <div class="d-none d-lg-flex col-lg-7 col-xl-8 align-items-center justify-content-center p-12 pb-2">
-          <img
-            src="/assets/img/illustrations/auth-login-illustration-light.png"
-            class="auth-cover-illustration w-100"
-            alt="auth-illustration"
-            data-app-light-img="illustrations/auth-login-illustration-light.png"
-            data-app-dark-img="illustrations/auth-login-illustration-dark.png" />
-          <img
-            src="/assets/img/illustrations/auth-cover-login-mask-light.png"
-            class="authentication-image"
-            alt="mask"
-            data-app-light-img="illustrations/auth-cover-login-mask-light.png"
-            data-app-dark-img="illustrations/auth-cover-login-mask-dark.png" />
-        </div>
-        <!-- /Left Section -->
-
-        <!-- Login -->
-        <div
-          class="d-flex col-12 col-lg-5 col-xl-4 align-items-center authentication-bg position-relative py-sm-12 px-12 py-6">
-          <div class="w-px-400 mx-auto pt-5 pt-lg-0">
-            <h4 class="mb-1">Welcome to Treework! 👋</h4>
-            <p class="mb-5">Please sign-in to your account and start the adventure</p>
-
-            <form method="POST" action="{{ route('login') }}">
-                @csrf
-              <div class="form-floating form-floating-outline mb-5">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="email"
-                  @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}"
-                  placeholder="Enter your email or username"
-                  required autocomplete="email" autofocus/>
-                  @error('email')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                <label for="email">Email</label>
-              </div>
-              <div class="mb-5">
-                <div class="form-password-toggle">
-                  <div class="input-group input-group-merge">
-                    <div class="form-floating form-floating-outline">
-                      <input
-                        type="password"
-                        id="password"
-                        class="form-control"
-                        @error('password') is-invalid @enderror" name="password"
-                        placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                        aria-describedby="password"
-                        required autocomplete="current-password" />
-                        @error('password')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                      <label for="password">Password</label>
-                    </div>
-                    <span class="input-group-text cursor-pointer"><i class="ri-eye-off-line"></i></span>
-                  </div>
-                </div>
-              </div>
-              <div class="mb-5 d-flex justify-content-between mt-5">
-                <div class="form-check mt-2">
-                  <input class="form-check-input" type="checkbox" id="remember-me" name="remember" {{ old('remember') ? 'checked' : '' }}/>
-                  <label class="form-check-label" for="remember-me"> Remember Me </label>
-                </div>
-                <a href="auth-forgot-password-cover.html" class="float-end mb-1 mt-2">
-                  <span>Forgot Password?</span>
-                </a>
-              </div>
-              <button type="submit" class="btn btn-primary d-grid w-100">Sign in</button>
-            </form>
-
-            <p class="text-center">
-              <span>New on our platform?</span>
-              <a href="{{ route('register') }}">
-                <span>Create an account</span>
-              </a>
-            </p>
-
-            <div class="divider my-5">
-              <div class="divider-text">or</div>
-            </div>
-
-            <div class="d-flex justify-content-center gap-2">
-              <a href="javascript:;" class="btn btn-icon rounded-circle btn-text-facebook">
-                <i class="tf-icons ri-facebook-fill"></i>
-              </a>
-
-              <a href="javascript:;" class="btn btn-icon rounded-circle btn-text-twitter">
-                <i class="tf-icons ri-twitter-fill"></i>
-              </a>
-
-              <a href="javascript:;" class="btn btn-icon rounded-circle btn-text-github">
-                <i class="tf-icons ri-github-fill"></i>
-              </a>
-
-              <a href="javascript:;" class="btn btn-icon rounded-circle btn-text-google-plus">
-                <i class="tf-icons ri-google-fill"></i>
-              </a>
-            </div>
-          </div>
-        </div>
-        <!-- /Login -->
-      </div>
-    </div>
-
-    <!-- / Content -->
-
-    <!-- Core JS -->
-    <!-- build:js assets/vendor/js/core.js -->
-    <script src="/assets/vendor/libs/jquery/jquery.js"></script>
-    <script src="/assets/vendor/libs/popper/popper.js"></script>
-    <script src="/assets/vendor/js/bootstrap.js"></script>
-    <script src="/assets/vendor/libs/node-waves/node-waves.js"></script>
-    <script src="/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
-    <script src="/assets/vendor/libs/hammer/hammer.js"></script>
-    <script src="/assets/vendor/libs/i18n/i18n.js"></script>
-    <script src="/assets/vendor/libs/typeahead-js/typeahead.js"></script>
-    <script src="/assets/vendor/js/menu.js"></script>
-
-    <!-- endbuild -->
-
-    <!-- Vendors JS -->
-    <script src="/assets/vendor/libs/@form-validation/popular.js"></script>
-    <script src="/assets/vendor/libs/@form-validation/bootstrap5.js"></script>
-    <script src="/assets/vendor/libs/@form-validation/auto-focus.js"></script>
-
-    <!-- Main JS -->
-    <script src="/assets/js/main.js"></script>
-
-    <!-- Page JS -->
-    <script src="/assets/js/pages-auth.js"></script>
-  </body>
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Log In | Treework</title>
+		<meta charset="utf-8" />
+		<meta name="description" content="#" />
+		<meta name="keywords" content="#" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta property="og:locale" content="en_US" />
+		<meta property="og:type" content="article" />
+		<meta property="og:title" content="#" />
+		<meta property="og:url" content="#" />
+		<meta property="og:site_name" content="#" />
+		<link rel="canonical" href="#" />
+		<link rel="shortcut icon" href="/assets/media/logos/favicon.ico" />
+		<!--begin::Fonts(mandatory for all pages)-->
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
+		<!--end::Fonts-->
+		<!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
+		<link href="/assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
+		<link href="/assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
+		<!--end::Global Stylesheets Bundle-->
+		<script>// Frame-busting to prevent site from being loaded within a frame without permission (click-jacking) if (window.top != window.self) { window.top.location.replace(window.self.location.href); }</script>
+	</head>
+	<!--end::Head-->
+	<!--begin::Body-->
+	<body id="kt_body" class="auth-bg bgi-size-cover bgi-attachment-fixed bgi-position-center">
+		<!--begin::Theme mode setup on page load-->
+		<script>var defaultThemeMode = "light"; var themeMode; if ( document.documentElement ) { if ( document.documentElement.hasAttribute("data-bs-theme-mode")) { themeMode = document.documentElement.getAttribute("data-bs-theme-mode"); } else { if ( localStorage.getItem("data-bs-theme") !== null ) { themeMode = localStorage.getItem("data-bs-theme"); } else { themeMode = defaultThemeMode; } } if (themeMode === "system") { themeMode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"; } document.documentElement.setAttribute("data-bs-theme", themeMode); }</script>
+		<!--end::Theme mode setup on page load-->
+		<!--begin::Main-->
+		<!--begin::Root-->
+		<div class="d-flex flex-column flex-root">
+			<!--begin::Page bg image-->
+			<style>body { background-image: url('/assets/media/auth/bg10.jpeg'); } [data-bs-theme="dark"] body { background-image: url('/assets/media/auth/bg10-dark.jpeg'); }</style>
+			<!--end::Page bg image-->
+			<!--begin::Authentication - Sign-in -->
+			<div class="d-flex flex-column flex-lg-row flex-column-fluid">
+				<!--begin::Aside-->
+				<div class="d-flex flex-lg-row-fluid">
+					<!--begin::Content-->
+					<div class="d-flex flex-column flex-center pb-0 pb-lg-10 p-10 w-100">
+						<!--begin::Image-->
+						<img class="theme-light-show mx-auto mw-100 w-150px w-lg-300px mb-10 mb-lg-20" src="/assets/media/auth/agency.png" alt="" />
+						<img class="theme-dark-show mx-auto mw-100 w-150px w-lg-300px mb-10 mb-lg-20" src="/assets/media/auth/agency-dark.png" alt="" />
+						<!--end::Image-->
+						<!--begin::Title-->
+						<h1 class="text-gray-800 fs-2qx fw-bold text-center mb-7">Fast, Efficient and Productive</h1>
+						<!--end::Title-->
+						<!--begin::Text-->
+						<div class="text-gray-600 fs-base text-center fw-semibold">In this kind of post, 
+						<a href="#" class="opacity-75-hover text-primary me-1">the blogger</a>introduces a person they’ve interviewed 
+						<br />and provides some background information about 
+						<a href="#" class="opacity-75-hover text-primary me-1">the interviewee</a>and their 
+						<br />work following this is a transcript of the interview.</div>
+						<!--end::Text-->
+					</div>
+					<!--end::Content-->
+				</div>
+				<!--begin::Aside-->
+				<!--begin::Body-->
+				<div class="d-flex flex-column-fluid flex-lg-row-auto justify-content-center justify-content-lg-end p-12">
+					<!--begin::Wrapper-->
+					<div class="bg-body d-flex flex-column flex-center rounded-4 w-md-600px p-10">
+						<!--begin::Content-->
+						<div class="d-flex flex-center flex-column align-items-stretch h-lg-100 w-md-400px">
+							<!--begin::Wrapper-->
+							<div class="d-flex flex-center flex-column flex-column-fluid pb-15 pb-lg-20">
+								<!--begin::Form-->
+								<form class="form w-100" method="POST" action="{{ route('login') }}">
+									@csrf
+									<!--begin::Heading-->
+									<div class="text-center mb-11">
+										<!--begin::Title-->
+										<h1 class="text-gray-900 fw-bolder mb-3">Sign In</h1>
+										<!--end::Title-->
+										<!--begin::Subtitle-->
+										<div class="text-gray-500 fw-semibold fs-6">Your Social Campaigns</div>
+										<!--end::Subtitle=-->
+									</div>
+									<!--begin::Heading-->
+									<!--begin::Login options-->
+									<div class="row g-3 mb-9">
+										<!--begin::Col-->
+										<div class="col-md-6">
+											<!--begin::Google link=-->
+											<a href="#" class="btn btn-flex btn-outline btn-text-gray-700 btn-active-color-primary bg-state-light flex-center text-nowrap w-100">
+											<img alt="Logo" src="/assets/media/svg/brand-logos/google-icon.svg" class="h-15px me-3" />Sign in with Google</a>
+											<!--end::Google link=-->
+										</div>
+										<!--end::Col-->
+										<!--begin::Col-->
+										<div class="col-md-6">
+											<!--begin::Google link=-->
+											<a href="#" class="btn btn-flex btn-outline btn-text-gray-700 btn-active-color-primary bg-state-light flex-center text-nowrap w-100">
+											<img alt="Logo" src="/assets/media/svg/brand-logos/apple-black.svg" class="theme-light-show h-15px me-3" />
+											<img alt="Logo" src="/assets/media/svg/brand-logos/apple-black-dark.svg" class="theme-dark-show h-15px me-3" />Sign in with Apple</a>
+											<!--end::Google link=-->
+										</div>
+										<!--end::Col-->
+									</div>
+									<!--end::Login options-->
+									<!--begin::Separator-->
+									<div class="separator separator-content my-14">
+										<span class="w-125px text-gray-500 fw-semibold fs-7">Or with email</span>
+									</div>
+									<!--end::Separator-->
+									<!--begin::Input group=-->
+									<div class="fv-row mb-8">
+										<!--begin::Email-->
+										<input type="text" placeholder="Email" name="email" autocomplete="off" class="form-control bg-transparent" />
+										<!--end::Email-->
+									</div>
+									<!--end::Input group=-->
+									<div class="fv-row mb-3">
+										<!--begin::Password-->
+										<input type="password" placeholder="Password" name="password" autocomplete="off" class="form-control bg-transparent" />
+										<!--end::Password-->
+									</div>
+									<!--end::Input group=-->
+									<!--begin::Wrapper-->
+									<div class="d-flex flex-stack flex-wrap gap-3 fs-base fw-semibold mb-8">
+										<div></div>
+										<!--begin::Link-->
+										<a href="#" class="link-primary">Forgot Password ?</a>
+										<!--end::Link-->
+									</div>
+									<!--end::Wrapper-->
+									<!--begin::Submit button-->
+									<div class="d-grid mb-10">
+										<button type="submit" id="kt_sign_in_submit" class="btn btn-primary">
+											<!--begin::Indicator label-->
+											<span class="indicator-label">Sign In</span>
+											<!--end::Indicator label-->
+											<!--begin::Indicator progress-->
+											<span class="indicator-progress">Please wait... 
+											<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+											<!--end::Indicator progress-->
+										</button>
+									</div>
+									<!--end::Submit button-->
+									<!--begin::Sign up-->
+									<div class="text-gray-500 text-center fw-semibold fs-6">Not a Member yet? 
+									<a href="{{ route('register') }}" class="link-primary">Sign up</a></div>
+									<!--end::Sign up-->
+								</form>
+								<!--end::Form-->
+							</div>
+							<!--end::Wrapper-->
+							<!--begin::Footer-->
+							<div class="d-flex flex-stack">
+								<!--begin::Languages-->
+								<div class="me-10">
+									<!--begin::Toggle-->
+									<button class="btn btn-flex btn-link btn-color-gray-700 btn-active-color-primary rotate fs-base" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start" data-kt-menu-offset="0px, 0px">
+										<img data-kt-element="current-lang-flag" class="w-20px h-20px rounded me-3" src="/assets/media/flags/united-states.svg" alt="" />
+										<span data-kt-element="current-lang-name" class="me-1">English</span>
+										<i class="ki-duotone ki-down fs-5 text-muted rotate-180 m-0"></i>
+									</button>
+									<!--end::Toggle-->
+									<!--begin::Menu-->
+									<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px py-4 fs-7" data-kt-menu="true" id="kt_auth_lang_menu">
+										<!--begin::Menu item-->
+										<div class="menu-item px-3">
+											<a href="#" class="menu-link d-flex px-5" data-kt-lang="English">
+												<span class="symbol symbol-20px me-4">
+													<img data-kt-element="lang-flag" class="rounded-1" src="/assets/media/flags/united-states.svg" alt="" />
+												</span>
+												<span data-kt-element="lang-name">English</span>
+											</a>
+										</div>
+										<!--end::Menu item-->
+										<!--begin::Menu item-->
+										<div class="menu-item px-3">
+											<a href="#" class="menu-link d-flex px-5" data-kt-lang="Spanish">
+												<span class="symbol symbol-20px me-4">
+													<img data-kt-element="lang-flag" class="rounded-1" src="/assets/media/flags/spain.svg" alt="" />
+												</span>
+												<span data-kt-element="lang-name">Spanish</span>
+											</a>
+										</div>
+										<!--end::Menu item-->
+										<!--begin::Menu item-->
+										<div class="menu-item px-3">
+											<a href="#" class="menu-link d-flex px-5" data-kt-lang="German">
+												<span class="symbol symbol-20px me-4">
+													<img data-kt-element="lang-flag" class="rounded-1" src="/assets/media/flags/germany.svg" alt="" />
+												</span>
+												<span data-kt-element="lang-name">German</span>
+											</a>
+										</div>
+										<!--end::Menu item-->
+										<!--begin::Menu item-->
+										<div class="menu-item px-3">
+											<a href="#" class="menu-link d-flex px-5" data-kt-lang="Japanese">
+												<span class="symbol symbol-20px me-4">
+													<img data-kt-element="lang-flag" class="rounded-1" src="/assets/media/flags/japan.svg" alt="" />
+												</span>
+												<span data-kt-element="lang-name">Japanese</span>
+											</a>
+										</div>
+										<!--end::Menu item-->
+										<!--begin::Menu item-->
+										<div class="menu-item px-3">
+											<a href="#" class="menu-link d-flex px-5" data-kt-lang="French">
+												<span class="symbol symbol-20px me-4">
+													<img data-kt-element="lang-flag" class="rounded-1" src="/assets/media/flags/france.svg" alt="" />
+												</span>
+												<span data-kt-element="lang-name">French</span>
+											</a>
+										</div>
+										<!--end::Menu item-->
+									</div>
+									<!--end::Menu-->
+								</div>
+								<!--end::Languages-->
+								<!--begin::Links-->
+								<div class="d-flex fw-semibold text-primary fs-base gap-5">
+									<a href="pages/team.html" target="_blank">Terms</a>
+									<a href="pages/pricing/column.html" target="_blank">Plans</a>
+									<a href="pages/contact.html" target="_blank">Contact Us</a>
+								</div>
+								<!--end::Links-->
+							</div>
+							<!--end::Footer-->
+						</div>
+						<!--end::Content-->
+					</div>
+					<!--end::Wrapper-->
+				</div>
+				<!--end::Body-->
+			</div>
+			<!--end::Authentication - Sign-in-->
+		</div>
+		<!--end::Root-->
+		<!--end::Main-->
+		<!--begin::Javascript-->
+		<script>var hostUrl = "/assets/";</script>
+		<!--begin::Global Javascript Bundle(mandatory for all pages)-->
+		<script src="/assets/plugins/global/plugins.bundle.js"></script>
+		<script src="/assets/js/scripts.bundle.js"></script>
+		<!--end::Global Javascript Bundle-->
+		<!--begin::Custom Javascript(used for this page only)-->
+		<script src="/assets/js/custom/authentication/sign-in/general.js"></script>
+		<!--end::Custom Javascript-->
+		<!--end::Javascript-->
+	</body>
+	<!--end::Body-->
 </html>
