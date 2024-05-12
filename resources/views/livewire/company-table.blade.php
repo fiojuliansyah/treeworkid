@@ -76,6 +76,7 @@
                             <input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_table_users .form-check-input" value="1" />
                         </div>
                     </th>
+                    <th class="min-w-125px">logo</th>
                     <th class="min-w-125px">Name</th>
                     <th class="min-w-125px">Short Name</th>
                     <th class="text-end min-w-100px">Actions</th>
@@ -88,6 +89,9 @@
                         <div class="form-check form-check-sm form-check-custom form-check-solid">
                             <input class="form-check-input" type="checkbox" value="1" />
                         </div>
+                    </td>
+                    <td>
+                        <img src="{{ $company->logo_url }}" alt="{{ $company->name }}" width="35"/>
                     </td>
                     <td>{{ $company->name }}</td>
                     <td>{{ $company->short_name }}</td>
@@ -103,14 +107,14 @@
                             <!--end::Menu item-->
                             <!--begin::Menu item-->
                             <div class="menu-item px-3">
-                                <a href="#" class="menu-link px-3" data-bs-toggle="modal" data-bs-target="#modal-delete">Hapus</a>
+                                <a href="#" class="menu-link px-3" data-bs-toggle="modal" data-bs-target="#modal-delete{{ $company->id }}">Hapus</a>
                             </div>
                             <!--end::Menu item-->
                         </div>
                         <!--end::Menu-->
                     </td>
                 </tr>
-                <div class="modal fade" id="modal-delete" tabindex="-1" aria-hidden="true">
+                <div class="modal fade" id="modal-delete{{ $company->id }}" tabindex="-1" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">

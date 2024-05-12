@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
-use Cloudinary\Cloudinary;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class CompanyController extends Controller
 {
@@ -20,17 +19,16 @@ class CompanyController extends Controller
         $request->validate([
             'logo' => 'max:3000',
         ]); 
-
-        // $folderName = 'logo_perusahaan';
-        // $file = Storage::disk('cloudinary')->put(
-        //     $folderName . '/' . Str::slug($request->short_name),
-        //     $request->file('logo')
-        // );
+        
+        $cloudinaryImage = $request->file('logo')->storeOnCloudinary('companies_logo');
+        $url = $cloudinaryImage->getSecurePath();
+        $public_id = $cloudinaryImage->getPublicId();
     
         $company = new Company;
         $company->name = $request->name;
         $company->short_name = $request->short_name;
-        // $company->logo = $file;
+        $company->logo_url = $url;
+        $company->logo_public_id = $public_id;
         $company->save();
 
         return redirect()->route('companies.index')
@@ -40,26 +38,24 @@ class CompanyController extends Controller
     public function update(Request $request, $id)
     {
         $company = Company::findOrFail($id);
-        if ($company->logo && $request->hasFile('logo')) {
-            $filename = basename($company->logo);
-            $publicId = 'logo_perusahaan/'. $company->short_name . '/' . pathinfo($filename, PATHINFO_FILENAME);
-            Cloudinary::destroy($publicId);
-        }
 
-        if ($request->hasFile('logo')) {
-            
-            $folderName = 'logo_perusahaan';
-            $file = Storage::disk('cloudinary')->put(
-                $folderName . '/' . Str::slug($request->short_name),
-                $request->file('logo')
-            );
-    
-            $company->logo = $file;
+        if($request->hasFile('logo')){
+            Cloudinary::destroy($company->logo_public_id);
+            $cloudinaryImage = $request->file('logo')->storeOnCloudinary('companies_logo');
+            $url = $cloudinaryImage->getSecurePath();
+            $public_id = $cloudinaryImage->getPublicId();
+
+            $company->update([
+                'logo_url' => $url,
+                'logo_public_id' => $public_id,
+            ]);
+
         }
     
-        $company->name = $request->name;
-        $company->short_name = $request->short_name;
-        $company->save();
+        $company->update([
+            'name' => $request->name,
+            'short_name' => $request->short_name
+        ]);
     
         return redirect()->route('companies.index')
             ->with('success', 'Data perusahaan berhasil diperbarui');
@@ -69,12 +65,7 @@ class CompanyController extends Controller
     {
         $company = Company::findOrFail($id);
     
-        if ($company->logo) {
-            $filename = basename($company->logo);
-            $publicId = 'logo_perusahaan/'. $company->short_name . '/' . pathinfo($filename, PATHINFO_FILENAME);
-            Cloudinary::destroy($publicId);
-        }
-
+        Cloudinary::destroy($company->image_public_id);
         $company->delete();
     
         return redirect()->route('companies.index')

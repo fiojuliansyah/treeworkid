@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('companies', function (Blueprint $table) {
             $table->id();
-            $table->string('logo')->nullable();
+            $table->string('logo_url')->nullable();
+            $table->string('logo_public_id')->nullable();
             $table->string('name')->nullable();
             $table->string('short_name')->nullable();
             $table->timestamps();

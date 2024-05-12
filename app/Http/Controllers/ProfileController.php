@@ -2,66 +2,31 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Site;
 use App\Models\User;
+use App\Models\Profile;
 use Illuminate\Http\Request;
-use Spatie\Permission\Models\Role;
-use Spatie\Activitylog\Models\Activity;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
-class UserController extends Controller
+class ProfileController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $users = User::all();
-        return view('users.index',compact('users'));
+        $sites = Site::all();
+        $user = Auth::user();
+        return view('profiles.index',compact('user','sites'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function update(Request $request)
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($id)
-    {
-        $user = User::findOrFail($id);
-        $roles = Role::pluck('name', 'name')->all();
-        $activities = Activity::where('causer_id', $id)->paginate(10);
-        
-        // Fetch roles for the specific user being edited
-        $userRoles = $user->roles->pluck('name', 'name')->all();
-
-        return view('users.edit', compact('user', 'roles', 'userRoles', 'activities'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, User $user)
-    {
+        $userId = Auth::user()->id;
+        $user = User::find($userId);
         $input = $request->all();
     
         if(isset($input['password'])) {
@@ -71,25 +36,14 @@ class UserController extends Controller
         }
     
         $user->update($input);
-        $user->assignRole($request->roles);
     
-        return redirect()->back()
-                        ->with('success', 'Pengguna <strong>' . $user->name . '</strong> berhasil perbarui');
+        return redirect()->route('profiles.index')
+                        ->with('success', 'Profil <strong>' . $user->name . '</strong> berhasil diperbarui');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id)
+    public function updatePersonalData(Request $request)
     {
-        User::find($id)->delete();
-        return redirect()->route('users.index')
-                        ->with('success', 'Berhasil Dihapus');
-    }
-
-    public function updatePersonalData(Request $request, $id)
-    {
-        $user = User::findOrFail($id);
+        $user = User::findOrFail(Auth::user()->id);
     
         // Simpan avatar baru jika ada
         if ($request->hasFile('avatar')) {
@@ -134,7 +88,7 @@ class UserController extends Controller
             ]);
         }
     
-        return redirect()->back()
-                        ->with('success', 'Profil <strong>' . $user->name . '</strong> berhasil diperbarui ');
+        return redirect('/dashboard')->withInput();
     }
+     
 }
