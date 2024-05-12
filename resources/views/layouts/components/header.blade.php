@@ -6,7 +6,7 @@
         <i class="ki-outline ki-abstract-14 fs-2"></i>
     </div>
     <a href="index.html" class="app-sidebar-logo">
-        <img alt="Logo" src="/assets/media/logos/demo39.svg" class="h-25px theme-light-show" />
-        <img alt="Logo" src="/assets/media/logos/demo39-dark.svg" class="h-25px theme-dark-show" />
+        <img alt="Logo" src="/assets/media/logos/logo-dark.png" class="h-25px theme-light-show" />
+        <img alt="Logo" src="/assets/media/logos/logo.png" class="h-25px theme-dark-show" />
     </a>
 </div>

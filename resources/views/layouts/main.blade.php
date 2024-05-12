@@ -14,7 +14,7 @@
 		<meta property="og:url" content="#" />
 		<meta property="og:site_name" content="#" />
 		<link rel="canonical" href="#" />
-		<link rel="shortcut icon" href="/assets/media/logos/favicon.ico" />
+		<link rel="shortcut icon" href="/assets/media/logos/icon.png" />
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
 		<link href="/assets/plugins/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet" type="text/css" />
 		<link href="/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
