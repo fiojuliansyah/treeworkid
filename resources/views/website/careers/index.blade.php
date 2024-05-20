@@ -16,7 +16,7 @@
                         <div class="overlay-layer rounded bg-black" style="opacity: 0.4"></div>
                     </div>
                     <div class="position-absolute text-white mb-8 ms-10 bottom-0">
-                        <h3 class="text-white fs-2qx fw-bold mb-3 m">Careers at KeenThemes</h3>
+                        <h3 class="text-white fs-2qx fw-bold mb-3 m">Careers at Treework Indonesia</h3>
                         <div class="fs-5 fw-semibold">You sit down. You stare at your screen. The cursor blinks.</div>
                     </div>
                 </div>
