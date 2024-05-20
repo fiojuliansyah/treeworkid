@@ -42,7 +42,7 @@
                                                 </select>
                                             </div>
                                             <div class="fv-row mb-7">
-                                                <label class="required fw-semibold fs-6 mb-2">Site Name</label>
+                                                <label class="required fw-semibold fs-6 mb-2">Title</label>
                                                 <input type="text" name="title" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="title"/>
                                             </div>
                                             <div class="fv-row mb-7">
