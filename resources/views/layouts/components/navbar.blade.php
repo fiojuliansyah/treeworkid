@@ -564,7 +564,7 @@
             </div>
             <div class="separator my-2"></div>
             <div class="menu-item px-5">
-                <a href="{{ route('index-account') }}" class="menu-link px-5">My Profile</a>
+                <a href="{{ route('index-profile') }}" class="menu-link px-5">My Profile</a>
             </div>
             {{-- <div class="menu-item px-5">
                 <a href="apps/projects/list.html" class="menu-link px-5">
@@ -715,7 +715,7 @@
                 </div>
             </div> --}}
             <div class="menu-item px-5 my-1">
-                <a href="account/settings.html" class="menu-link px-5">Account Settings</a>
+                <a href="{{ route('index-account') }}" class="menu-link px-5">Account Settings</a>
             </div>
             <div class="menu-item px-5">
                 <a href="{{ route('logout') }}"
