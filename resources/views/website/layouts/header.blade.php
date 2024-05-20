@@ -227,7 +227,9 @@
                 </div>
             </div>
             <div class="app-navbar-item ms-2 ms-lg-6 me-lg-6">
-                <a href="authentication/layouts/corporate/sign-in.html" class="btn btn-icon btn-custom btn-color-gray-600 btn-active-color-primary w-35px h-35px w-md-40px h-md-40px">
+                <a href="{{ route('logout') }}"
+                    onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();" class="btn btn-icon btn-custom btn-color-gray-600 btn-active-color-primary w-35px h-35px w-md-40px h-md-40px">
                     <i class="ki-outline ki-exit-right fs-1"></i>
                 </a>
             </div>
