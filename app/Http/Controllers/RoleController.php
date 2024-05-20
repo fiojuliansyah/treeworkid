@@ -41,7 +41,7 @@ class RoleController extends Controller
         $role->syncPermissions($request->input('permission'));
     
         return redirect()->route('roles.index')
-                        ->with('success', 'Jabatan <strong>' . $role->name . '</strong> berhasil dibuat');
+                        ->with('success', 'Jabatan ' . $role->name . ' berhasil dibuat');
     }
     /**
      * Display the specified resource.
@@ -76,7 +76,7 @@ class RoleController extends Controller
         $role->syncPermissions($request->input('permission'));
     
         return redirect()->route('roles.index')
-                        ->with('success', 'Jabatan <strong>' . $role->name . '</strong> berhasil diubah');
+                        ->with('success', 'Jabatan ' . $role->name . ' berhasil diubah');
     }
 
     /**

@@ -66,5 +66,10 @@ class User extends Authenticatable
     {
         return $this->belongsTo(User::class, 'leader_id');
     }
+
+    public function document()
+    {
+        return $this->hasMany(Document::class);
+    }
     
 }

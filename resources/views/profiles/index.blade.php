@@ -10,7 +10,7 @@
                         <div class="d-flex flex-wrap flex-sm-nowrap">
                             <div class="me-7 mb-4">
                                 <div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
-                                    <img src="{{ $user->profile['avatar_url'] }}" alt="image" />
+                                    <img src="{{ $user->profile['avatar_url'] ?? '/assets/media/avatars/300-1.jpg' }}" alt="image" />
                                     <div class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-body h-20px w-20px"></div>
                                 </div>
                             </div>
@@ -56,73 +56,75 @@
                         </div>
                         <ul class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bold">
                             <li class="nav-item">
-                                <a class="nav-link active" data-bs-toggle="tab" href="#kt_tab_pane_1">Account</a>
+                                <a class="nav-link active" href="{{ route('index-account') }}">Account</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" data-bs-toggle="tab" href="#kt_tab_pane_2">Profile</a>
+                                <a class="nav-link" href="{{ route('index-profile') }}">Profile</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('index-document') }}">Documents</a>
                             </li>
                         </ul>
                     </div>
                 </div>
-                
-                <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="kt_tab_pane_1" role="tabpanel">
-                        <div class="card mb-5 mb-xl-10">
-                            <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_profile_details" aria-expanded="true" aria-controls="kt_account_profile_details">
-                                <div class="card-title m-0">
-                                    <h3 class="fw-bold m-0">Account Details</h3>
-                                </div>
-                            </div>
-                            <div id="kt_account_settings_profile_details" class="collapse show">
-                                <form class="form" action="{{ route('profiles.update',$user->id) }}" method="POST">
-                                    @method('PUT')
-                                    @csrf
-                                    <div class="card-body border-top p-9">
-                                        <div class="row mb-6">
-                                            <label class="col-lg-4 col-form-label required fw-semibold fs-6">Nama lengkap</label>
-                                            <div class="col-lg-8 fv-row">
-                                                <input type="text" name="name" class="form-control form-control-lg form-control-solid" value="{{ $user->name }}" />
-                                            </div>
-                                        </div>
-                                        <div class="row mb-6">
-                                            <label class="col-lg-4 col-form-label required fw-semibold fs-6">Email</label>
-                                            <div class="col-lg-8 fv-row">
-                                                <input type="text" name="email" class="form-control form-control-lg form-control-solid" value="{{ $user->email }}" />
-                                            </div>
-                                        </div>
-                                        <div class="row mb-6">
-                                            <label class="col-lg-4 col-form-label required fw-semibold fs-6">NIK KTP</label>
-                                            <div class="col-lg-8 fv-row">
-                                                <input type="text" name="nik" class="form-control form-control-lg form-control-solid" value="{{ $user->nik }}" />
-                                            </div>
-                                        </div>
-                                        <div class="row mb-6">
-                                            <label class="col-lg-4 col-form-label fw-semibold fs-6">
-                                                <span class="required">No Handphone</span>
-                                                <span class="ms-1" data-bs-toggle="tooltip" title="Phone number must be active">
-                                                    <i class="ki-outline ki-information-5 text-gray-500 fs-6"></i>
-                                                </span>
-                                            </label>
-                                            <div class="col-lg-8 fv-row">
-                                                <input type="tel" name="phone" class="form-control form-control-lg form-control-solid" placeholder="Phone number" value="{{ $user->phone }}" />
-                                            </div>
-                                        </div>
-                                        <div class="row mb-6">
-                                            <label class="col-lg-4 col-form-label required fw-semibold fs-6">Password</label>
-                                            <div class="col-lg-8 fv-row">
-                                                <input type="password" name="password" class="form-control form-control-lg form-control-solid" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-footer d-flex justify-content-end py-6 px-9">
-                                        <button type="reset" class="btn btn-light btn-active-light-primary me-2">Discard</button>
-                                        <button type="submit" class="btn btn-primary" id="kt_account_profile_details_submit">Save Changes</button>
-                                    </div>
-                                </form>
-                            </div>
+                <div class="card mb-5 mb-xl-10">
+                    <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_profile_details" aria-expanded="true" aria-controls="kt_account_profile_details">
+                        <div class="card-title m-0">
+                            <h3 class="fw-bold m-0">Account Details</h3>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="kt_tab_pane_2" role="tabpanel">
+                    <div id="kt_account_settings_profile_details" class="collapse show">
+                        <form class="form" action="{{ route('update-account',$user->id) }}" method="POST">
+                            @method('PUT')
+                            @csrf
+                            <div class="card-body border-top p-9">
+                                <div class="row mb-6">
+                                    <label class="col-lg-4 col-form-label required fw-semibold fs-6">Nama lengkap</label>
+                                    <div class="col-lg-8 fv-row">
+                                        <input type="text" name="name" class="form-control form-control-lg form-control-solid" value="{{ $user->name }}" />
+                                    </div>
+                                </div>
+                                <div class="row mb-6">
+                                    <label class="col-lg-4 col-form-label required fw-semibold fs-6">Email</label>
+                                    <div class="col-lg-8 fv-row">
+                                        <input type="text" name="email" class="form-control form-control-lg form-control-solid" value="{{ $user->email }}" />
+                                    </div>
+                                </div>
+                                <div class="row mb-6">
+                                    <label class="col-lg-4 col-form-label required fw-semibold fs-6">NIK KTP</label>
+                                    <div class="col-lg-8 fv-row">
+                                        <input type="text" name="nik" class="form-control form-control-lg form-control-solid" value="{{ $user->nik }}" />
+                                    </div>
+                                </div>
+                                <div class="row mb-6">
+                                    <label class="col-lg-4 col-form-label fw-semibold fs-6">
+                                        <span class="required">No Handphone</span>
+                                        <span class="ms-1" data-bs-toggle="tooltip" title="Phone number must be active">
+                                            <i class="ki-outline ki-information-5 text-gray-500 fs-6"></i>
+                                        </span>
+                                    </label>
+                                    <div class="col-lg-8 fv-row">
+                                        <input type="tel" name="phone" class="form-control form-control-lg form-control-solid" placeholder="Phone number" value="{{ $user->phone }}" />
+                                    </div>
+                                </div>
+                                <div class="row mb-6">
+                                    <label class="col-lg-4 col-form-label required fw-semibold fs-6">Password</label>
+                                    <div class="col-lg-8 fv-row">
+                                        <input type="password" name="password" class="form-control form-control-lg form-control-solid" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer d-flex justify-content-end py-6 px-9">
+                                <button type="reset" class="btn btn-light btn-active-light-primary me-2">Discard</button>
+                                <button type="submit" class="btn btn-primary" id="kt_account_profile_details_submit">Save Changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                {{-- <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="account_tab" role="tabpanel">
+                    </div>
+                    <div class="tab-pane fade" id="profile_tab" role="tabpanel">
                         <form class="form" action="{{ route('personal-data') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="card mb-5 mb-xl-10">
@@ -269,7 +271,7 @@
                             </div>
                         </form>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>

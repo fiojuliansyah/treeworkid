@@ -74,7 +74,7 @@ class UserController extends Controller
         $user->assignRole($request->roles);
     
         return redirect()->back()
-                        ->with('success', 'Pengguna <strong>' . $user->name . '</strong> berhasil perbarui');
+                        ->with('success', 'Pengguna ' . $user->name . ' berhasil perbarui');
     }
 
     /**
@@ -135,6 +135,6 @@ class UserController extends Controller
         }
     
         return redirect()->back()
-                        ->with('success', 'Profil <strong>' . $user->name . '</strong> berhasil diperbarui ');
+                        ->with('success', 'Profil ' . $user->name . ' berhasil diperbarui ');
     }
 }

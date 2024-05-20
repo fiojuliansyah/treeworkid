@@ -7,7 +7,7 @@
             </div>
         </div>
     </div>
-    <div class="card-body py-4">
+    <div class="card-body py-4 table-responsive">
         <!--begin::Table-->
         <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
             <thead>

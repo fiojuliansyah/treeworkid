@@ -24,8 +24,8 @@ class SiteController extends Controller
         $site->radius = $request->radius;
         $site->save();
 
-        return redirect()->route('sites.index')
-                        ->with('success', 'Lokasi <strong>' . $site->name . '</strong> berhasil dibuat');
+        return redirect()->back()
+                        ->with('success', 'Lokasi ' . $site->name . ' berhasil dibuat');
     }
 
     public function update(Request $request, $id)
@@ -40,8 +40,8 @@ class SiteController extends Controller
 
         $site->update();
 
-        return redirect()->route('sites.index')
-                        ->with('success', 'Lokasi <strong>' . $site->name . '</strong> berhasil diperbarui');
+        return redirect()->back()
+                        ->with('success', 'Lokasi ' . $site->name . ' berhasil diperbarui');
     }
 
     /**
@@ -52,7 +52,7 @@ class SiteController extends Controller
         $site = Site::findOrFail($id);
         $site->delete();
     
-        return redirect()->route('sites.index')
+        return redirect()->back()
             ->with('success', 'Data Lokasi berhasil dihapus');
     }
 

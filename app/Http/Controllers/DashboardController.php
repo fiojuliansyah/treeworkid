@@ -1,0 +1,93 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Site;
+use App\Models\Career;
+use App\Models\Status;
+use App\Models\Document;
+use App\Models\Applicant;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+class DashboardController extends Controller
+{
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function index()
+    {
+        return view('dashboards.dashboard');
+    }
+
+    public function recruit()
+    {
+        $career = Career::count();
+        $applicant = Applicant::whereNull('done')
+                        ->where('status_id', 0)
+                        ->count();
+        
+        $statuses = Status::all();
+
+        $applicantCounts = [];
+        foreach ($statuses as $status) {
+            $applicantCounts[$status->id] = Applicant::where('status_id', $status->id)
+                                        ->whereNotNull('approve_id')
+                                        ->whereNull('done')
+                                        ->count();
+        }
+
+        return view('dashboards.recruit', compact('statuses', 'applicant', 'applicantCounts', 'career'));
+    }  
+
+    public function welcome()
+    {
+        return view('welcome');
+    }
+
+    public function career()
+    {
+        return view('website.careers.index');
+    }
+    
+    public function careerDetail($id)
+    {
+        $user = Auth::user();
+
+        $documents = Document::where('user_id', $user->id)->get();
+        $career = Career::find($id);
+        return view('website.careers.detail',compact('career','user','documents'));
+    }
+
+    public function indexAccount()
+    {
+        $sites = Site::all();
+        $user = Auth::user();
+        return view('website.profiles.index',compact('user','sites'));
+    }
+
+    public function indexProfile()
+    {
+        $user = Auth::user();
+        return view('website.profiles.profile',compact('user'));
+    }
+
+    public function indexDocument()
+    {
+        $user = Auth::user();
+        $documents = Document::where('user_id', $user->id)->get();
+        return view('website.profiles.document',compact('user','documents'));
+    }
+}

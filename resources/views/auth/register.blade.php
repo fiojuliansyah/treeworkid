@@ -12,7 +12,7 @@
 		<meta property="og:url" content="#" />
 		<meta property="og:site_name" content="#" />
 		<link rel="canonical" href="#" />
-		<link rel="shortcut icon" href="/assets/media/logos/favicon.ico" />
+		<link rel="shortcut icon" href="/assets/media/logos/icon.png" />
 		<!--begin::Fonts(mandatory for all pages)-->
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
 		<!--end::Fonts-->

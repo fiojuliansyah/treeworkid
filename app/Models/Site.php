@@ -16,7 +16,6 @@ class Site extends Model
     {
         return LogOptions::defaults()
         ->logAll(['*']);
-        // Chain fluent methods for configuration options
     }
 
     public function company()

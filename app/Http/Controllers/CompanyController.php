@@ -32,7 +32,7 @@ class CompanyController extends Controller
         $company->save();
 
         return redirect()->route('companies.index')
-                        ->with('success', 'Perusahaan <strong>' . $company->name . '</strong> berhasil dibuat');
+                        ->with('success', 'Perusahaan ' . $company->name . ' berhasil dibuat');
     }
 
     public function update(Request $request, $id)

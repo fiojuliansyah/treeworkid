@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Site;
 use App\Models\User;
 use App\Models\Profile;
+use App\Models\Document;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -16,14 +17,27 @@ class ProfileController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function indexAccount()
     {
         $sites = Site::all();
         $user = Auth::user();
         return view('profiles.index',compact('user','sites'));
     }
 
-    public function update(Request $request)
+    public function indexProfile()
+    {
+        $user = Auth::user();
+        return view('profiles.profile',compact('user'));
+    }
+
+    public function indexDocument()
+    {
+        $user = Auth::user();
+        $documents = Document::where('user_id', $user->id)->get();
+        return view('profiles.document',compact('user','documents'));
+    }
+
+    public function updateAccount(Request $request)
     {
         $userId = Auth::user()->id;
         $user = User::find($userId);
@@ -37,25 +51,23 @@ class ProfileController extends Controller
     
         $user->update($input);
     
-        return redirect()->route('profiles.index')
-                        ->with('success', 'Profil <strong>' . $user->name . '</strong> berhasil diperbarui');
+        return redirect()->back()
+                        ->with('success', 'Profil ' . $user->name . ' berhasil diperbarui');
     }
 
-    public function updatePersonalData(Request $request)
+    public function updateProfile(Request $request)
     {
         $user = User::findOrFail(Auth::user()->id);
     
-        // Simpan avatar baru jika ada
         if ($request->hasFile('avatar')) {
             $cloudinaryImage = $request->file('avatar')->storeOnCloudinary('avatars');
             $url = $cloudinaryImage->getSecurePath();
             $public_id = $cloudinaryImage->getPublicId();
     
-            // Update avatar dan data profil sekaligus
-            $user->profile()->update([
+            $user->profile()->updateOrCreate([
+                'user_id' => $user->id,
                 'avatar_url' => $url,
                 'avatar_public_id' => $public_id,
-                'user_id' => $user->id,
                 'avatar_encode' => $avatarEncoded ?? null,
                 'employee_nik' => $request->employee_nik,
                 'address' => $request->address,
@@ -70,8 +82,7 @@ class ProfileController extends Controller
                 'account_number' => $request->account_number,
             ]);
         } else {
-            // Jika tidak ada avatar baru, cukup update data profil saja
-            $user->profile()->update([
+            $user->profile()->updateOrCreate([
                 'user_id' => $user->id,
                 'avatar_encode' => $avatarEncoded ?? null,
                 'employee_nik' => $request->employee_nik,
@@ -88,7 +99,33 @@ class ProfileController extends Controller
             ]);
         }
     
-        return redirect('/dashboard')->withInput();
+        return redirect()->back()
+                        ->with('success', 'Profil ' . $user->name . ' berhasil diperbarui');
     }
-     
+
+    public function storeDocument(Request $request)
+    {
+        $user = Auth::user()->id;
+
+        $request->validate([
+            'file' => 'required',
+            'name' => 'required',
+        ]); 
+        
+        $cloudinaryFile = $request->file('file')->storeOnCloudinary('Documents');
+        $url = $cloudinaryFile->getSecurePath();
+        $public_id = $cloudinaryFile->getPublicId();
+    
+        $document = new Document;
+        $document->user_id = $user;
+        $document->name = $request->name;
+        $document->description = $request->description;
+        $document->validate = $request->validate;
+        $document->file_url = $url;
+        $document->file_public_id = $public_id;
+        $document->save();
+
+        return redirect()->back()
+                        ->with('success', 'Perusahaan ' . $document->name . ' berhasil dibuat');
+    }
 }

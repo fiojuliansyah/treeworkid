@@ -28,7 +28,7 @@ class AdminSeeder extends Seeder
             'password' => bcrypt('password')
         ]);
       
-        $role = Role::create(['name' => 'Admin']);
+        $role = Role::create(['name' => 'App Administrator']);
        
         $permissions = Permission::pluck('id','id')->all();
      

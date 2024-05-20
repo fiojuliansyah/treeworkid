@@ -10,6 +10,7 @@ class CompanyTable extends Component
 {
     use WithPagination;
 
+    protected $paginationTheme = 'bootstrap';
     public $search = '';
 
     public function render()

@@ -27,15 +27,28 @@
                             <i class="ki-outline ki-briefcase fs-2"></i>
                         </span>
                         <span class="menu-title">Recruit</span>
+                        @if ($countPendingAll > 0)  
+                            <span class="menu-badge">
+                                <span class="badge badge-danger">{{ $countPendingAll }}</span>
+                            </span>
+                        @endif
                         <span class="menu-arrow"></span>
                     </span>
                     <div class="menu-sub menu-sub-accordion">
                         <div class="menu-item">
-                            <a class="menu-link" href="#" target="_blank" title="Tambah pekerjaan untuk pelamar" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                            <a class="menu-link" href="{{ route('recruit') }}" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                <span class="menu-title">Jobs</span>
+                                <span class="menu-title">Dashboard</span>
+                            </a>
+                        </div>
+                        <div class="menu-item">
+                            <a class="menu-link" href="{{ route('careers.index') }}" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Careers</span>
                             </a>
                         </div>
                         <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
@@ -44,18 +57,77 @@
                                     <span class="bullet bullet-dot"></span>
                                 </span>
                                 <span class="menu-title">job Applicants</span>
+                                @if ($countPendingAll > 0)  
+                                    <span class="menu-badge">
+                                        <span class="badge badge-danger">{{ $countPendingAll }}</span>
+                                    </span>
+                                @endif
                                 <span class="menu-arrow"></span>
                             </span>
                             <div class="menu-sub menu-sub-accordion">
                                 <div class="menu-item">
-                                    <a class="menu-link" href="#">
+                                    <a class="menu-link" href="{{ route('applicants.index') }}">
                                         <span class="menu-bullet">
                                             <span class="bullet bullet-dot"></span>
                                         </span>
-                                        <span class="menu-title">Pelamar</span>
+                                        <span class="menu-title">Applicants</span>
+                                        @if ($countPending > 0)  
+                                            <span class="menu-badge">
+                                                <span class="badge badge-danger">{{ $countPending }}</span>
+                                            </span>
+                                        @endif
                                     </a>
+                                    @foreach ($statuses as $status)
+                                        <a class="menu-link" href="{{ route('statuses.show', $status->name) }}">
+                                            <span class="menu-bullet">
+                                                <span class="bullet bullet-dot"></span>
+                                            </span>
+                                            <span class="menu-title">{{ $status->name }}</span>
+                                            
+                                            @if ($status->unapprovedApplicants() && $status->unapprovedApplicants()->count() > 0)  
+                                                <span class="menu-badge">
+                                                    <span class="badge badge-danger">{{ $status->unapprovedApplicants()->count() }}</span>
+                                                </span>
+                                            @endif
+                                        </a>
+                                    @endforeach
                                 </div>
                             </div>
+                        </div>
+                        <div class="menu-item">
+                            <a class="menu-link" href="{{ route('web-career') }}" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Career Site</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                    <span class="menu-link">
+                        <span class="menu-icon">
+                            <i class="ki-outline ki-people fs-2"></i>
+                        </span>
+                        <span class="menu-title">HR</span>
+                        <span class="menu-arrow"></span>
+                    </span>
+                    <div class="menu-sub menu-sub-accordion">
+                        <div class="menu-item">
+                            <a class="menu-link" href="#" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Generate</span>
+                            </a>
+                        </div>
+                        <div class="menu-item">
+                            <a class="menu-link" href="{{ route('letters.index') }}" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Letter Template</span>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -68,14 +140,14 @@
                 <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                     <span class="menu-link">
                         <span class="menu-icon">
-                            <i class="ki-outline ki-people fs-2"></i>
+                            <i class="ki-outline ki-setting fs-2"></i>
                         </span>
                         <span class="menu-title">Managements</span>
                         <span class="menu-arrow"></span>
                     </span>
                     <div class="menu-sub menu-sub-accordion">
                         <div class="menu-item">
-                            <a class="menu-link" href="{{ route('users.index') }}" target="_blank" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                            <a class="menu-link" href="{{ route('users.index') }}" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                                 <span class="menu-icon">
                                     <i class="ki-outline ki-user fs-2"></i>
                                 </span>
@@ -83,7 +155,7 @@
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link" href="{{ route('roles.index') }}" target="_blank" title="Pengaturan Jabatan Pengguna" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                            <a class="menu-link" href="{{ route('roles.index') }}" title="Pengaturan Jabatan Pengguna" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                                 <span class="menu-icon">
                                     <i class="ki-outline ki-key fs-2"></i>
                                 </span>
@@ -100,7 +172,7 @@
                             </span>
                             <div class="menu-sub menu-sub-accordion">
                                 <div class="menu-item">
-                                    <a class="menu-link" href="{{ route('companies.index') }}" target="_blank" title="Tambah pekerjaan untuk pelamar" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                                    <a class="menu-link" href="{{ route('companies.index') }}" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                                         <span class="menu-bullet">
                                             <span class="bullet bullet-dot"></span>
                                         </span>
@@ -108,7 +180,7 @@
                                     </a>
                                 </div>
                                 <div class="menu-item">
-                                    <a class="menu-link" href="{{ route('sites.index') }}" target="_blank" title="Tambah pekerjaan untuk pelamar" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                                    <a class="menu-link" href="{{ route('sites.index') }}" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                                         <span class="menu-bullet">
                                             <span class="bullet bullet-dot"></span>
                                         </span>
@@ -136,6 +208,25 @@
                                 </div>
                             </div>
                         </div> --}}
+                    </div>
+                </div>
+                <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                    <span class="menu-link">
+                        <span class="menu-icon">
+                            <i class="ki-outline ki-briefcase fs-2"></i>
+                        </span>
+                        <span class="menu-title">Recruit</span>
+                        <span class="menu-arrow"></span>
+                    </span>
+                    <div class="menu-sub menu-sub-accordion">
+                        <div class="menu-item">
+                            <a class="menu-link" href="{{ route('statuses.index') }}" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                                <span class="menu-icon">
+                                    <i class="ki-outline ki-briefcase fs-2"></i>
+                                </span>
+                                <span class="menu-title">Status</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
