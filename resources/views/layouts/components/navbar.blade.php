@@ -7,7 +7,7 @@
         &nbsp;&nbsp;
         <span class="menu-title text-gray-700 fw-bold fs-6" id="txt"></span>
     </div>
-    <div class="app-navbar-item ms-2 ms-lg-6">
+    {{-- <div class="app-navbar-item ms-2 ms-lg-6">
         <div class="btn btn-icon btn-custom btn-color-gray-600 btn-active-color-primary w-35px h-35px w-md-40px h-md-40px" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
             <i class="ki-outline ki-calendar fs-1"></i>
         </div>
@@ -533,7 +533,7 @@
             <span class="position-absolute top-0 start-100 translate-middle badge badge-circle badge-danger w-15px h-15px ms-n4 mt-3">5</span>
         </div>
         <!--end::Menu wrapper-->
-    </div>
+    </div> --}}
     <div class="app-navbar-item ms-2 ms-lg-6" id="kt_header_user_menu_toggle">
         <!--begin::Menu wrapper-->
         <div class="cursor-pointer symbol symbol-circle symbol-30px symbol-lg-45px" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
