@@ -8,9 +8,6 @@
                             <i class="ki-outline ki-home-2 fs-2"></i>
                         </span>
                         <span class="menu-title text-gray-700 fw-bold fs-6">Dashboard</span>
-                        <span class="menu-badge">
-                            <span class="badge badge-secondary">6</span>
-                        </span>
                     </a>
                 </div>
                 <br>
