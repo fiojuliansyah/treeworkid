@@ -65,7 +65,7 @@
                         <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
                             <!--begin::Menu item-->
                             <div class="menu-item px-3">
-                                <a href="{{ route('users.edit', ['user' => $user->id]) }}" target="_blank" class="menu-link px-3">Edit</a>
+                                <a href="{{ route('employees.edit', ['employee' => $user->id]) }}" target="_blank" class="menu-link px-3">Edit</a>
                             </div>
                             <!--end::Menu item-->
                             <!--begin::Menu item-->
@@ -96,11 +96,11 @@
                 
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                                <a href="{{ route('users.destroy', $user->id) }}"
+                                <a href="{{ route('employees.destroy', $user->id) }}"
                                 onclick="event.preventDefault();
                                               document.getElementById('delete-user').submit();" class="btn btn-danger">Hapus</a>
                             </div>
-                            <form id="delete-user" action="{{ route('users.destroy', $user->id) }}" method="POST">
+                            <form id="delete-user" action="{{ route('employees.destroy', $user->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                             </form>

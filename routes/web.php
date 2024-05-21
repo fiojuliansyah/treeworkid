@@ -27,7 +27,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/recuit', [DashboardController::class, 'recruit'])->name('recruit');
     Route::resource('roles', RoleController::class);
     Route::resource('permissions', PermissionController::class);
-    Route::resource('users', UserController::class);
+    Route::resource('employees', UserController::class);
     Route::resource('companies', CompanyController::class);
     Route::resource('sites', SiteController::class);
     Route::resource('statuses', StatusController::class);
