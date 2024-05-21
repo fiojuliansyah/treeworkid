@@ -18,8 +18,8 @@
                         </div>
                     </th>
                     <th class="min-w-125px">User</th>
-                    <th class="min-w-125px">Role</th>
-                    <th class="min-w-125px">Reporting To</th>
+                    <th class="min-w-125px">Detail</th>
+                    <th class="min-w-125px">Site</th>
                     <th class="text-end min-w-100px">Actions</th>
                 </tr>
             </thead>
@@ -34,7 +34,7 @@
                     <td class="d-flex align-items-center">
                         <!--begin:: Avatar -->
                         <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
-                            <a href="apps/user-management/users/view.html">
+                            <a href="{{ route('user-account', ['id' => $user->id]) }}">
                                 <div class="symbol-label">
                                     <img src="{{ $user->profile['avatar_url'] ?? '/assets/media/avatars/blank.png' }}" alt="{{ $user->name }}" class="w-100" />
                                 </div>
@@ -43,20 +43,31 @@
                         <!--end::Avatar-->
                         <!--begin::User details-->
                         <div class="d-flex flex-column">
-                            <a href="#" class="text-gray-800 text-hover-primary mb-1">{{ $user->name }}</a>
-                            <span>{{ $user->email }}</span>
+                            <a href="{{ route('user-account', ['id' => $user->id]) }}" class="text-gray-800 text-hover-primary mb-1">{{ $user->name }}</a>
+                            <span>{{ $user->profile['employee_nik'] ?? '' }}</span>
                         </div>
                         <!--begin::User details-->
                     </td>
                     <td>
-                        @if(!empty($user->getRoleNames()))
-                            @foreach($user->getRoleNames() as $v)
-                            <span class="badge badge-light-warning">{{ $v }}</span>
-                            @endforeach
-                        @endif
+                        @php
+                            $colors = ['badge-light-warning', 'badge-light-primary', 'badge-light-success', 'badge-light-danger', 'badge-light-info', 'badge-light-secondary'];
+                            @endphp
+
+                            @if(!empty($user->getRoleNames()))
+                                @foreach($user->getRoleNames() as $v)
+                                    @php
+                                    $randomColor = $colors[array_rand($colors)];
+                                    @endphp
+                                    <span class="badge {{ $randomColor }}">{{ $v }}</span>
+                                @endforeach
+                            @endif
+                        <br>
+                        <span>{{ $user->email }}</span>
+                        <br>
+                        <span>Leader : <strong>{{ $user->leader['name'] ?? '' }}</strong></span>
                     </td>
                     <td>
-                        {{ $user->leader['name'] ?? 'Tidak ada' }}
+                        {{ $user->site['name'] ?? 'Tidak ada' }}
                     </td>
                     <td class="text-end">
                         <a href="#" class="btn btn-light btn-active-light-primary btn-flex btn-center btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions 
@@ -110,6 +121,7 @@
                 @endforeach
             </tbody>
         </table>
+        {{ $users->links() }}
         <!--end::Table-->
     </div>
 </div>
