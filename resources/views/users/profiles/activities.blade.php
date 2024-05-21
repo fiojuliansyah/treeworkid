@@ -117,21 +117,32 @@
                                                     <tr>
                                                         <!--begin::Badge=-->
                                                         <td class="min-w-70px">
-                                                            <div class="badge badge-light-warning">{{ $activity->description }}</div>
+                                                            @if($activity->description === 'updated')
+                                                                <div class="badge badge-light-warning">{{ $activity->description }}</div>
+                                                            @elseif($activity->description === 'created')
+                                                                <div class="badge badge-light-success">{{ $activity->description }}</div>
+                                                            @elseif($activity->description === 'deleted')
+                                                                <div class="badge badge-light-danger">{{ $activity->description }}</div>
+                                                            @endif
                                                         </td>
-                                                        <!--end::Badge=-->
-                                                        <!--begin::Status=-->
+                                                        <td>
+                                                            {{ $activity->causer['name'] }}
+                                                        </td>
                                                         <td>
                                                             <!-- Display only the changed keys and their new values -->
                                                             @foreach($changedKeys as $key => $newValue)
                                                                 {{ $key }}: {{ $newValue }} <br>
                                                             @endforeach
                                                         </td>
-                                                        <!-- Display old values corresponding to the changed keys -->
+                                                        <!-- Display old values corresponding to the changed keys only if there are any -->
                                                         <td>
-                                                            @foreach($changedKeys as $key => $newValue)
-                                                                {{ $key }}: {{ $old[$key] }} <br>
-                                                            @endforeach
+                                                            @if(!empty($old))
+                                                                @foreach($changedKeys as $key => $newValue)
+                                                                    @if(array_key_exists($key, $old))
+                                                                        {{ $key }}: {{ $old[$key] }} <br>
+                                                                    @endif
+                                                                @endforeach
+                                                            @endif
                                                         </td>
                                                         <!--end::Status=-->
                                                         <!--begin::Timestamp=-->
@@ -139,7 +150,7 @@
                                                         <!--end::Timestamp=-->
                                                     </tr>
                                                 @endif
-                                            @endforeach                                     
+                                            @endforeach                                   
                                         </tbody>
                                         <!--end::Table body-->
                                     </table>
