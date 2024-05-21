@@ -74,7 +74,7 @@
                                         @endif
                                     </a>
                                     @foreach ($statuses as $status)
-                                        <a class="menu-link" href="{{ route('statuses.show', $status->name) }}">
+                                        <a class="menu-link" href="{{ route('statuses.show', $status->name) }}" target="_blank">
                                             <span class="menu-bullet">
                                                 <span class="bullet bullet-dot"></span>
                                             </span>
