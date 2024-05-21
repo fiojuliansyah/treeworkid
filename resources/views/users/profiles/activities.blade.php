@@ -126,9 +126,6 @@
                                                             @endif
                                                         </td>
                                                         <td>
-                                                            {{ $activity->causer['name'] }}
-                                                        </td>
-                                                        <td>
                                                             <!-- Display only the changed keys and their new values -->
                                                             @foreach($changedKeys as $key => $newValue)
                                                                 {{ $key }}: {{ $newValue }} <br>
