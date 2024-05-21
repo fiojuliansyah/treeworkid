@@ -25,6 +25,7 @@ Auth::routes();
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/recuit', [DashboardController::class, 'recruit'])->name('recruit');
+    Route::get('/activities', [DashboardController::class, 'activities'])->name('activities');
     Route::resource('roles', RoleController::class);
     Route::resource('permissions', PermissionController::class);
     Route::resource('employees', UserController::class);
@@ -50,4 +51,11 @@ Route::middleware('auth')->group(function () {
     
     Route::post('/users/personal-data/{id}',[UserController::class, 'updatePersonalData'])->name('personal-data-user');
     Route::post('/users/site-zone/{id}',[UserController::class, 'updateSiteZone'])->name('site-zone-user');
+    Route::get('/profile/{id}/tab-account-detail', [UserController::class, 'indexAccount'])->name('user-account');
+    Route::get('/profile/{id}/tab-profile-detail', [UserController::class, 'indexProfile'])->name('user-profile');
+    Route::get('/profile/{id}/tab-document-detail', [UserController::class, 'indexDocument'])->name('user-document');
+    Route::get('/profile/{id}/tab-activities', [UserController::class, 'indexActivities'])->name('user-activities');
+    Route::put('/profile/{id}/tab-account-detail', [UserController::class, 'updateAccount'])->name('user-update-account');
+    Route::post('/profile/{id}/tab-profile-detail',[UserController::class, 'updateProfile'])->name('user-update-profile');
+    Route::post('/profile/{id}/tab-document-detail',[UserController::class, 'storeDocument'])->name('user-store-document');
 });

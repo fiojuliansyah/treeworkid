@@ -9,6 +9,7 @@ use App\Models\Document;
 use App\Models\Applicant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Spatie\Activitylog\Models\Activity;
 
 class DashboardController extends Controller
 {
@@ -35,7 +36,12 @@ class DashboardController extends Controller
         }
 
         return view('dashboards.recruit', compact('statuses', 'applicant', 'applicantCounts', 'career'));
-    }  
+    }
+    
+    public function activities()
+    {
+        return view('dashboards.activities');
+    } 
 
     public function welcome()
     {

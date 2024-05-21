@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Site;
 use App\Models\User;
+use App\Models\Document;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Spatie\Activitylog\Models\Activity;
@@ -18,50 +20,41 @@ class UserController extends Controller
         return view('users.index',compact('users'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($id)
+    public function indexAccount($id)
     {
         $user = User::findOrFail($id);
+        $users = User::All();
+        $sites = Site::all();
         $roles = Role::pluck('name', 'name')->all();
-        $activities = Activity::where('causer_id', $id)->paginate(10);
-        
-        // Fetch roles for the specific user being edited
         $userRoles = $user->roles->pluck('name', 'name')->all();
-
-        return view('users.edit', compact('user', 'roles', 'userRoles', 'activities'));
+        return view('users.profiles.index',compact('user','users','sites','roles','userRoles'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, User $user)
+    public function indexProfile($id)
     {
+        $user = User::findOrFail($id);
+        return view('users.profiles.profile',compact('user'));
+    }
+
+    public function indexDocument($id)
+    {
+        $user = User::findOrFail($id);
+        $documents = Document::where('user_id', $user->id)->get();
+        return view('users.profiles.document',compact('user','documents'));
+    }
+
+    public function indexActivities($id)
+    {
+        $user = User::findOrFail($id);
+        $activities = Activity::where('causer_id', $id)
+        ->orderBy('created_at', 'desc')
+        ->paginate(10);
+        return view('users.profiles.activities',compact('user','activities'));
+    }
+
+    public function updateAccount(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
         $input = $request->all();
     
         if(isset($input['password'])) {
@@ -71,37 +64,24 @@ class UserController extends Controller
         }
     
         $user->update($input);
-        $user->assignRole($request->roles);
     
         return redirect()->back()
-                        ->with('success', 'Pengguna ' . $user->name . ' berhasil perbarui');
+                        ->with('success', 'Profil ' . $user->name . ' berhasil diperbarui');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id)
-    {
-        User::find($id)->delete();
-        return redirect()->back()
-                        ->with('success', 'Berhasil Dihapus');
-    }
-
-    public function updatePersonalData(Request $request, $id)
+    public function updateProfile(Request $request, $id)
     {
         $user = User::findOrFail($id);
     
-        // Simpan avatar baru jika ada
         if ($request->hasFile('avatar')) {
             $cloudinaryImage = $request->file('avatar')->storeOnCloudinary('avatars');
             $url = $cloudinaryImage->getSecurePath();
             $public_id = $cloudinaryImage->getPublicId();
     
-            // Update avatar dan data profil sekaligus
-            $user->profile()->update([
+            $user->profile()->updateOrCreate([
+                'user_id' => $user->id,
                 'avatar_url' => $url,
                 'avatar_public_id' => $public_id,
-                'user_id' => $user->id,
                 'avatar_encode' => $avatarEncoded ?? null,
                 'employee_nik' => $request->employee_nik,
                 'address' => $request->address,
@@ -116,8 +96,7 @@ class UserController extends Controller
                 'account_number' => $request->account_number,
             ]);
         } else {
-            // Jika tidak ada avatar baru, cukup update data profil saja
-            $user->profile()->update([
+            $user->profile()->updateOrCreate([
                 'user_id' => $user->id,
                 'avatar_encode' => $avatarEncoded ?? null,
                 'employee_nik' => $request->employee_nik,
@@ -135,6 +114,40 @@ class UserController extends Controller
         }
     
         return redirect()->back()
-                        ->with('success', 'Profil ' . $user->name . ' berhasil diperbarui ');
+                        ->with('success', 'Profil ' . $user->name . ' berhasil diperbarui');
+    }
+
+    public function storeDocument(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+
+        $request->validate([
+            'file' => 'required',
+            'name' => 'required',
+        ]); 
+        
+        $cloudinaryFile = $request->file('file')->storeOnCloudinary('Documents');
+        $url = $cloudinaryFile->getSecurePath();
+        $public_id = $cloudinaryFile->getPublicId();
+    
+        $document = new Document;
+        $document->user_id = $user;
+        $document->name = $request->name;
+        $document->description = $request->description;
+        $document->validate = $request->validate;
+        $document->file_url = $url;
+        $document->file_public_id = $public_id;
+        $document->save();
+
+        return redirect()->back()
+                        ->with('success', 'Perusahaan ' . $document->name . ' berhasil dibuat');
+    }
+
+
+    public function destroy($id)
+    {
+        User::find($id)->delete();
+        return redirect()->back()
+                        ->with('success', 'Berhasil Dihapus');
     }
 }

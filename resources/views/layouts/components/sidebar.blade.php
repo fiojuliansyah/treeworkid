@@ -151,7 +151,7 @@
                         <span class="menu-heading ps-1">Setup</span>
                     </div>
                 </div>
-                <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{ request()->routeIs('roles.index','companies.index','sites.index') ? 'here show' : '' }}">
+                <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{ request()->routeIs('roles.index','companies.index','sites.index','activities') ? 'here show' : '' }}">
                     <span class="menu-link">
                         <span class="menu-icon">
                             <i class="ki-outline ki-setting fs-2"></i>
@@ -160,6 +160,14 @@
                         <span class="menu-arrow"></span>
                     </span>
                     <div class="menu-sub menu-sub-accordion">
+                        <div class="menu-item">
+                            <a class="menu-link {{ request()->routeIs('activities') ? 'active' : '' }}" href="{{ route('activities') }}" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                                <span class="menu-icon">
+                                    <i class="ki-outline ki-rocket fs-2"></i>
+                                </span>
+                                <span class="menu-title">Activities</span>
+                            </a>
+                        </div>
                         <div class="menu-item">
                             <a class="menu-link {{ request()->routeIs('roles.index') ? 'active' : '' }}" title="Pengaturan Jabatan Pengguna" href="{{ route('roles.index') }}" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                                 <span class="menu-icon">
