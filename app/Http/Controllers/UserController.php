@@ -6,6 +6,7 @@ use App\Models\Site;
 use App\Models\User;
 use App\Models\Document;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use Spatie\Activitylog\Models\Activity;
 
@@ -64,7 +65,9 @@ class UserController extends Controller
         }
     
         $user->update($input);
-        $user->assignRole($request->roles);
+        DB::table('model_has_roles')->where('model_id',$id)->delete();
+    
+        $user->assignRole($request->input('roles'));
     
         return redirect()->back()
                         ->with('success', 'Profil ' . $user->name . ' berhasil diperbarui');
