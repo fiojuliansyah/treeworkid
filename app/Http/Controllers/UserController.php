@@ -64,6 +64,7 @@ class UserController extends Controller
         }
     
         $user->update($input);
+        $user->assignRole($request->roles);
     
         return redirect()->back()
                         ->with('success', 'Profil ' . $user->name . ' berhasil diperbarui');
