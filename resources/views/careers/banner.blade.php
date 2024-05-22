@@ -12,7 +12,7 @@
                         <div class="app-toolbar-wrapper d-flex flex-stack flex-wrap gap-4 w-100">
                             <!--begin::Page title-->
                             <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
-                                <h1 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">Career List</h1>
+                                <h1 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">Generate Banner</h1>
                                 <!--end::Title-->
                                 <!--begin::Breadcrumb-->
                                 <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
