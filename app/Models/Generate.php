@@ -22,4 +22,9 @@ class Generate extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function letter()
+    {
+        return $this->belongsTo(Letter::class);
+    }
 }

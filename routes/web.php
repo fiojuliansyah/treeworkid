@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\UserController;
@@ -10,7 +9,9 @@ use App\Http\Controllers\LetterController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\GenerateController;
 use App\Http\Controllers\ApplicantController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PermissionController;
 
 Route::get('/', [DashboardController::class, 'welcome']);
@@ -32,6 +33,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('companies', CompanyController::class);
     Route::resource('sites', SiteController::class);
     Route::resource('statuses', StatusController::class);
+    Route::resource('generates', GenerateController::class);
+    Route::get('/letter/{id}/regenerate', [GenerateController::class, 'regenerate'])->name('letter-regenerate');
 
     Route::resource('careers', CareerController::class);
     Route::put('/careers/{id}/update-status', [CareerController::class, 'updateStatus'])->name('update-career');

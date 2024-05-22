@@ -338,10 +338,8 @@
 <script>
     var options = {selector: "#kt_docs_tinymce_basic", height : "480"};
 
-    if ( KTThemeMode.getMode() === "dark" ) {
-        options["skin"] = "oxide-dark";
-        options["content_css"] = "dark";
-    }
+    options["skin"] = "oxide";
+    options["content_css"] = "default";
 
     tinymce.init(options);
 </script>
@@ -352,10 +350,8 @@
             height: "480"
         };
 
-        if (KTThemeMode.getMode() === "dark") {
-            options["skin"] = "oxide-dark";
-            options["content_css"] = "dark";
-        }
+        options["skin"] = "oxide";
+        options["content_css"] = "default";
 
         tinymce.init(options);
     });

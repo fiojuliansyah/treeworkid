@@ -99,7 +99,7 @@
                         </div>
                     </div>
                 </div>
-                <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{ request()->routeIs('employees.index', 'letters.index') ? 'here show' : '' }}">
+                <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{ request()->routeIs('employees.index', 'letters.index','generates.index','generates.create','generates.edit') ? 'here show' : '' }}">
                     <span class="menu-link">
                         <span class="menu-icon">
                             <i class="ki-outline ki-people fs-2"></i>
@@ -116,7 +116,7 @@
                                 <span class="menu-title">Employee</span>
                             </a>
                         </div>
-                        <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{ request()->routeIs('letters.index') ? 'here show' : '' }}">
+                        <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{ request()->routeIs('letters.index','generates.index','generates.create','generates.edit') ? 'here show' : '' }}">
                             <span class="menu-link">
                                 <span class="menu-icon">
                                     <i class="ki-outline ki-note-2 fs-2"></i>
@@ -126,7 +126,7 @@
                             </span>
                             <div class="menu-sub menu-sub-accordion">
                                 <div class="menu-item">
-                                    <a class="menu-link" href="#" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                                    <a class="menu-link {{ request()->routeIs('generates.index','generates.create','generates.edit') ? 'active' : '' }}" href="{{ route('generates.index') }}" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                                         <span class="menu-bullet">
                                             <span class="bullet bullet-dot"></span>
                                         </span>

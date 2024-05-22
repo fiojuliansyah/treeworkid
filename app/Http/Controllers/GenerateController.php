@@ -2,64 +2,58 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Letter;
 use App\Models\Generate;
 use Illuminate\Http\Request;
 
 class GenerateController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        return view('generates.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        $users = User::all();
+        $letters = Letter::all();
+        $descriptions = Letter::pluck('description', 'id')->toArray();
+        return view('generates.create',compact('users','letters'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $generate = new Generate;
+        $generate->letter_id = $request->letter_id;
+        $generate->user_id = $request->user_id;
+        $generate->save();
+    
+        $generate->description = $generate->letter->description;
+        $generate->save();
+        
+        return redirect()->route('letter-regenerate', $generate->id)
+                        ->with('success', 'Letter ' . $generate->user->name . ' berhasil digenerate');
+    }
+    
+
+    public function regenerate($id)
+    {
+        $generate = Generate::find($id);
+        $users = User::all();
+        $letters = Letter::all();
+        return view('generates.regenerate',compact('generate','users','letters'));
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Generate $generate)
+    public function update(Request $request, $id)
     {
-        //
-    }
+        $generate = Generate::find($id);
+        $generate->letter_id = $request->letter_id;
+        $generate->user_id = $request->user_id;
+        $generate->description = $request->description;
+        $generate->save();
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Generate $generate)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Generate $generate)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Generate $generate)
-    {
-        //
+        return redirect()->back()
+                        ->with('success', 'Letter ' . $generate->user['name'] . ' berhasil digenerate');
     }
 }
