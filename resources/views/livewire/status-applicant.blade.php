@@ -58,7 +58,7 @@
                                         <div class="position-absolute top-0 start-0 rounded h-100 bg-secondary w-4px"></div>
                                         <div class="fw-semibold ms-5">
                                             <a href="#" class="fs-5 fw-bold text-gray-900 text-hover-primary">{{ $applicantReq->career['name'] }}</a>
-                                            <div class="fs-7 text-muted">Due in 1 day 
+                                            <div class="fs-7 text-muted"> {{ $applicantReq->created_at->format('d-m-Y') }}
                                             <a href="#">{{ $applicantReq->user['name'] }}</a></div>
                                         </div>
                                         <a href="{{ route('update-approve', $applicantReq->id) }}" onclick="event.preventDefault();
