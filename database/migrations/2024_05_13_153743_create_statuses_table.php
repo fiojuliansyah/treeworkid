@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('color')->nullable();
             $table->string('name')->nullable();
+            $table->string('is_approve')->nullable();
+            $table->string('is_bulk_letter')->nullable();
             $table->timestamps();
         });
     }

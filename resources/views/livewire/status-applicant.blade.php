@@ -27,16 +27,20 @@
                         </div>
                     </div>
                 </div>
-                <button type="button" class="btn btn-light-primary me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_export_users">
-                <i class="ki-outline ki-exit-up fs-2"></i>Export</button>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_add_user">
-                    Request
-                    @if ($status->unapprovedApplicants() && $status->unapprovedApplicants()->count() > 0)  
-                        <span class="menu-badge">
-                            <span class="badge badge-danger">{{ $status->unapprovedApplicants()->count() }}</span>
-                        </span>
-                    @endif
-                </button>
+                @if ($status->is_bulk_letter == '1')
+                    <button type="button" class="btn btn-light-primary me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_export_users">
+                    <i class="ki-outline ki-exit-up fs-2"></i>Bulk Letter</button>
+                @endif
+                @if ($status->is_approve == '1')  
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_add_user">
+                        Request
+                        @if ($status->unapprovedApplicants() && $status->unapprovedApplicants()->count() > 0)  
+                            <span class="menu-badge">
+                                <span class="badge badge-danger">{{ $status->unapprovedApplicants()->count() }}</span>
+                            </span>
+                        @endif
+                    </button>
+                @endif
             </div>
             <div class="modal fade" id="kt_modal_add_user" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered mw-650px">
@@ -87,7 +91,11 @@
                     <th class="min-w-125px">Department</th>
                     <th class="min-w-125px">Status</th>
                     <th class="min-w-125px"></th>
+                    @if ($status->is_approve == '0')               
+                    <th class="min-w-125px"></th>   
+                    @else
                     <th class="min-w-125px">Approve By</th>
+                    @endif
                     <th class="text-end min-w-100px">Actions</th>
                 </tr>
             </thead>
@@ -131,6 +139,8 @@
                             <td>
                                 @if ($applicant->approve_id ==! null)
                                 {{ $applicant->approve['name'] }}
+                                @elseif($applicant->approve_id == '0')
+
                                 @else
                                 <form action="{{ route('update-approve', $applicant->id) }}" method="POST">
                                     @csrf

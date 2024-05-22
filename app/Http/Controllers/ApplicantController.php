@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Status;
 use App\Models\Applicant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -54,20 +55,27 @@ class ApplicantController extends Controller
         $newStatus = $request->status_id;
 
         if ($newStatus) {
-            Applicant::create([
+            $status = Status::findOrFail($newStatus);
+
+            $applicantData = [
                 'user_id' => $applicant->user_id,
                 'career_id' => $applicant->career_id,
                 'status_id' => $newStatus,
-            ]);
+            ];
+
+            if ($status->is_approve == 0) {
+                $applicantData['approve_id'] = '0';
+            }
+
+            Applicant::create($applicantData);
         }
 
         $applicant->done = 'done';
         $applicant->save();
 
-        return redirect()->back()
-                         ->with('success', 'Applicant berhasil diperbarui');
-    
+        return redirect()->back()->with('success', 'Applicant berhasil diperbarui');
     }
+
 
     public function updateApprove(Request $request, $id)
     {

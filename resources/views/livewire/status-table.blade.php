@@ -50,6 +50,26 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="fv-row mb-7">
+                                                <label class="fw-semibold fs-6 mb-2" for="is_approve">Is Request Approve</label>
+                                                <select class="form-select mb-3 mb-lg-0" name="is_approve" data-placeholder="Select an option">
+                                                    <option value="0">No</option>
+                                                    <option value="1">Yes</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="fv-row mb-7">
+                                                <label class="fw-semibold fs-6 mb-2" for="is_bulk_letter">Is Bulk Letter</label>
+                                                <select class="form-select mb-3 mb-lg-0" name="is_bulk_letter" data-placeholder="Select an option">
+                                                    <option value="0">No</option>
+                                                    <option value="1">Yes</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>                                    
                                 </div>
                                 <div class="text-center pt-10">
                                     <button type="submit" class="btn btn-primary">
@@ -88,7 +108,20 @@
                         </div>
                     </td>
                     <td>{{ $status->id }}</td>
-                    <td> <i class="fas fa-dot-circle text-{{ $status->color }}"></i> {{ $status->name }}</td>
+                    <td>
+                        <i class="fas fa-dot-circle text-{{ $status->color }}"></i>
+                         {{ $status->name }}
+                            @if ($status->is_approve == '1')
+                                <span class="badge badge-light-success">
+                                    Is Request Approved
+                                </span>
+                            @endif
+                            @if ($status->is_bulk_letter == '1')
+                                <span class="badge badge-light-info">
+                                    Is Bulk Letter
+                                </span>
+                            @endif
+                    </td>
                     <td class="text-end">
                         <a href="#" class="btn btn-light btn-active-light-primary btn-flex btn-center btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions 
                         <i class="ki-outline ki-down fs-5 ms-1"></i></a>
@@ -155,20 +188,18 @@
                                 <form class="form" action="{{ route('statuses.update', ['status' => $status->id]) }}" method="POST" enctype="multipart/form-data">
                                     @method('PUT')
                                     @csrf
-                                    <!--begin::Scroll-->
                                     <div class="d-flex flex-column scroll-y px-5 px-lg-10" id="kt_modal_add_user_scroll" data-kt-scroll="true" data-kt-scroll-activate="true" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_user_header" data-kt-scroll-wrappers="#kt_modal_add_user_scroll" data-kt-scroll-offset="300px">
                                         <div class="row">
                                             <div class="col-4">
                                                 <div class="fv-row mb-7">
                                                     <label class="required fw-semibold fs-6 mb-2">Pilih Warna</label>
                                                     <select class="form-select mb-3 mb-lg-0" name="color" data-placeholder="Select an option">
-                                                        <option value="primary">Pilih warna</option>
-                                                        <option value="primary">Primary</option>
-                                                        <option value="secondary">Secondary</option>
-                                                        <option value="success">Success</option>
-                                                        <option value="warning">Warning</option>
-                                                        <option value="info">Info</option>
-                                                        <option value="danger">Danger</option>
+                                                        <option value="primary" {{ $status->color == 'primary' ? 'selected' : '' }}>Primary</option>
+                                                        <option value="secondary" {{ $status->color == 'secondary' ? 'selected' : '' }}>Secondary</option>
+                                                        <option value="success" {{ $status->color == 'success' ? 'selected' : '' }}>Success</option>
+                                                        <option value="warning" {{ $status->color == 'warning' ? 'selected' : '' }}>Warning</option>
+                                                        <option value="info" {{ $status->color == 'info' ? 'selected' : '' }}>Info</option>
+                                                        <option value="danger" {{ $status->color == 'danger' ? 'selected' : '' }}>Danger</option>
                                                     </select>                                    
                                                 </div>
                                             </div>
@@ -176,6 +207,26 @@
                                                 <div class="fv-row mb-7">
                                                     <label class="required fw-semibold fs-6 mb-2">Status Name</label>
                                                     <input type="text" name="name" class="form-control form-control-solid mb-3 mb-lg-0" value="{{ $status->name }}"/>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <div class="fv-row mb-7">
+                                                        <label class="fw-semibold fs-6 mb-2" for="is_approve">Is Request Approve</label>
+                                                        <select class="form-select mb-3 mb-lg-0" name="is_approve" data-placeholder="Select an option">
+                                                            <option value="0" {{ $status->is_approve == 0 ? 'selected' : '' }}>No</option>
+                                                            <option value="1" {{ $status->is_approve == 1 ? 'selected' : '' }}>Yes</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="fv-row mb-7">
+                                                        <label class="fw-semibold fs-6 mb-2" for="is_bulk_letter">Is Bulk Letter</label>
+                                                        <select class="form-select mb-3 mb-lg-0" name="is_bulk_letter" data-placeholder="Select an option">
+                                                            <option value="0" {{ $status->is_bulk_letter == 0 ? 'selected' : '' }}>No</option>
+                                                            <option value="1" {{ $status->is_bulk_letter == 1 ? 'selected' : '' }}>Yes</option>
+                                                        </select>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -188,6 +239,7 @@
                                         </button>
                                     </div>
                                 </form>
+                                
                             </div>
                         </div>
                     </div>

@@ -18,6 +18,8 @@ class StatusController extends Controller
         $status = new Status;
         $status->color = $request->color;
         $status->name = $request->name;
+        $status->is_approve = $request->is_approve;
+        $status->is_bulk_letter = $request->is_bulk_letter;
         $status->save();
 
         return redirect()->route('statuses.index')
@@ -35,6 +37,8 @@ class StatusController extends Controller
         $status = Status::findOrFail($id);
         $status->color = $request->color;
         $status->name = $request->name;
+        $status->is_approve = $request->is_approve;
+        $status->is_bulk_letter = $request->is_bulk_letter;
 
         $status->update();
 
