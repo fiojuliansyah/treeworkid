@@ -56,22 +56,22 @@
                         </div>
                         <ul class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bold">
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('user-account', ['id' => $user->id]) }}">Account</a>
+                                <a class="nav-link" href="{{ route('user-account', ['id' => encrypt($user->id)]) }}">Account</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" href="{{ route('user-profile', ['id' => $user->id]) }}">Profile</a>
+                                <a class="nav-link active" href="{{ route('user-profile', ['id' => encrypt($user->id)]) }}">Profile</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('user-document', ['id' => $user->id]) }}">Documents</a>
+                                <a class="nav-link" href="{{ route('user-document', ['id' => encrypt($user->id)]) }}">Documents</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('user-activities', ['id' => $user->id]) }}">Activities</a>
+                                <a class="nav-link" href="{{ route('user-activities', ['id' => encrypt($user->id)]) }}">Activities</a>
                             </li>
                         </ul>
                     </div>
                 </div>
                 
-                <form class="form" action="{{ route('user-update-profile') }}" method="POST" enctype="multipart/form-data">
+                <form class="form" action="{{ route('user-update-profile', ['id' => $user->id]) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="card mb-5 mb-xl-10">
                         <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_profile_details" aria-expanded="true" aria-controls="kt_account_profile_details">

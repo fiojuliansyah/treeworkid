@@ -56,9 +56,10 @@ class DashboardController extends Controller
     public function careerDetail($id)
     {
         $user = Auth::user();
-
         $documents = Document::where('user_id', $user->id)->get();
-        $career = Career::find($id);
+
+        $ID = decrypt($id);
+        $career = Career::find($ID);
         return view('website.careers.detail',compact('career','user','documents'));
     }
 

@@ -34,7 +34,7 @@
                             <div class="fs-6 fw-bold text-gray-900">{{ $career->candidate }}</div>
                         </div>
                     </div>
-                    <a href="{{ route('web-career-detail', $career->id) }}" class="btn btn-sm btn-light-primary btn-flex btn-center" data-kt-follow-btn="true">
+                    <a href="{{ route('web-career-detail', encrypt($career->id)) }}" class="btn btn-sm btn-light-primary btn-flex btn-center" data-kt-follow-btn="true">
                         <span class="indicator-label">Apply</span>
                     </a>
                 </div>

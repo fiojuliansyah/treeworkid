@@ -17,13 +17,13 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
-        return view('users.index',compact('users'));
+        return view('users.index');
     }
 
     public function indexAccount($id)
     {
-        $user = User::findOrFail($id);
+        $ID = decrypt($id);
+        $user = User::findOrFail($ID);
         $users = User::All();
         $sites = Site::all();
         $roles = Role::pluck('name', 'name')->all();
@@ -33,20 +33,23 @@ class UserController extends Controller
 
     public function indexProfile($id)
     {
-        $user = User::findOrFail($id);
+        $ID = decrypt($id);
+        $user = User::findOrFail($ID);
         return view('users.profiles.profile',compact('user'));
     }
 
     public function indexDocument($id)
     {
-        $user = User::findOrFail($id);
+        $ID = decrypt($id);
+        $user = User::findOrFail($ID);
         $documents = Document::where('user_id', $user->id)->get();
         return view('users.profiles.document',compact('user','documents'));
     }
 
     public function indexActivities($id)
     {
-        $user = User::findOrFail($id);
+        $ID = decrypt($id);
+        $user = User::findOrFail($ID);
         $activities = Activity::where('causer_id', $id)
         ->orderBy('created_at', 'desc')
         ->paginate(10);
@@ -75,77 +78,62 @@ class UserController extends Controller
 
     public function updateProfile(Request $request, $id)
     {
+        $request->validate([
+            'avatar' => 'image|mimes:png,jpg,jpeg|max:2048',
+            'employee_nik' => 'required|string|max:255',
+            'address' => 'required|string|max:255',
+            'gender' => 'required|string|in:Laki-Laki,Perempuan',
+            'birth_place' => 'required|string|max:255',
+            'birth_date' => 'required|date',
+            'mother_name' => 'required|string|max:255',
+            'npwp_number' => 'required|string|max:255',
+            'marriage_status' => 'required|string|in:TK-0,TK-1,TK-2,TK-3,K-0,K-1,K-2,K-3',
+            'bank_name' => 'required|string|max:255',
+            'account_name' => 'required|string|max:255',
+            'account_number' => 'required|string|max:255',
+        ]);
+
         $user = User::findOrFail($id);
-    
+        $profileData = $request->only([
+            'employee_nik', 'address', 'gender', 'birth_place', 'birth_date', 'mother_name', 'npwp_number', 'marriage_status', 'bank_name', 'account_name', 'account_number'
+        ]);
+
         if ($request->hasFile('avatar')) {
             $cloudinaryImage = $request->file('avatar')->storeOnCloudinary('avatars');
-            $url = $cloudinaryImage->getSecurePath();
-            $public_id = $cloudinaryImage->getPublicId();
-    
-            $user->profile()->updateOrCreate([
-                'user_id' => $user->id,
-                'avatar_url' => $url,
-                'avatar_public_id' => $public_id,
-                'avatar_encode' => $avatarEncoded ?? null,
-                'employee_nik' => $request->employee_nik,
-                'address' => $request->address,
-                'gender' => $request->gender,
-                'birth_place' => $request->birth_place,
-                'birth_date' => $request->birth_date,
-                'mother_name' => $request->mother_name,
-                'npwp_number' => $request->npwp_number,
-                'marriage_status' => $request->marriage_status,
-                'bank_name' => $request->bank_name,
-                'account_name' => $request->account_name,
-                'account_number' => $request->account_number,
-            ]);
-        } else {
-            $user->profile()->updateOrCreate([
-                'user_id' => $user->id,
-                'avatar_encode' => $avatarEncoded ?? null,
-                'employee_nik' => $request->employee_nik,
-                'address' => $request->address,
-                'gender' => $request->gender,
-                'birth_place' => $request->birth_place,
-                'birth_date' => $request->birth_date,
-                'mother_name' => $request->mother_name,
-                'npwp_number' => $request->npwp_number,
-                'marriage_status' => $request->marriage_status,
-                'bank_name' => $request->bank_name,
-                'account_name' => $request->account_name,
-                'account_number' => $request->account_number,
-            ]);
+            $profileData['avatar_url'] = $cloudinaryImage->getSecurePath();
+            $profileData['avatar_public_id'] = $cloudinaryImage->getPublicId();
         }
-    
-        return redirect()->back()
-                        ->with('success', 'Profil ' . $user->name . ' berhasil diperbarui');
+
+        $user->profile()->updateOrCreate(['user_id' => $user->id], $profileData);
+
+        return redirect()->back()->with('success', 'Profil ' . $user->name . ' berhasil diperbarui');
     }
 
     public function storeDocument(Request $request, $id)
     {
         $user = User::findOrFail($id);
-
+    
         $request->validate([
-            'file' => 'required',
-            'name' => 'required',
-        ]); 
-        
+            'file' => 'required|file|mimes:png,jpg,jpeg,pdf|max:2048',
+            'name' => 'required|string|max:255',
+        ]);
+    
         $cloudinaryFile = $request->file('file')->storeOnCloudinary('Documents');
         $url = $cloudinaryFile->getSecurePath();
         $public_id = $cloudinaryFile->getPublicId();
     
         $document = new Document;
-        $document->user_id = $user;
+        $document->user_id = $user->id;
         $document->name = $request->name;
-        $document->description = $request->description;
-        $document->validate = $request->validate;
+        $document->description = $request->description ?? null;
+        $document->validate = $request->validate ?? null;
         $document->file_url = $url;
         $document->file_public_id = $public_id;
         $document->save();
-
-        return redirect()->back()
-                        ->with('success', 'Perusahaan ' . $document->name . ' berhasil dibuat');
+    
+        return redirect()->back()->with('success', 'Dokumen ' . $document->name . ' berhasil diunggah');
     }
+    
 
 
     public function destroy($id)

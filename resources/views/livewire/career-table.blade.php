@@ -172,7 +172,7 @@
                         @endif
                     </td>
                     <td>
-                        <a href="{{ route('banner-career', $career->id) }}" target="_blank" class="btn btn-flex btn-primary h-30px fs-7 fw-bold">Generate</a>
+                        <a href="{{ route('banner-career', encrypt($career->id)) }}" target="_blank" class="btn btn-flex btn-primary h-30px fs-7 fw-bold">Generate</a>
                     </td>
                     <td class="text-end">
                         <a href="#" class="btn btn-light btn-active-light-primary btn-flex btn-center btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions 

@@ -56,16 +56,16 @@
                         </div>
                         <ul class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bold">
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('user-account', ['id' => $user->id]) }}">Account</a>
+                                <a class="nav-link" href="{{ route('user-account', ['id' => encrypt($user->id)]) }}">Account</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('user-profile', ['id' => $user->id]) }}">Profile</a>
+                                <a class="nav-link" href="{{ route('user-profile', ['id' => encrypt($user->id)]) }}">Profile</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('user-document', ['id' => $user->id]) }}">Documents</a>
+                                <a class="nav-link" href="{{ route('user-document', ['id' => encrypt($user->id)]) }}">Documents</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" href="{{ route('user-activities', ['id' => $user->id]) }}">Activities</a>
+                                <a class="nav-link active" href="{{ route('user-activities', ['id' => encrypt($user->id)]) }}">Activities</a>
                             </li>
                         </ul>
                     </div>

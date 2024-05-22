@@ -98,7 +98,8 @@ class CareerController extends Controller
 
     public function banner($id)
     {
-        $career = Career::findOrFail($id);
+        $ID = decrypt($id);
+        $career = Career::findOrFail($ID);
 
         return view('careers.banner',compact('career'));;
     }

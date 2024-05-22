@@ -34,7 +34,7 @@
                     <td class="d-flex align-items-center">
                         <!--begin:: Avatar -->
                         <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
-                            <a href="{{ route('user-account', ['id' => $user->id]) }}">
+                            <a href="{{ route('user-account', ['id' => encrypt($user->id)]) }}">
                                 <div class="symbol-label">
                                     <img src="{{ $user->profile['avatar_url'] ?? '/assets/media/avatars/blank.png' }}" alt="{{ $user->name }}" class="w-100" />
                                 </div>
@@ -43,7 +43,7 @@
                         <!--end::Avatar-->
                         <!--begin::User details-->
                         <div class="d-flex flex-column">
-                            <a href="{{ route('user-account', ['id' => $user->id]) }}" class="text-gray-800 text-hover-primary mb-1">{{ $user->name }}</a>
+                            <a href="{{ route('user-account', ['id' => encrypt($user->id)]) }}" class="text-gray-800 text-hover-primary mb-1">{{ $user->name }}</a>
                             <span>{{ $user->profile['employee_nik'] ?? '' }}</span>
                         </div>
                         <!--begin::User details-->
@@ -76,7 +76,7 @@
                         <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
                             <!--begin::Menu item-->
                             <div class="menu-item px-3">
-                                <a href="{{ route('user-account', ['id' => $user->id]) }}" target="_blank" class="menu-link px-3">Edit</a>
+                                <a href="{{ route('user-account', ['id' => encrypt($user->id)]) }}" target="_blank" class="menu-link px-3">Edit</a>
                             </div>
                             <!--end::Menu item-->
                             <!--begin::Menu item-->

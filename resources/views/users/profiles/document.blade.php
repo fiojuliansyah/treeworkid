@@ -56,16 +56,16 @@
                         </div>
                         <ul class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bold">
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('user-account', ['id' => $user->id]) }}">Account</a>
+                                <a class="nav-link" href="{{ route('user-account', ['id' => encrypt($user->id)]) }}">Account</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('user-profile', ['id' => $user->id]) }}">Profile</a>
+                                <a class="nav-link" href="{{ route('user-profile', ['id' => encrypt($user->id)]) }}">Profile</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" href="{{ route('user-document', ['id' => $user->id]) }}">Documents</a>
+                                <a class="nav-link active" href="{{ route('user-document', ['id' => encrypt($user->id)]) }}">Documents</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('user-activities', ['id' => $user->id]) }}">Activities</a>
+                                <a class="nav-link" href="{{ route('user-activities', ['id' => encrypt($user->id)]) }}">Activities</a>
                             </li>
                         </ul>
                     </div>
@@ -174,7 +174,7 @@
                                 </div>
                                 <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
                                     <p>Hanya menerima hasil <strong>SCAN</strong> <i class="fas fa-check-circle text-success"></i> dan tidak menerima hasil <strong>FOTO</strong> <i class="fas fa-times-circle text-danger"></i></p>
-                                    <form class="form" action="{{ route('user-store-document') }}" method="POST" enctype="multipart/form-data">
+                                    <form class="form" action="{{ route('user-store-document', ['id' => $user->id]) }}" method="POST" enctype="multipart/form-data">
                                         @csrf
                                         <div class="d-flex flex-column mb-7 fv-row">
                                             <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">

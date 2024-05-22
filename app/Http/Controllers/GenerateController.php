@@ -32,14 +32,15 @@ class GenerateController extends Controller
         $generate->description = $generate->letter->description;
         $generate->save();
         
-        return redirect()->route('letter-regenerate', $generate->id)
+        return redirect()->route('letter-regenerate', encrypt($generate->id))
                         ->with('success', 'Letter ' . $generate->user->name . ' berhasil digenerate');
     }
     
 
     public function regenerate($id)
     {
-        $generate = Generate::find($id);
+        $ID = decrypt($id);
+        $generate = Generate::find($ID);
         $users = User::all();
         $letters = Letter::all();
         return view('generates.regenerate',compact('generate','users','letters'));
