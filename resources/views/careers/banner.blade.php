@@ -50,7 +50,7 @@
                         <div id="kt_app_content_container" class="app-container container-fluid pt-10">
                             <div class="position-relative mb-17">
                                 <div class="overlay overlay-show">
-                                    <div class="bgi-no-repeat bgi-position-center bgi-size-cover card-rounded min-h-250px" style="background-image:url('https://images.pexels.com/photos/2116719/pexels-photo-2116719.jpeg')"></div>
+                                    <div class="bgi-no-repeat bgi-position-center bgi-size-cover card-rounded min-h-250px" style="background-image:url('/assets/media/stock/1600x800/img-1.jpg')"></div>
                                     <div class="overlay-layer rounded bg-black" style="opacity: 0.4"></div>
                                 </div>
                                 <div class="position-absolute text-white mb-8 ms-10 bottom-0">
