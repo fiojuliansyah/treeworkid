@@ -41,7 +41,7 @@ class CareerController extends Controller
         $career->user_id = $user;
         $career->save();
 
-        $qrLink = route('web-career-detail', ['id' => $career->id]);
+        $qrLink = route('web-career-detail', ['id' => encrypt($career->id)]);
         $qrCode = QrCode::size(200)->generate($qrLink);
         $career->qr_link = $qrCode;
         $career->save();
