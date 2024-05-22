@@ -135,6 +135,7 @@
                     <th class="min-w-125px">Graduate</th>
                     <th class="min-w-125px">Until Date</th>
                     <th class="min-w-125px"></th>
+                    <th class="min-w-125px">Banner</th>
                     <th class="text-end min-w-100px">Actions</th>
                 </tr>
             </thead>
@@ -169,6 +170,9 @@
                             <button type="submit" class="btn btn-light-warning btn-sm">hide</button>
                         </form>
                         @endif
+                    </td>
+                    <td>
+                        <a href="{{ route('banner-career', $career->id) }}" target="_blank" class="btn btn-flex btn-primary h-30px fs-7 fw-bold">Generate</a>
                     </td>
                     <td class="text-end">
                         <a href="#" class="btn btn-light btn-active-light-primary btn-flex btn-center btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions 

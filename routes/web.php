@@ -38,6 +38,7 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('careers', CareerController::class);
     Route::put('/careers/{id}/update-status', [CareerController::class, 'updateStatus'])->name('update-career');
+    Route::get('/careers/{id}/banner', [CareerController::class, 'banner'])->name('banner-career');
 
     Route::resource('letters', LetterController::class);
 

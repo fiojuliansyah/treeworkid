@@ -41,7 +41,7 @@ class CareerController extends Controller
         $career->user_id = $user;
         $career->save();
 
-        $qrLink = route('careers.show', ['career' => $career->id]);
+        $qrLink = route('web-career-detail', ['id' => $career->id]);
         $qrCode = QrCode::size(200)->generate($qrLink);
         $career->qr_link = $qrCode;
         $career->save();
@@ -94,5 +94,12 @@ class CareerController extends Controller
 
         return redirect()->back()
                         ->with('success', 'Lowongan ' . $career->name . ' berhasil diperbarui');
+    }
+
+    public function banner($id)
+    {
+        $career = Career::findOrFail($id);
+
+        return view('careers.banner',compact('career'));;
     }
 }
