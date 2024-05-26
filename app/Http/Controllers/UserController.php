@@ -20,6 +20,13 @@ class UserController extends Controller
         return view('users.index');
     }
 
+    public function indexResume($id)
+    {
+        $ID = decrypt($id);
+        $user = User::findOrFail($ID);
+        return view('users.profiles.resume',compact('user'));
+    }
+
     public function indexAccount($id)
     {
         $ID = decrypt($id);

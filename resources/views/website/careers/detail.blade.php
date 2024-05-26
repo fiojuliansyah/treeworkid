@@ -243,6 +243,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                @auth
                                 <a href="#" class="btn btn-flex btn-primary px-6"  data-bs-toggle="modal" data-bs-target="#kt_modal_scrollable_2">
                                     <i class="ki-duotone ki-briefcase fs-2x"><span class="path1"></span><span class="path2"></span></i>
                                     <span class="d-flex flex-column align-items-start ms-2">
@@ -250,6 +251,15 @@
                                         <span class="fs-7">This Job</span>
                                     </span>
                                 </a>
+                                @else
+                                <a href="{{ route('login') }}" class="btn btn-flex btn-primary px-6">
+                                    <i class="ki-duotone ki-briefcase fs-2x"><span class="path1"></span><span class="path2"></span></i>
+                                    <span class="d-flex flex-column align-items-start ms-2">
+                                        <span class="fs-3 fw-bold">Login first</span>
+                                        <span class="fs-7">If you want to Apply</span>
+                                    </span>
+                                </a>
+                                @endauth
                             </div>
                             <!--end::Body-->
                         </div>
@@ -257,6 +267,7 @@
                 </div>
             </div>
         </div>
+        @auth
         <div class="modal fade" tabindex="-1" id="kt_modal_scrollable_2">
             <div class="modal-dialog modal-dialog-scrollable">
                 <div class="modal-content">
@@ -276,7 +287,7 @@
                             <label class="col-lg-4 col-form-label fw-semibold fs-6">Avatar</label>
                             <div class="col-lg-8">
                                 <div class="image-input image-input-outline" data-kt-image-input="true" style="background-image: url('assets/media/svg/avatars/blank.svg')">
-                                    <div class="image-input-wrapper w-125px h-125px" style="background-image: url({{ Auth::user()->profile['avatar_url'] ?? '/assets/media/avatars/300-1.jpg' }})"></div>
+                                    <div class="image-input-wrapper w-125px h-125px" style="background-image: url({{ Auth::user()->profile['avatar_url'] ?? '/assets/media/avatars/blank.png' }})"></div>
                                     <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change avatar">
                                         <i class="ki-outline ki-pencil fs-7"></i>
                                         <input type="file" name="avatar" accept=".png, .jpg, .jpeg" />
@@ -398,6 +409,8 @@
                 </div>
             </div>
         </div>
+        @else   
+        @endauth
     </div>
 </div>
 @endsection

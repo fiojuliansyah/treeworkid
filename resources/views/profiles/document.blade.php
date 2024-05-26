@@ -10,7 +10,7 @@
                         <div class="d-flex flex-wrap flex-sm-nowrap">
                             <div class="me-7 mb-4">
                                 <div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
-                                    <img src="{{ $user->profile['avatar_url'] ?? '/assets/media/avatars/300-1.jpg' }}" alt="image" />
+                                    <img src="{{ $user->profile['avatar_url'] ?? '/assets/media/avatars/blank.png' }}" alt="image" />
                                     <div class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-body h-20px w-20px"></div>
                                 </div>
                             </div>
@@ -171,7 +171,7 @@
                                 </div>
                                 <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
                                     <p>Hanya menerima hasil <strong>SCAN</strong> <i class="fas fa-check-circle text-success"></i> dan tidak menerima hasil <strong>FOTO</strong> <i class="fas fa-times-circle text-danger"></i></p>
-                                    <form class="form" action="{{ route('store-document') }}" method="POST" enctype="multipart/form-data">
+                                    <form id="form-submit" class="form" action="{{ route('store-document') }}" method="POST" enctype="multipart/form-data">
                                         @csrf
                                         <div class="d-flex flex-column mb-7 fv-row">
                                             <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
@@ -212,7 +212,26 @@
                                                     <i class="ki-outline ki-information-5 text-gray-500 fs-6"></i>
                                                 </span>
                                             </label>
-                                            <input type="file" class="form-control form-control-solid" name="file"/>
+                                            <!-- File input triggered by Jscanify -->
+                                            <input type="file" id="fileInput" accept="image/*" class="form-control form-control-solid">
+                                            <div id="result" style="margin-top: 50px; display: none">
+                                                <div style="display: flex; flex-wrap: wrap;" id="results">
+                                                  <div style="display: none;">
+                                                    <h3>Original image</h3>
+                                                    <img id="orig" />
+                                                  </div>
+                                                  <div id="highlighted" style="display: none;">
+                                                    <h3>Highlighted Paper</h3>
+                                                  </div>
+                                                  <div id="extracted">
+                                                  </div>
+                                                  <div id="cornerPts" style="display: none;">
+                                                    <h3>Corner Points</h3>
+                                                    <pre style="font-family: monospace"></pre>
+                                                  </div>
+                                                </div>
+                                            </div>
+                                            <input type="file" name="file" id="resultExtracted" style="display: none">
                                         </div>
                                         <div class="text-center pt-15">
                                             <button type="submit" id="kt_modal_new_card_submit" class="btn btn-primary">
@@ -232,3 +251,50 @@
     </div>
 </div>
 @endsection
+@push('js')
+<script src="https://docs.opencv.org/4.7.0/opencv.js" async></script>
+<script src="https://cdn.jsdelivr.net/gh/ColonelParrot/jscanify@master/src/jscanify.min.js"></script>
+<script>
+    window.addEventListener("load", function () {
+      const scanner = new jscanify();
+      fileInput.addEventListener("change", function (e) {
+        if (e.target.files.length) {
+          const image = e.target.files[0];
+          orig.src = URL.createObjectURL(image);
+          clearData();
+          result.style.display = "block";
+
+          orig.onload = function () {
+            const highlightedCanvas = scanner.highlightPaper(orig);
+            highlighted.appendChild(highlightedCanvas);
+
+            const extractedCanvas = scanner.extractPaper(orig, 350, 350);
+            extracted.appendChild(extractedCanvas);
+
+            const contour = scanner.findPaperContour(cv.imread(orig));
+            const cornerPoints = scanner.getCornerPoints(contour);
+            cornerPts.querySelector("pre").textContent = JSON.stringify(
+              cornerPoints,
+              null,
+              4
+            );
+
+            // Convert extracted canvas to Blob and set it to resultExtracted input
+            extractedCanvas.toBlob(function(blob) {
+              const file = new File([blob], "document.png", { type: "image/png" });
+              const dataTransfer = new DataTransfer();
+              dataTransfer.items.add(file);
+              document.querySelector("#resultExtracted").files = dataTransfer.files;
+            }, "image/png");
+          };
+        }
+      });
+    });
+
+    function clearData() {
+      highlighted.querySelector("canvas")?.remove();
+      extracted.querySelector("canvas")?.remove();
+      cornerPts.querySelector("pre").textContent = "";
+    }
+</script>    
+@endpush

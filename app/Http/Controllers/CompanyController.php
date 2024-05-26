@@ -29,6 +29,7 @@ class CompanyController extends Controller
         $company->short_name = $request->short_name;
         $company->logo_url = $url;
         $company->logo_public_id = $public_id;
+        $company->is_default = $request->is_default;
         $company->save();
 
         return redirect()->route('companies.index')
@@ -54,7 +55,8 @@ class CompanyController extends Controller
     
         $company->update([
             'name' => $request->name,
-            'short_name' => $request->short_name
+            'short_name' => $request->short_name,
+            'is_default' => $request->is_default
         ]);
     
         return redirect()->route('companies.index')

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('logo_public_id')->nullable();
             $table->string('name')->nullable();
             $table->string('short_name')->nullable();
+            $table->string('is_default')->nullable();
             $table->timestamps();
         });
     }

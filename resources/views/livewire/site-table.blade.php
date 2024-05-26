@@ -32,9 +32,8 @@
                                     <div class="fv-row mb-7">
                                         <label class="required fw-semibold fs-6 mb-2">Pilih Perusahaan</label>
                                         <select class="form-select" name="company_id" data-placeholder="Select an option">
-                                            <option></option>
                                             @foreach ($companies as $company)
-                                            <option value="{{ $company->id }}">{{ $company->name }}</option>
+                                                    <option value="{{ $company->id }}" {{ $company->is_default == 1 ? 'selected' : '' }}>{{ $company->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>

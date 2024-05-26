@@ -40,5 +40,18 @@
 		<script src="/assets/js/custom/utilities/modals/upgrade-plan.js"></script>
 		<script src="/assets/js/custom/utilities/modals/create-campaign.js"></script>
 		<script src="/assets/js/custom/utilities/modals/users-search.js"></script>
+		@if ($message = Session::get('success'))
+			<script>
+				$(document).ready(function(){
+					toastr.success("{{
+						Session::get('success')
+					}}", '', {
+						"closeButton": true,
+						"progressBar": true,     
+						"timeOut": 3000,     
+					});
+				});
+			</script>
+		@endif
 	</body>
 </html>

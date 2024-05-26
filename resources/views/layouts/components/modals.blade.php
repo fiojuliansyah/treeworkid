@@ -137,7 +137,7 @@
                                     <!--end::Info-->
                                     <!--begin::User-->
                                     <div class="symbol symbol-circle symbol-25px" data-bs-toggle="tooltip" data-bs-boundary="window" data-bs-placement="top" title="Alan Nilson">
-                                        <img src="/assets/media/avatars/300-1.jpg" alt="img" />
+                                        <img src="/assets/media/avatars/blank.png" alt="img" />
                                     </div>
                                     <!--end::User-->
                                 </div>
@@ -641,7 +641,7 @@
                             <!--end::Details-->
                             <!--begin::Avatar-->
                             <div class="symbol symbol-35px symbol-circle">
-                                <img alt="Pic" src="/assets/media/avatars/300-1.jpg" />
+                                <img alt="Pic" src="/assets/media/avatars/blank.png" />
                             </div>
                             <!--end::Avatar-->
                         </div>
@@ -693,7 +693,7 @@
                             <!--end::Details-->
                             <!--begin::Avatar-->
                             <div class="symbol symbol-35px symbol-circle">
-                                <img alt="Pic" src="/assets/media/avatars/300-1.jpg" />
+                                <img alt="Pic" src="/assets/media/avatars/blank.png" />
                             </div>
                             <!--end::Avatar-->
                         </div>
@@ -746,7 +746,7 @@
                             <!--end::Details-->
                             <!--begin::Avatar-->
                             <div class="symbol symbol-35px symbol-circle">
-                                <img alt="Pic" src="/assets/media/avatars/300-1.jpg" />
+                                <img alt="Pic" src="/assets/media/avatars/blank.png" />
                             </div>
                             <!--end::Avatar-->
                         </div>
@@ -798,7 +798,7 @@
                             <!--end::Details-->
                             <!--begin::Avatar-->
                             <div class="symbol symbol-35px symbol-circle">
-                                <img alt="Pic" src="/assets/media/avatars/300-1.jpg" />
+                                <img alt="Pic" src="/assets/media/avatars/blank.png" />
                             </div>
                             <!--end::Avatar-->
                         </div>
@@ -1668,7 +1668,7 @@
                             <div class="d-flex align-items-center">
                                 <!--begin::Avatar-->
                                 <div class="symbol symbol-35px symbol-circle">
-                                    <img alt="Pic" src="/assets/media/avatars/300-1.jpg" />
+                                    <img alt="Pic" src="/assets/media/avatars/blank.png" />
                                 </div>
                                 <!--end::Avatar-->
                                 <!--begin::Details-->
@@ -2153,7 +2153,7 @@
                                 <a href="#" class="d-flex align-items-center p-3 rounded bg-state-light bg-state-opacity-50 mb-1">
                                     <!--begin::Avatar-->
                                     <div class="symbol symbol-35px symbol-circle me-5">
-                                        <img alt="Pic" src="/assets/media/avatars/300-1.jpg" />
+                                        <img alt="Pic" src="/assets/media/avatars/blank.png" />
                                     </div>
                                     <!--end::Avatar-->
                                     <!--begin::Info-->
@@ -2285,7 +2285,7 @@
                                         <!--end::Checkbox-->
                                         <!--begin::Avatar-->
                                         <div class="symbol symbol-35px symbol-circle">
-                                            <img alt="Pic" src="/assets/media/avatars/300-1.jpg" />
+                                            <img alt="Pic" src="/assets/media/avatars/blank.png" />
                                         </div>
                                         <!--end::Avatar-->
                                         <!--begin::Details-->
@@ -2955,7 +2955,7 @@
                             <div class="d-flex align-items-center">
                                 <!--begin::Avatar-->
                                 <div class="symbol symbol-35px symbol-circle">
-                                    <img alt="Pic" src="/assets/media/avatars/300-1.jpg" />
+                                    <img alt="Pic" src="/assets/media/avatars/blank.png" />
                                 </div>
                                 <!--end::Avatar-->
                                 <!--begin::Details-->

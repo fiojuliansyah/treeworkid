@@ -34,7 +34,7 @@
                                         <select class="form-select" name="company_id" data-placeholder="Select an option">
                                             <option>Pilih ...</option>
                                             @foreach ($companies as $company)
-                                            <option value="{{ $company->id }}">{{ $company->name }}</option>
+                                                <option value="{{ $company->id }}" {{ $company->is_default == 1 ? 'selected' : '' }}>{{ $company->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>

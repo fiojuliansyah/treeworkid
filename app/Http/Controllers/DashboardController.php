@@ -45,7 +45,7 @@ class DashboardController extends Controller
 
     public function welcome()
     {
-        return view('welcome');
+        return view('landing');
     }
 
     public function career()
@@ -56,7 +56,7 @@ class DashboardController extends Controller
     public function careerDetail($id)
     {
         $user = Auth::user();
-        $documents = Document::where('user_id', $user->id)->get();
+        $documents = $user ? Document::where('user_id', $user->id)->get() : collect();
 
         $ID = decrypt($id);
         $career = Career::find($ID);

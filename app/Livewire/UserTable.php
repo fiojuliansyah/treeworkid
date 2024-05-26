@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Site;
 use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -12,12 +13,26 @@ class UserTable extends Component
 
     protected $paginationTheme = 'bootstrap';
     public $search = '';
+    public $selectedSite = null;
 
     public function render()
     {
-        $users = User::where('name', 'like', '%' . $this->search . '%')
-                             ->paginate(10);
+        $sites = Site::all();
 
-        return view('livewire.user-table', compact('users'));
+        $usersQuery = User::query();
+
+        if ($this->selectedSite) {
+            $usersQuery->where('site', $this->selectedSite);
+        }
+
+        if ($this->search) {
+            $usersQuery->where('name', 'like', '%' . $this->search . '%');
+        }
+
+        $users = $usersQuery->paginate(10);
+
+        return view('livewire.user-table', compact('users', 'sites'));
     }
 }
+
+

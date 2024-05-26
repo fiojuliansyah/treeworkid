@@ -85,7 +85,7 @@
                                         <label class="col-lg-4 col-form-label fw-semibold fs-6">Avatar</label>
                                         <div class="col-lg-8">
                                             <div class="image-input image-input-outline" data-kt-image-input="true" style="background-image: url('assets/media/svg/avatars/blank.svg')">
-                                                <div class="image-input-wrapper w-125px h-125px" style="background-image: url({{ Auth::user()->profile['avatar_url'] ?? '/assets/media/avatars/300-1.jpg' }})"></div>
+                                                <div class="image-input-wrapper w-125px h-125px" style="background-image: url({{ Auth::user()->profile['avatar_url'] ?? '/assets/media/avatars/blank.png' }})"></div>
                                                 <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change avatar">
                                                     <i class="ki-outline ki-pencil fs-7"></i>
                                                     <input type="file" name="avatar" accept=".png, .jpg, .jpeg" />

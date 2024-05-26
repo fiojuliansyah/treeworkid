@@ -47,13 +47,26 @@
                                         <input type="text" name="name" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="PT TREEWORK INDONESIA"/>
                                         <!--end::Input-->
                                     </div>
-                                    <div class="fv-row mb-7">
-                                        <!--begin::Label-->
-                                        <label class="required fw-semibold fs-6 mb-2">Company Sort Name</label>
-                                        <!--end::Label-->
-                                        <!--begin::Input-->
-                                        <input type="text" name="short_name" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="TREEWORK ID"/>
-                                        <!--end::Input-->
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="fv-row mb-7">
+                                                <!--begin::Label-->
+                                                <label class="required fw-semibold fs-6 mb-2">Company Sort Name</label>
+                                                <!--end::Label-->
+                                                <!--begin::Input-->
+                                                <input type="text" name="short_name" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="TREEWORK ID"/>
+                                                <!--end::Input-->
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="fv-row mb-7">
+                                                <label class="fw-semibold fs-6 mb-2" for="is_default">Is Default</label>
+                                                <select class="form-select mb-3 mb-lg-0" name="is_default" data-placeholder="Select an option">
+                                                    <option value="0">No</option>
+                                                    <option value="1">Yes</option>
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="text-center pt-10">
@@ -96,7 +109,13 @@
                     <td>
                         <img src="{{ $company->logo_url }}" alt="{{ $company->name }}" width="35"/>
                     </td>
-                    <td>{{ $company->name }}</td>
+                    <td>{{ $company->name }}
+                        @if ($company->is_default == '1')
+                            <span class="badge badge-light-success">
+                                Default
+                            </span>
+                        @endif
+                    </td>
                     <td>{{ $company->short_name }}</td>
                     <td class="text-end">
                         <a href="#" class="btn btn-light btn-active-light-primary btn-flex btn-center btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions 
@@ -184,13 +203,26 @@
                                             <input type="text" name="name" class="form-control form-control-solid mb-3 mb-lg-0" value="{{ $company->name }}"/>
                                             <!--end::Input-->
                                         </div>
-                                        <div class="fv-row mb-7">
-                                            <!--begin::Label-->
-                                            <label class="required fw-semibold fs-6 mb-2">Company Sort Name</label>
-                                            <!--end::Label-->
-                                            <!--begin::Input-->
-                                            <input type="text" name="short_name" class="form-control form-control-solid mb-3 mb-lg-0" value="{{ $company->short_name }}"/>
-                                            <!--end::Input-->
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="fv-row mb-7">
+                                                    <!--begin::Label-->
+                                                    <label class="required fw-semibold fs-6 mb-2">Company Sort Name</label>
+                                                    <!--end::Label-->
+                                                    <!--begin::Input-->
+                                                    <input type="text" name="short_name" class="form-control form-control-solid mb-3 mb-lg-0" value="{{ $company->short_name }}"/>
+                                                    <!--end::Input-->
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="fv-row mb-7">
+                                                    <label class="fw-semibold fs-6 mb-2" for="is_default">Is Default</label>
+                                                    <select class="form-select mb-3 mb-lg-0" name="is_default" data-placeholder="Select an option">
+                                                        <option value="0" {{ $company->is_default == 0 ? 'selected' : '' }}>No</option>
+                                                        <option value="1" {{ $company->is_default == 1 ? 'selected' : '' }}>Yes</option>
+                                                    </select>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="text-center pt-10">

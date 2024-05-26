@@ -49,12 +49,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile/tab-account-detail', [ProfileController::class, 'indexAccount'])->name('index-account');
     Route::get('/profile/tab-profile-detail', [ProfileController::class, 'indexProfile'])->name('index-profile');
     Route::get('/profile/tab-document-detail', [ProfileController::class, 'indexDocument'])->name('index-document');
-    Route::put('/profile/{id}/tab-account-detail', [ProfileController::class, 'updateAccount'])->name('update-account');
+    Route::put('/profile/tab-account-detail', [ProfileController::class, 'updateAccount'])->name('update-account');
     Route::post('/profile/tab-profile-detail',[ProfileController::class, 'updateProfile'])->name('update-profile');
     Route::post('/profile/tab-document-detail',[ProfileController::class, 'storeDocument'])->name('store-document');
     
     Route::post('/users/personal-data/{id}',[UserController::class, 'updatePersonalData'])->name('personal-data-user');
     Route::post('/users/site-zone/{id}',[UserController::class, 'updateSiteZone'])->name('site-zone-user');
+    Route::get('/profile/{id}/tab-resume-detail', [UserController::class, 'indexResume'])->name('user-resume');
     Route::get('/profile/{id}/tab-account-detail', [UserController::class, 'indexAccount'])->name('user-account');
     Route::get('/profile/{id}/tab-profile-detail', [UserController::class, 'indexProfile'])->name('user-profile');
     Route::get('/profile/{id}/tab-document-detail', [UserController::class, 'indexDocument'])->name('user-document');
