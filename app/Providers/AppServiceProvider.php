@@ -23,18 +23,21 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Schema::defaultStringLength(191);
-        $statuses = Status::all();
-        view()->share('statuses', $statuses);
 
-        $countPendingAll = Applicant::where('approve_id', null)
-        ->whereNull('done')
-        ->count();
-        view()->share('countPendingAll', $countPendingAll);
+        if (!$this->app->runningInConsole()) {
+            $statuses = Status::all();
+            view()->share('statuses', $statuses);
 
-        $countPending = Applicant::where('approve_id', null)
-        ->where('status_id', '=', 0)
-        ->whereNull('done')
-        ->count();
-        view()->share('countPending', $countPending);
+            $countPendingAll = Applicant::where('approve_id', null)
+                ->whereNull('done')
+                ->count();
+            view()->share('countPendingAll', $countPendingAll);
+
+            $countPending = Applicant::where('approve_id', null)
+                ->where('status_id', '=', 0)
+                ->whereNull('done')
+                ->count();
+            view()->share('countPending', $countPending);
+        }
     }
 }
