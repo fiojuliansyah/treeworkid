@@ -50,20 +50,30 @@ class AuthController extends Controller
     
         $user = User::where('email', $request->email)->first();
     
-        if (!$user || !Hash::check($request->password, $user->password)) {
-            throw ValidationException::withMessages([
-                'email' => ['The provided credentials are incorrect.'],
-            ]);
+        if (!$user) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Email not found',
+            ], 404);
+        }
+    
+        if (!Hash::check($request->password, $user->password)) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Incorrect password',
+            ], 401);
         }
     
         $token = $user->createToken('auth_token')->plainTextToken;
     
         return response()->json([
+            'status' => true,
             'message' => 'User successfully logged in',
             'access_token' => $token,
             'token_type' => 'Bearer',
-        ]);
-    }    
+        ], 200);
+    }
+      
 
     public function profile(Request $request)
     {
