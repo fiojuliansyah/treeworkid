@@ -66,15 +66,21 @@ class AuthController extends Controller
     
         $token = $user->createToken('auth_token')->plainTextToken;
     
+        // Get the user's roles
+        $roles = $user->roles->pluck('name');
+    
+        // Hide sensitive data
+        $user->makeHidden(['password', 'remember_token']);
+    
         return response()->json([
             'status' => true,
             'message' => 'User successfully logged in',
             'user' => $user,
+            'roles' => $roles,
             'access_token' => $token,
             'token_type' => 'Bearer',
         ], 200);
-    }    
-      
+    }       
 
     public function profile(Request $request)
     {
