@@ -11,15 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('companies', function (Blueprint $table) {
+        Schema::create('overtimes', function (Blueprint $table) {
             $table->id();
-            $table->string('logo_url')->nullable();
-            $table->string('logo_public_id')->nullable();
-            $table->string('name')->nullable();
-            $table->string('short_name')->nullable();
-            $table->string('is_default')->nullable();
-            $table->string('payment')->nullable();
+            $table->unsignedBigInteger('attendance_id')->nullable();
+            $table->string('clock_in')->nullable();
+            $table->string('clock_out')->nullable();
             $table->timestamps();
+
+            $table->foreign('attendance_id')->references('id')->on('attendances')->onDelete('cascade');
         });
     }
 
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('companies');
+        Schema::dropIfExists('overtimes');
     }
 };

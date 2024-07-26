@@ -70,18 +70,18 @@
                                                     </div>
                                                     <div class="d-flex flex-wrap fw-semibold fs-6 mb-4 pe-2">
                                                         <a href="#" class="d-flex align-items-center text-gray-500 text-hover-primary me-5 mb-2">
-                                                            <i class="ki-outline ki-user fs-4 me-1"></i>{{ $user->profile['gender'] }}</a>
+                                                            <i class="ki-outline ki-user fs-4 me-1"></i>{{ $user->profile['gender'] ?? '' }}</a>
                                                         <a href="#" class="d-flex align-items-center text-gray-500 text-hover-primary me-5 mb-2">
-                                                        <i class="ki-outline ki-phone fs-4 me-1"></i>{{ $user->phone }}</a>
+                                                        <i class="ki-outline ki-phone fs-4 me-1"></i>{{ $user->phone ?? '' }}</a>
                                                         <a href="#" class="d-flex align-items-center text-gray-500 text-hover-primary mb-2">
-                                                        <i class="ki-outline ki-sms fs-4"></i>{{ $user->email }}</a>
+                                                        <i class="ki-outline ki-sms fs-4"></i>{{ $user->email ?? '' }}</a>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="d-flex flex-wrap flex-stack">
                                                 <div class="d-flex flex-column flex-grow-1 pe-8">
                                                     <div class="d-flex flex-wrap">
-                                                        <p>{{ $user->profile['address'] }}</p>
+                                                        <p>{{ $user->profile['address'] ?? '' }}</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -99,20 +99,20 @@
                                     <div class="row mb-7">
                                         <label class="col-lg-4 fw-semibold text-muted">Full Name</label>
                                         <div class="col-lg-8">
-                                            <span class="fw-bold fs-6 text-gray-800">{{ $user->name }}</span>
+                                            <span class="fw-bold fs-6 text-gray-800">{{ $user->name ?? '' }}</span>
                                         </div>
                                     </div>
                                     <div class="row mb-7">
                                         <label class="col-lg-4 fw-semibold text-muted">Tempat, Tanggal lahir</label>
                                         <div class="col-lg-8 fv-row">
-                                            <span class="fw-semibold text-gray-800 fs-6">{{ $user->profile['birth_place'] }}, {{ $user->profile['birth_date'] }}</span>
+                                            <span class="fw-semibold text-gray-800 fs-6">{{ $user->profile['birth_place'] ?? '' }}, {{ $user->profile['birth_date'] ?? '' }}</span>
                                         </div>
                                     </div>
                                     <div class="row mb-7">
                                         <!--begin::Label-->
                                         <label class="col-lg-4 fw-semibold text-muted">NPWP Number</label>
                                         <div class="col-lg-8">
-                                            <a href="#" class="fw-semibold fs-6 text-gray-800 text-hover-primary">{{ $user->profile['npwp_number'] }}</a>
+                                            <a href="#" class="fw-semibold fs-6 text-gray-800 text-hover-primary">{{ $user->profile['npwp_number'] ?? '' }}</a>
                                         </div>
                                     </div>
                                     <div class="card-title m-0 mt-10">
@@ -122,20 +122,20 @@
                                         <div class="row mb-7">
                                             <label class="col-lg-4 fw-semibold text-muted">bank Name</label>
                                             <div class="col-lg-8">
-                                                <span class="fw-bold fs-6 text-gray-800">{{ $user->profile['bank_name'] }}</span>
+                                                <span class="fw-bold fs-6 text-gray-800">{{ $user->profile['bank_name'] ?? '' }}</span>
                                             </div>
                                         </div>
                                         <div class="row mb-7">
                                             <label class="col-lg-4 fw-semibold text-muted">Account Name</label>
                                             <div class="col-lg-8 fv-row">
-                                                <span class="fw-semibold text-gray-800 fs-6">{{ $user->profile['account_name'] }}</span>
+                                                <span class="fw-semibold text-gray-800 fs-6">{{ $user->profile['account_name'] ?? '' }}</span>
                                             </div>
                                         </div>
                                         <div class="row mb-7">
                                             <!--begin::Label-->
                                             <label class="col-lg-4 fw-semibold text-muted">Account Number</label>
                                             <div class="col-lg-8">
-                                                <a href="#" class="fw-semibold fs-6 text-gray-800 text-hover-primary">{{ $user->profile['account_number'] }}</a>
+                                                <a href="#" class="fw-semibold fs-6 text-gray-800 text-hover-primary">{{ $user->profile['account_number'] ?? '' }}</a>
                                             </div>
                                         </div>
                                 </div>

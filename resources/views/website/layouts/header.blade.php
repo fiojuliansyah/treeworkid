@@ -2,8 +2,8 @@
     <div class="d-flex flex-stack flex-grow-1">
         <div class="app-header-logo d-flex align-items-center ps-lg-12" id="kt_app_header_logo">
             <a href="{{ route('web-career') }}" class="app-sidebar-logo">
-                <img alt="Logo" src="/assets/media/logos/logo-dark.png" class="h-25px theme-light-show" />
-                <img alt="Logo" src="/assets/media/logos/logo.png" class="h-25px theme-dark-show" />
+                <img alt="Logo" src="{{ $general->logo_url }}" class="h-25px theme-light-show" />
+                <img alt="Logo" src="{{ $general->logo_url }}" class="h-25px theme-dark-show" />
             </a>
         </div>
         @if (Auth::user()) 

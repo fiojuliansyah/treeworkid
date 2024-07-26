@@ -1,17 +1,23 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\LeaveController;
 use App\Http\Controllers\CareerController;
 use App\Http\Controllers\LetterController;
+use App\Http\Controllers\MinuteController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\GenerateController;
+use App\Http\Controllers\OvertimeController;
 use App\Http\Controllers\ApplicantController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\PermissionController;
 
 Route::get('/', [DashboardController::class, 'welcome']);
@@ -23,7 +29,7 @@ Route::get('/account/tab-document-detail', [DashboardController::class, 'indexDo
 
 Auth::routes();
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth')->prefix('manage')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/recuit', [DashboardController::class, 'recruit'])->name('recruit');
     Route::get('/activities', [DashboardController::class, 'activities'])->name('activities');
@@ -34,6 +40,10 @@ Route::middleware('auth')->group(function () {
     Route::resource('sites', SiteController::class);
     Route::resource('statuses', StatusController::class);
     Route::resource('generates', GenerateController::class);
+    Route::resource('attendances', AttendanceController::class);
+    Route::resource('overtimes', OvertimeController::class);
+    Route::resource('minutes', MinuteController::class);
+    Route::resource('leaves', LeaveController::class);
     Route::get('/letter/{id}/regenerate', [GenerateController::class, 'regenerate'])->name('letter-regenerate');
 
     Route::resource('careers', CareerController::class);
@@ -63,4 +73,8 @@ Route::middleware('auth')->group(function () {
     Route::put('/profile/{id}/tab-account-detail', [UserController::class, 'updateAccount'])->name('user-update-account');
     Route::post('/profile/{id}/tab-profile-detail',[UserController::class, 'updateProfile'])->name('user-update-profile');
     Route::post('/profile/{id}/tab-document-detail',[UserController::class, 'storeDocument'])->name('user-store-document');
+
+    Route::get('/report/attendance', [ReportController::class, 'attendanceReport'])->name('attendance.report');
+    Route::get('/employee-export', [ReportController::class, 'employeeExport'])->name('employee.export');
+    Route::get('/site-export', [ReportController::class, 'siteExport'])->name('site.export');
 });

@@ -14,8 +14,8 @@
                 <div class="card-body d-flex flex-center flex-column py-9 px-5">
                     <div class="mb-10">
                         <a href="{{ route('web-career') }}" class="app-sidebar-logo">
-                            <img alt="Logo" src="/assets/media/logos/logo-dark.png" class="h-25px theme-light-show" />
-                            <img alt="Logo" src="/assets/media/logos/logo.png" class="h-25px theme-dark-show" />
+                            <img alt="Logo" src="{{ $general->logo_url }}" class="h-25px theme-light-show" />
+                            <img alt="Logo" src="{{ $general->logo_url }}" class="h-25px theme-dark-show" />
                         </a>
                     </div>
                     <a href="#" class="fs-4 text-gray-900 text-hover-primary fw-bold mb-0">{{ $career->name }}</a>

@@ -22,4 +22,9 @@ class Site extends Model
     {
         return $this->belongsTo(Company::class);
     }
+
+    public function attendances()
+    {
+        return $this->hasMany(Attendance::class);
+    }
 }

@@ -34,8 +34,8 @@
                                         <div class="d-flex flex-column scroll-y px-5 px-lg-10" id="kt_modal_add_user_scroll" data-kt-scroll="true" data-kt-scroll-activate="true" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_user_header" data-kt-scroll-wrappers="#kt_modal_add_user_scroll" data-kt-scroll-offset="300px">
                                             <div class="fv-row mb-7">
                                                 <label class="required fw-semibold fs-6 mb-2">Pilih Project</label>
-                                                <select class="form-select" data-control="select2" name="site_id" data-placeholder="Select an option" data-dropdown-parent="#kt_modal_add_user">
-                                                    <option>Pilih Project</option>
+                                                <select class="form-select" data-control="select2" name="site_id" data-placeholder="Select an option" data-dropdown-parent="#kt_modal_add_user" required>
+                                                    <option value="">Pilih Project</option>
                                                     @foreach ($sites as $site)
                                                     <option value="{{ $site->id }}">{{ $site->name }}</option>
                                                     @endforeach

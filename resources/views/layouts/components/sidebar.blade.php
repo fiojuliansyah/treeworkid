@@ -17,6 +17,43 @@
                         <span class="menu-heading ps-1">Apps</span>
                     </div>
                 </div>
+                <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{ request()->routeIs('attendances.index','overtimes.index','minutes.index','leaves.index') ? 'here show' : '' }}">
+                    <span class="menu-link">
+                        <span class="menu-icon">
+                            <i class="ki-outline ki-faceid fs-2"></i>
+                        </span>
+                        <span class="menu-title">Attendances</span>
+                        <span class="menu-arrow"></span>
+                    </span>
+                    <div class="menu-sub menu-sub-accordion">
+                        <div class="menu-item">
+                            <a class="menu-link {{ request()->routeIs('attendances.index') ? 'active' : '' }}" href="{{ route('attendances.index') }}" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Log</span>
+                            </a>
+                            <a class="menu-link {{ request()->routeIs('overtimes.index') ? 'active' : '' }}" href="{{ route('overtimes.index') }}" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Overtime</span>
+                            </a>
+                            <a class="menu-link {{ request()->routeIs('minutes.index') ? 'active' : '' }}" href="{{ route('minutes.index') }}" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Minutes</span>
+                            </a>
+                            <a class="menu-link {{ request()->routeIs('leaves.index') ? 'active' : '' }}" href="{{ route('leaves.index') }}" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Leave</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
                 <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{ request()->routeIs('recruit','careers.index','applicants*') ? 'here show' : '' }}">
                     <span class="menu-link">
                         <span class="menu-icon">
@@ -33,24 +70,24 @@
                     <div class="menu-sub menu-sub-accordion">
                         <div class="menu-item">
                             <a class="menu-link {{ request()->routeIs('recruit') ? 'active' : '' }}" href="{{ route('recruit') }}" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
-                                <span class="menu-icon">
-                                    <i class="ki-outline ki-home-2 fs-2"></i>
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
                                 </span>
                                 <span class="menu-title">Dashboard</span>
                             </a>
                         </div>
                         <div class="menu-item">
                             <a class="menu-link {{ request()->routeIs('careers.index') ? 'active' : '' }}" href="{{ route('careers.index') }}" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
-                                <span class="menu-icon">
-                                    <i class="ki-outline ki-briefcase fs-2"></i>
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
                                 </span>
                                 <span class="menu-title">Careers</span>
                             </a>
                         </div>
                         <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{ request()->is('applicants*') ? 'here show' : '' }}">
                             <span class="menu-link">
-                                <span class="menu-icon">
-                                    <i class="ki-outline ki-user-square fs-2"></i>
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
                                 </span>
                                 <span class="menu-title">Job Applicants</span>
                                 @if ($countPendingAll > 0)  
@@ -110,16 +147,16 @@
                     <div class="menu-sub menu-sub-accordion">
                         <div class="menu-item">
                             <a class="menu-link {{ request()->routeIs('employees.index') ? 'active' : '' }}" href="{{ route('employees.index') }}" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
-                                <span class="menu-icon">
-                                    <i class="ki-outline ki-user fs-2"></i>
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
                                 </span>
                                 <span class="menu-title">Employee</span>
                             </a>
                         </div>
                         <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{ request()->routeIs('letters.index','generates.index','generates.create','generates.edit') ? 'here show' : '' }}">
                             <span class="menu-link">
-                                <span class="menu-icon">
-                                    <i class="ki-outline ki-note-2 fs-2"></i>
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
                                 </span>
                                 <span class="menu-title">Letter</span>
                                 <span class="menu-arrow"></span>
@@ -142,6 +179,25 @@
                                     </a>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{ request()->routeIs('attendance.report') ? 'here show' : '' }}">
+                    <span class="menu-link">
+                        <span class="menu-icon">
+                            <i class="ki-outline ki-people fs-2"></i>
+                        </span>
+                        <span class="menu-title">Report</span>
+                        <span class="menu-arrow"></span>
+                    </span>
+                    <div class="menu-sub menu-sub-accordion">
+                        <div class="menu-item">
+                            <a class="menu-link {{ request()->routeIs('attendance.report') ? 'active' : '' }}" href="{{ route('attendance.report') }}" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Attendance</span>
+                            </a>
                         </div>
                     </div>
                 </div>

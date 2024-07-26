@@ -2,9 +2,9 @@
 
 namespace App\Livewire;
 
+use App\Models\Company;
 use Livewire\Component;
 use Livewire\WithPagination;
-use App\Models\Company;
 
 class CompanyTable extends Component
 {

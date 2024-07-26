@@ -135,6 +135,35 @@ class PermissionSeeder extends Seeder
                 'guard_name' => 'web',
                 'status' => '1',
             ],
+
+            [
+                'name' => 'attendance-list',
+                'mock' => 'List',
+                'category' => 'Attendances',
+                'guard_name' => 'web',
+                'status' => '1',
+            ],
+            [
+                'name' => 'attendance-create',
+                'mock' => 'Buat',
+                'category' => 'Attendances',
+                'guard_name' => 'web',
+                'status' => '1',
+            ],
+            [
+                'name' => 'attendance-edit',
+                'mock' => 'Ubah',
+                'category' => 'Attendances',
+                'guard_name' => 'web',
+                'status' => '1',
+            ],
+            [
+                'name' => 'attendance-delete',
+                'mock' => 'Hapus',
+                'category' => 'Attendances',
+                'guard_name' => 'web',
+                'status' => '1',
+            ],
         ];
 
         foreach ($permissions as $permissionData) {

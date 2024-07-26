@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Status;
+use App\Models\Company;
 use App\Models\Applicant;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
@@ -38,6 +39,10 @@ class AppServiceProvider extends ServiceProvider
                 ->whereNull('done')
                 ->count();
             view()->share('countPending', $countPending);
+
+            $general = Company::where('is_default', 1)
+                ->first();
+            view()->share('general', $general);
         }
     }
 }
