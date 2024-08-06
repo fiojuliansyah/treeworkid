@@ -196,7 +196,7 @@
                                                 <div class="fv-row mb-7">
                                                     <div class="col">
                                                         <label class="required fw-semibold fs-6 mb-2">Latitude</label>
-                                                        <input type="text" name="latitude" class="form-control form-control-solid mb-3 mb-lg-0" value="{{ $site->lat }} "/>
+                                                        <input type="text" name="lat" class="form-control form-control-solid mb-3 mb-lg-0" value="{{ $site->lat }} "/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -204,7 +204,7 @@
                                                 <div class="fv-row mb-7">
                                                     <div class="col">
                                                         <label class="required fw-semibold fs-6 mb-2">Longitude</label>
-                                                        <input type="text" name="longitude" class="form-control form-control-solid mb-3 mb-lg-0" value="{{ $site->long }} "/>
+                                                        <input type="text" name="long" class="form-control form-control-solid mb-3 mb-lg-0" value="{{ $site->long }} "/>
                                                     </div>
                                                 </div>
                                             </div>

@@ -19,6 +19,9 @@ use App\Http\Controllers\ApplicantController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\mobile\HomeController;
+use App\Http\Controllers\mobile\MOvertimeController;
+use App\Http\Controllers\mobile\MAttendanceController;
 
 Route::get('/', [DashboardController::class, 'welcome']);
 Route::get('/career', [DashboardController::class, 'career'])->name('web-career');
@@ -75,6 +78,23 @@ Route::middleware('auth')->prefix('manage')->group(function () {
     Route::post('/profile/{id}/tab-document-detail',[UserController::class, 'storeDocument'])->name('user-store-document');
 
     Route::get('/report/attendance', [ReportController::class, 'attendanceReport'])->name('attendance.report');
-    Route::get('/employee-export', [ReportController::class, 'employeeExport'])->name('employee.export');
-    Route::get('/site-export', [ReportController::class, 'siteExport'])->name('site.export');
+    Route::get('/employee/export', [ReportController::class, 'employeeExport'])->name('employee.export');
+    Route::get('/employee/view', [ReportController::class, 'employeeView'])->name('employee.view');
+    Route::get('/site/export', [ReportController::class, 'siteExport'])->name('site.export');
+    Route::get('/site/view', [ReportController::class, 'siteView'])->name('site.view');
+});
+
+Route::middleware('auth')->prefix('mobile')->group(function () {
+    Route::get('/home', [HomeController::class, 'index'])->name('mobile.home');
+    Route::get('/setting', [HomeController::class, 'setting'])->name('mobile.setting');
+
+    Route::get('/attendance', [MAttendanceController::class, 'index'])->name('attendance.index');
+    Route::get('/attendance/clockin', [MAttendanceController::class, 'clockin'])->name('attendance.clockin');
+    Route::post('/attendance/clockin', [MAttendanceController::class, 'clockinStore'])->name('clockin.store');
+    Route::get('/attendance/clockout', [MAttendanceController::class, 'clockout'])->name('attendance.clockout');
+    Route::post('/attendance/clockout', [MAttendanceController::class, 'clockoutStore'])->name('clockout.store');
+
+    Route::get('/overtime', [MOvertimeController::class, 'index'])->name('overtime.index');
+    Route::post('/overtime/clockin', [MOvertimeController::class, 'clockinStore'])->name('overtime.clockin');
+    Route::post('/overtime/clockout', [MOvertimeController::class, 'clockoutStore'])->name('overtime.clockout');
 });

@@ -32,7 +32,7 @@
                         <div class="card">
                             <div class="card-body d-flex flex-column py-9 px-5">
                                 <h1 class="page-heading d-flex flex-center flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">Employee Attendance</h1>
-                                <form action="{{ route('employee.export') }}" method="GET">
+                                <form action="{{ route('employee.view') }}" method="GET">
                                     <div class="mt-10 mb-5">
                                         <label class="form-label fs-6 fw-semibold">Employee :</label>
                                         <select name="user_id" class="form-select form-select-solid fw-bold" data-kt-select2="true" data-placeholder="Select option" data-allow-clear="true">
@@ -61,7 +61,7 @@
                         <div class="card">
                             <div class="card-body d-flex flex-column py-9 px-5">
                                 <h1 class="page-heading d-flex flex-center flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">Site Attendance</h1>
-                                <form action="{{ route('site.export') }}" method="GET">
+                                <form action="{{ route('site.view') }}" method="GET">
                                     <div class="mt-10 mb-5">
                                         <label class="form-label fs-6 fw-semibold">Site :</label>
                                         <select name="site_id" class="form-select form-select-solid fw-bold" data-kt-select2="true" data-placeholder="Select option" data-allow-clear="true">
@@ -85,8 +85,7 @@
                                 </form>
                             </div>
                         </div>
-                    </div>
-                    
+                    </div>                
                 </div>
             </div>
         </div>

@@ -14,4 +14,9 @@ class Overtime extends Model
     {
         return $this->belongsTo(Attendance::class);
     }
+
+    public function backup()
+    {
+        return $this->belongsTo(User::class, 'backup_id');
+    }
 }

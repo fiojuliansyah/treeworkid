@@ -24,7 +24,7 @@ return new class extends Migration
             $table->foreign('attendance_id')
                   ->references('id')
                   ->on('attendances')
-                  ->onDelete('set null'); // Set to null if the related attendance is deleted
+                  ->onDelete('set null');
         });
     }
 

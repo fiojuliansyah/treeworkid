@@ -20,13 +20,17 @@ class Attendance extends Model
         return $this->belongsTo(Site::class);
     }
 
-    public function overtime()
+    public function overtimes()
     {
-        return $this->hasOne(Overtime::class);
+        return $this->hasMany(Overtime::class);
     }
 
     public function minutes()
     {
         return $this->hasMany(Minute::class);
     }
+
+    protected $casts = [
+        'date' => 'datetime',
+      ];
 }

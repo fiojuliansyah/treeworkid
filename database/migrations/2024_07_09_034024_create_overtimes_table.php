@@ -16,6 +16,8 @@ return new class extends Migration
             $table->unsignedBigInteger('attendance_id')->nullable();
             $table->string('clock_in')->nullable();
             $table->string('clock_out')->nullable();
+            $table->text('reason')->nullable();
+            $table->string('backup_id')->nullable();
             $table->timestamps();
 
             $table->foreign('attendance_id')->references('id')->on('attendances')->onDelete('cascade');
