@@ -20,6 +20,8 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\mobile\HomeController;
+use App\Http\Controllers\mobile\MLeaveController;
+use App\Http\Controllers\mobile\MMinuteController;
 use App\Http\Controllers\mobile\MOvertimeController;
 use App\Http\Controllers\mobile\MAttendanceController;
 
@@ -97,4 +99,14 @@ Route::middleware('auth')->prefix('mobile')->group(function () {
     Route::get('/overtime', [MOvertimeController::class, 'index'])->name('overtime.index');
     Route::post('/overtime/clockin', [MOvertimeController::class, 'clockinStore'])->name('overtime.clockin');
     Route::post('/overtime/clockout', [MOvertimeController::class, 'clockoutStore'])->name('overtime.clockout');
+
+    Route::get('/minute', [MMinuteController::class, 'index'])->name('minute.index');
+    Route::get('/minute/create', [MMinuteController::class, 'create'])->name('minute.create');
+    Route::post('/minute/store', [MMinuteController::class, 'minute'])->name('minute.store');
+    Route::get('/minute/{id}/show', [MMinuteController::class, 'show'])->name('minute.show');
+
+    Route::get('/leave', [MLeaveController::class, 'index'])->name('leave.index');
+    Route::get('/leave/create', [MLeaveController::class, 'create'])->name('leave.create');
+    Route::post('/leave/store', [MLeaveController::class, 'store'])->name('leave.store');
+    Route::get('/leave/{id}/show', [MLeaveController::class, 'show'])->name('leave.show');
 });

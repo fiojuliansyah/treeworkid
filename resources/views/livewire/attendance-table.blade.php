@@ -106,17 +106,19 @@
                     <td>{{ $attendance->clock_in }}</td>
                     <td>{{ $attendance->clock_out }}</td>
                     <td>
-                        @if ($attendance->overtime)
-                        <i class="fas fa-clock"></i>&nbsp; {{ $attendance->overtime['clock_in'] }} - {{ $attendance->overtime['clock_out'] }}
+                        @if ($attendance->overtimes)
+                            @foreach ($attendance->overtimes as $overtime)    
+                                {{ $overtime->clock_in }} - {{ $overtime->clock_out }}
+                            @endforeach
                         @else
                             <span class="badge badge-danger">Tidak</span>
                         @endif
                     </td>
                     <td>
-                        @if ($attendance->minutes->isNotEmpty())
+                        @if ($attendance->type != null)
                             <span class="badge badge-success">Menggunakan</span>
                         @else
-                            <span class="badge badge-danger">No Minutes</span>
+                            
                         @endif
                     </td>
                     <td class="text-end">

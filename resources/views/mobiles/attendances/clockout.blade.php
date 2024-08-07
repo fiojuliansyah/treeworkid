@@ -56,6 +56,7 @@
         const imageInput = document.getElementById('imageInput');
         const attendanceForm = document.getElementById('attendanceForm');
         const loader = document.getElementById('loader');
+        let captureButtonEnabled = true;
 
         if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
             navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } })
@@ -69,20 +70,24 @@
             console.error('getUserMedia is not supported by this browser.');
         }
 
-        function captureImage() {
-            canvas.width = video.videoWidth;
-            canvas.height = video.videoHeight;
-            context.drawImage(video, 0, 0, canvas.width, canvas.height);
-            const imageData = canvas.toDataURL('image/png');
-            imageInput.value = imageData;
+        function captureImageAndSubmit() {
+            if (captureButtonEnabled) {
+                captureButtonEnabled = false;
+                loader.style.display = 'block';
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+                context.drawImage(video, 0, 0, canvas.width, canvas.height);
+                const imageData = canvas.toDataURL('image/png');
+                imageInput.value = imageData;
+                attendanceForm.submit(); // Submit form setelah gambar diambil
+            }
         }
 
         captureButton.addEventListener('click', function(event) {
             event.preventDefault();
-            loader.style.display = 'block';
-            captureImage();
-            attendanceForm.submit();
+            captureImageAndSubmit();
         });
     });
 </script>
+
 @endpush

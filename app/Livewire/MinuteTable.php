@@ -2,10 +2,11 @@
 
 namespace App\Livewire;
 
-use App\Models\Minute;
-use Livewire\WithPagination;
-use App\Models\Attendance;
+use App\Models\Site;
+use App\Models\User;
 use Livewire\Component;
+use App\Models\Attendance;
+use Livewire\WithPagination;
 
 class MinuteTable extends Component
 {
@@ -16,11 +17,19 @@ class MinuteTable extends Component
 
     public function render()
     {
-        $minutes = Minute::whereHas('attendance', function ($query) {
-                                $query->where('date', 'like', '%' . $this->search . '%');
+        $users = User::all();
+        $sites = Site::all();
+        $minutes = Attendance::where('type', 'berita_acara')
+                            ->where(function ($query) {
+                                $query->whereHas('user', function ($subQuery) {
+                                    $subQuery->where('name', 'like', '%' . $this->search . '%');
+                                })
+                                ->orWhereHas('site', function ($subQuery) {
+                                    $subQuery->where('name', 'like', '%' . $this->search . '%');
+                                });
                             })
                             ->paginate(10);
 
-        return view('livewire.minute-table', compact('minutes'));
+        return view('livewire.minute-table', compact('minutes', 'users', 'sites'));
     }
 }

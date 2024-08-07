@@ -49,6 +49,8 @@
 
 @push('js')
 <script>
+    let captureButtonEnabled = true;
+
     document.addEventListener('DOMContentLoaded', function() {
         const video = document.getElementById('cameraFeed');
         const captureButton = document.getElementById('captureButton');
@@ -88,18 +90,26 @@
                 }, function(error) {
                     console.error('Error getting location:', error);
                     alert('Could not get your location. Please enable location services.');
+                    captureButton.disabled = false;
+                    captureButtonEnabled = true;
                 });
             } else {
                 console.error('Geolocation is not supported by this browser.');
                 alert('Geolocation is not supported by your browser.');
+                captureButton.disabled = false;
+                captureButtonEnabled = true;
             }
         }
 
         captureButton.addEventListener('click', function(event) {
             event.preventDefault();
-            loader.style.display = 'block';
-            captureImage();
-            getLocationAndSubmit();
+            if (captureButtonEnabled) {
+                captureButtonEnabled = false;
+                captureButton.disabled = true;
+                loader.style.display = 'block';
+                captureImage();
+                getLocationAndSubmit();
+            }
         });
     });
 </script>

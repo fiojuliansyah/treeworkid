@@ -1,10 +1,10 @@
-@extends('mobiles.layouts.app')
+@extends('mobiles.layouts.module')
 
 
 @section('content')
 <div class="page-content">
     <div class="page-title page-title-small" style="margin-top: 50px">
-        <h2><a href="#" data-back-button><i class="fa fa-arrow-left"></i></a><span>Live Attendance</span></h2>
+        <h2><a href="{{ route('mobile.home') }}"><i class="fa fa-arrow-left"></i></a><span>Live Attendance</span></h2>
         <center class="pt-4">
             <h1 id="clock" style="color: white"></h1>
         </center>
@@ -26,29 +26,51 @@
             @if ($latestOvertime != null && $latestOvertime->clock_in !== null)
             <div class="row mb-0 pt-4">
                 <div class="col-6">
-                    <a href="#"
-                        class="btn btn-full btn-m rounded-s text-uppercase font-900 shadow-xl bg-highlight">
+                    <strong>
                         <span style="display: block; text-align: center;">
                             START TIME
                         </span>
                         <span style="display: block; text-align: center;">
                             {{ \Carbon\Carbon::parse($latestOvertime->clock_in)->format('H:i') ?? '- - : - -' }}
                         </span>
-                    </a>
+                    </strong>
                 </div>
-
                 <div class="col-6">
                     @if ($clockOutStatus)
-                        <a href="#"
-                            class="btn btn-full btn-m rounded-s text-uppercase font-900 shadow-xl bg-highlight">
+                        <strong>
                             <span style="display: block; text-align: center;">
                                 END TIME
                             </span>
                             <span style="display: block; text-align: center;">
                                 {{ \Carbon\Carbon::parse($latestOvertime->clock_out)->format('H:i') ?? '- - : - -' }}
                             </span>
-                        </a>
+                        </strong>
                     @else
+                        <strong>
+                            <span style="display: block; text-align: center;">
+                                END TIME
+                            </span>
+                            <span style="display: block; text-align: center;">
+                                - - : - -
+                            </span>
+                        </strong>
+                    @endif
+                </div>
+                @if ($clockOutStatus)
+                <div class="pt-4">
+                    @if ($latestOvertime->reason == null)
+                        <div class="text-center">
+                            <p>No Overtime information available</p>
+                        </div>     
+                    @else
+                        <div class="text-center">
+                            <strong>{{ $latestOvertime->reason }}</strong>
+                            <strong>{{ $latestOvertime->backup['name'] ?? '' }}</strong>
+                        </div>  
+                    @endif
+                </div>
+                @else
+                    <div class="pt-4">
                         <form id="overtime-clockout" method="POST" action="{{ route('overtime.clockout') }}"
                             style="display: none;">
                             @csrf
@@ -58,8 +80,8 @@
                             class="btn btn-full btn-m rounded-s text-uppercase font-900 shadow-xl btn-primary">
                             FINISH
                         </a>
-                    @endif
-                </div>
+                    </div>
+                @endif
             </div>
             @else
             <div class="content" id="tab-group-1">
@@ -79,20 +101,19 @@
                 <div data-bs-parent="#tab-group-1" class="collapse show" id="tab-1">
                     <form id="overtime-clockin-lembur" method="POST" action="{{ route('overtime.clockin') }}">
                         @csrf
-                        <input type="hidden" name="latlong" id="latlongInput">
-                        <input type="text" class="form-control" name="reason"
-                                placeholder="Tulis Tujuan Lembur Disini!!">
+                        <input type="hidden" name="latlong" id="latlongInput-lembur">
+                        <input type="text" class="form-control" name="reason" placeholder="Tulis Tujuan Lembur Disini!!">
+                        <div class="pt-4">
+                            <button type="button" class="btn btn-full btn-m rounded-s text-uppercase font-900 shadow-xl btn-primary clock-in-btn-lembur" style="width: 100%; padding: 20px; font-size: 18px;">
+                                START
+                            </button>
+                        </div>
                     </form>
-                    <div class="pt-4">
-                        <a href="#"  onclick="event.preventDefault(); document.getElementById('overtime-clockin-lembur').submit();"
-                            class="btn btn-full btn-m rounded-s text-uppercase font-900 shadow-xl btn-primary clock-in-btn">
-                            START IN
-                        </a>
-                    </div>
                 </div>
                 <div data-bs-parent="#tab-group-1" class="collapse" id="tab-2">
                     <form id="overtime-clockin-backup" method="POST" action="{{ route('overtime.clockin') }}">
                         @csrf
+                        <input type="hidden" name="latlong" id="latlongInput-backup">
                         <select class="form-control" name="backup_id">
                             <option value="default" disabled selected>Pilih yang akan di Backup</option>
                             @foreach ($teams as $team)
@@ -100,16 +121,13 @@
                             @endforeach
                         </select>
                         <br>
-                        <input type="text" class="form-control" name="reason"
-                            placeholder="Tulis Tujuan Lembur Disini!!">   
-                        <input type="hidden" name="latlong" id="latlongInput">
+                        <input type="text" class="form-control" name="reason" placeholder="Tulis Tujuan Lembur Disini!!">
+                        <div class="pt-4">
+                            <button type="button" class="btn btn-full btn-m rounded-s text-uppercase font-900 shadow-xl btn-primary clock-in-btn-backup" style="width: 100%; padding: 20px; font-size: 18px;">
+                                START
+                            </button>
+                        </div>
                     </form>
-                    <div class="pt-4">
-                        <a href="#"  onclick="event.preventDefault(); document.getElementById('overtime-clockin-backup').submit();"
-                            class="btn btn-full btn-m rounded-s text-uppercase font-900 shadow-xl btn-primary clock-in-btn">
-                            START IN
-                        </a>
-                    </div>
                 </div>
             </div>
             @endif
@@ -189,8 +207,9 @@
     <script>
         function geoLocate() {
             const locationCoordinates = document.querySelector('.location-coordinates');
-            const clockInButtons = document.querySelectorAll('.clock-in-btn');
-            const clockOutButtons = document.querySelectorAll('.clock-out-btn');
+            const clockInButtonsLembur = document.querySelectorAll('.clock-in-btn-lembur');
+            const clockInButtonsBackup = document.querySelectorAll('.clock-in-btn-backup');
+            const finishButtons = document.querySelectorAll('.btn-primary');
             const userLat = @json(Auth::user()->site['lat']);
             const userLong = @json(Auth::user()->site['long']);
             const radius = @json(Auth::user()->site['radius']);
@@ -203,29 +222,29 @@
 
                 const map = L.map('map').setView([latitude, longitude], 16);
 
-                L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',{
-                        maxZoom: 20,
-                        subdomains:['mt0','mt1','mt2','mt3']
+                L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+                    maxZoom: 20,
+                    subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
                 }).addTo(map);
 
                 if (mobileDepartment == '2') {
                     const customIcon = L.icon({
-                    iconUrl: 'https://img.icons8.com/?size=256&id=114446&format=png',
-                    iconSize: [48],
-                    iconAnchor: [16, 32],
-                    popupAnchor: [0, -32]
+                        iconUrl: 'https://img.icons8.com/?size=256&id=114446&format=png',
+                        iconSize: [48],
+                        iconAnchor: [16, 32],
+                        popupAnchor: [0, -32]
                     });
 
                     L.marker([latitude, longitude], { icon: customIcon }).addTo(map)
                         .bindPopup('Status absensi anda bisa dimana saja!')
                         .openPopup();
-                    
+
                 } else {
                     const customIcon = L.icon({
-                    iconUrl: 'https://img.icons8.com/?size=256&id=13783&format=png',
-                    iconSize: [48],
-                    iconAnchor: [16, 32],
-                    popupAnchor: [0, -32]
+                        iconUrl: 'https://img.icons8.com/?size=256&id=13783&format=png',
+                        iconSize: [48],
+                        iconAnchor: [16, 32],
+                        popupAnchor: [0, -32]
                     });
 
                     L.marker([latitude, longitude], { icon: customIcon }).addTo(map)
@@ -242,31 +261,41 @@
 
                 const distance = haversineDistance(latitude, longitude, userLat, userLong) * 1000;
 
-                clockInButtons.forEach(button => {
+                // Update lembur clock-in buttons
+                clockInButtonsLembur.forEach(button => {
                     if (mobileDepartment == '2' || distance <= radius) {
                         button.classList.remove('btn-secondary');
                         button.classList.add('btn-primary');
-                        button.setAttribute('href', '{{ route('attendance.clockin') }}');
                         button.style.pointerEvents = 'auto';
                     } else {
                         button.classList.remove('btn-primary');
                         button.classList.add('btn-secondary');
-                        button.setAttribute('href', '#');
                         button.style.pointerEvents = 'none';
-                        locationCoordinates.innerHTML += '<br><strong>Anda berada di luar radius absen.</strong>';
                     }
                 });
 
-                clockOutButtons.forEach(button => {
+                // Update backup clock-in buttons
+                clockInButtonsBackup.forEach(button => {
                     if (mobileDepartment == '2' || distance <= radius) {
                         button.classList.remove('btn-secondary');
                         button.classList.add('btn-primary');
-                        button.setAttribute('href', '{{ route('attendance.clockout') }}');
                         button.style.pointerEvents = 'auto';
                     } else {
                         button.classList.remove('btn-primary');
                         button.classList.add('btn-secondary');
-                        button.setAttribute('href', '#');
+                        button.style.pointerEvents = 'none';
+                    }
+                });
+
+                // Update finish buttons
+                finishButtons.forEach(button => {
+                    if (mobileDepartment == '2' || distance <= radius) {
+                        button.classList.remove('btn-secondary');
+                        button.classList.add('btn-primary');
+                        button.style.pointerEvents = 'auto';
+                    } else {
+                        button.classList.remove('btn-primary');
+                        button.classList.add('btn-secondary');
                         button.style.pointerEvents = 'none';
                     }
                 });
@@ -287,12 +316,12 @@
         }
 
         function haversineDistance(lat1, lon1, lat2, lon2) {
-            const R = 6371;
+            const R = 6371; // Radius of the Earth in km
             const dLat = (lat2 - lat1) * (Math.PI / 180);
             const dLon = (lon2 - lon1) * (Math.PI / 180);
             const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-                    Math.cos(lat1 * (Math.PI / 180)) * Math.cos(lat2 * (Math.PI / 180)) *
-                    Math.sin(dLon / 2) * Math.sin(dLon / 2);
+                Math.cos(lat1 * (Math.PI / 180)) * Math.cos(lat2 * (Math.PI / 180)) *
+                Math.sin(dLon / 2) * Math.sin(dLon / 2);
             const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
             return R * c;
         }
@@ -303,17 +332,16 @@
     </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const geolocationButton = document.getElementById('geolocationButton');
-            const latlongInput = document.getElementById('latlongInput');
-            const attendanceForm = document.getElementById('attendanceForm');
-            const loader = document.getElementById('loader');
-    
-            function getLocationAndSubmit() {
+            const clockInButtonsLembur = document.querySelectorAll('.clock-in-btn-lembur');
+            const clockInButtonsBackup = document.querySelectorAll('.clock-in-btn-backup');
+
+            function getLocationAndSubmit(formSuffix) {
                 if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(function(position) {
                         const latlong = `${position.coords.latitude},${position.coords.longitude}`;
-                        latlongInput.value = latlong;
-                        attendanceForm.submit();
+                        console.log(`LatLong for ${formSuffix}:`, latlong); // Debugging
+                        document.getElementById(`latlongInput-${formSuffix}`).value = latlong;
+                        document.getElementById(`overtime-clockin-${formSuffix}`).submit();
                     }, function(error) {
                         console.error('Error getting location:', error);
                         alert('Could not get your location. Please enable location services.');
@@ -323,11 +351,19 @@
                     alert('Geolocation is not supported by your browser.');
                 }
             }
-    
-            geolocationButton.addEventListener('click', function(event) {
-                event.preventDefault();
-                loader.style.display = 'block';
-                getLocationAndSubmit();
+
+            clockInButtonsLembur.forEach(button => {
+                button.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    getLocationAndSubmit('lembur');
+                });
+            });
+
+            clockInButtonsBackup.forEach(button => {
+                button.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    getLocationAndSubmit('backup');
+                });
             });
         });
     </script>

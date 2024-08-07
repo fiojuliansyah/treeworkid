@@ -3445,9 +3445,9 @@ button {
 .ad-300x50-fixed {
   left: 50%;
   margin-left: -150px;
-  bottom: 80px;
-  bottom: calc(85px + (constant(safe-area-inset-bottom))*1.1) !important;
-  bottom: calc(85px + (env(safe-area-inset-bottom))*1.1) !important;
+  bottom: 30px;
+  bottom: calc(30px + (constant(safe-area-inset-bottom))*1.1) !important;
+  bottom: calc(30px + (env(safe-area-inset-bottom))*1.1) !important;
   position: fixed;
   z-index: 90;
 }

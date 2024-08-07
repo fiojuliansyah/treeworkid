@@ -23,7 +23,7 @@
 <div id="page">
     
     <!-- header and footer bar go here-->
-    {{-- @include('mobiles.layouts.components.header') --}}
+    @include('mobiles.layouts.components.header')
     {{-- @include('mobiles.layouts.components.footer') --}}
     
     @yield('content')

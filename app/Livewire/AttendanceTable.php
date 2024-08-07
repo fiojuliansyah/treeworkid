@@ -19,7 +19,7 @@ class AttendanceTable extends Component
     {
         $users = User::all();
         $sites = Site::all();
-        $attendances = Attendance::with(['overtimes', 'minutes'])
+        $attendances = Attendance::with('overtimes')
                             ->whereHas('user', function ($query) {
                                 $query->where('name', 'like', '%' . $this->search . '%');
                             })

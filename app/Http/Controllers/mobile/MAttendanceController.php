@@ -13,6 +13,7 @@ class MAttendanceController extends Controller
 {
     public function index()
     {
+        $title = 'Prensensi';
         $userId = Auth::id();
         $currentDate = Carbon::now()->toDateString();
         $latestAttendance = Attendance::where('user_id', $userId)
@@ -29,9 +30,11 @@ class MAttendanceController extends Controller
                         ->whereNotNull('clock_out')
                         ->exists();
 
-        $logs = Attendance::paginate(5);
+        $logs = Attendance::where('user_id', $userId)
+                        ->orderBy('date', 'desc') 
+                        ->paginate(1); 
 
-        return view('mobiles.attendances.index', compact('clockInStatus', 'clockOutStatus', 'latestAttendance', 'logs'));
+        return view('mobiles.attendances.index', compact('clockInStatus', 'clockOutStatus', 'latestAttendance', 'logs', 'title'));
     }
 
     public function clockin()
