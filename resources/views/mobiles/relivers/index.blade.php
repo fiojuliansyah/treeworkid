@@ -29,17 +29,70 @@
                 <br>
                 <strong id="clock"></strong>
             </div>
+            @if ($clockInStatus)
+                
+            @else
+            <div class="mt-4">
+                <div class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
+                    <select name="site_id" class="form-select">
+                        <option value="default" disabled selected>pilih</option>
+                        @foreach ($sites as $site)    
+                            <option value="{{ $site->id }}"  {{ $user->site_id == $site->id ? 'selected' : '' }}>{{ $site->name }}</option>
+                        @endforeach
+                    </select>
+                    <label for="form2" class="color-highlight font-400 font-13">Pilih Lokasi</label>
+                    <em><i class="fa fa-angle-down"></i></em>
+                </div>
+            </div>
+            @endif
         </div>
-        <div style="border: none; border: 1px solid #eef2f1; border-radius: 8px; padding: 10px; box-sizing: border-box;">
+        <div style="border: 1px solid #eef2f1; border-radius: 8px; padding: 10px; box-sizing: border-box;">
+            <h5 class="font-16 font-500">Mode Reliver</h5>
+            @if ($clockInStatus)
+                
+            @else
+            <form class="form" action="{{ route('reliver.clockin') }}" method="POST" id="reliver-form">
+                @csrf
+                <div class="mt-3">
+                    <div class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
+                        <select name="type" id="reliverTypeSelect" class="form-select">
+                            <option value="default" disabled selected>pilih</option>
+                            <option value="backup">backup</option>
+                            <option value="standby">standby</option>
+                        </select>
+                        <label for="form2" class="color-highlight font-400 font-13">Tipe</label>
+                        <em><i class="fa fa-angle-down"></i></em>
+                    </div>
+                </div>
+                <div class="mt-2" id="backupUserSelect" style="display: none;">
+                    <div class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
+                        <select name="backup_id" class="form-select">
+                            <option value="default" disabled selected>pilih</option>
+                            @foreach ($users as $user)    
+                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                            @endforeach
+                        </select>
+                        <label for="form2" class="color-highlight font-400 font-13">Pilih Employee</label>
+                        <em><i class="fa fa-angle-down"></i></em>
+                    </div>
+                </div>
+                <div class="mt-2">
+                    <div class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
+                        <textarea name="remark" class="form-control"></textarea>
+                        <label for="form2" class="color-highlight font-400 font-13">Alasan</label>
+                    </div>
+                </div>
+            </form>
+            @endif
             <div class="row">
                 <div class="col-4">
                     <strong style="color: black">Judul Shift</strong>
                     <br>
-                    <strong style="color: black">Lokasi</strong>
+                    <strong style="color: black">Lokasi Terakhir</strong>
                     <br>
                     <strong style="color: black">Waktu Kerja</strong>
                     <br>
-                    <strong style="color: black">status</strong>
+                    <strong style="color: black">Status</strong>
                 </div>
                 <div class="col-8">
                     <small style="color: black">No shift information available</small>
@@ -55,7 +108,7 @@
                     @endif
                 </div>
             </div>
-        </div>
+        </div>        
         <div class="mb-2 pt-1 mt-2">
             <h5 class="font-16 font-500">Absen Terakhir</h5>
             <div class="clearfix"></div>
@@ -85,11 +138,11 @@
                 
             @else
                 @if ($clockInStatus)
-                    <a href="{{ route('attendance.clockout') }}" class="btn btn-full btn-m rounded-s text-uppercase font-900 shadow-xl bg-highlight clock-out-btn">
+                    <a href="{{ route('reliver.clockout') }}" class="btn btn-full btn-m rounded-s text-uppercase font-900 shadow-xl bg-highlight clock-out-btn">
                         <i class="fas fa-camera">&nbsp;</i>Clock OUT
                     </a>
                 @else
-                    <a href="{{ route('attendance.clockin') }}" class="btn btn-full btn-m rounded-s text-uppercase font-900 shadow-xl bg-highlight clock-in-btn">
+                    <a href="#" onclick="event.preventDefault(); document.getElementById('reliver-form').submit();" class="btn btn-full btn-m rounded-s text-uppercase font-900 shadow-xl bg-highlight clock-in-btn">
                         <i class="fas fa-camera">&nbsp;</i>Clock IN
                     </a>
                 @endif
@@ -97,9 +150,62 @@
         </div>
     </div>
 </div>
+<div id="loader" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(255, 255, 255, 0.5); z-index: 1000;">
+    <div class="spinner" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border: 8px solid #f3f3f3; border-top: 8px solid #f84e45; border-radius: 50%; width: 60px; height: 60px; animation: spin 1s linear infinite;"></div>
+</div>
+<style>
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+</style>
 @endsection
 
 @push('js')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        document.querySelector('select[name="site_id"]').addEventListener('change', function() {
+            var siteId = this.value;
+
+            // Show the loader
+            document.getElementById('loader').style.display = 'block';
+
+            $.ajax({
+                url: '{{ route("reliver.updateSite") }}',
+                type: 'POST',
+                data: {
+                    site_id: siteId,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    // Hide the loader
+                    document.getElementById('loader').style.display = 'none';
+
+                    if(response.success) {
+                        location.reload();
+                    } else {
+                        alert('Failed to update site.');
+                    }
+                },
+                error: function() {
+                    // Hide the loader
+                    document.getElementById('loader').style.display = 'none';
+
+                    alert('An error occurred. Please try again.');
+                }
+            });
+        });
+    </script>    
+    <script>
+        document.getElementById('reliverTypeSelect').addEventListener('change', function() {
+            var backupUserSelect = document.getElementById('backupUserSelect');
+            if (this.value === 'backup') {
+                backupUserSelect.style.display = 'block';
+            } else {
+                backupUserSelect.style.display = 'none';
+            }
+        });
+    </script>
     <script>
         function getServerTime() {
             return $.ajax({ async: false }).getResponseHeader('Date');

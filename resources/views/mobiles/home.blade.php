@@ -149,7 +149,7 @@
         </div>
         <div class="row me-0 ms-0 mb-0" style="margin-top: 10px; padding-left: 20px; padding-right: 20px">
             <div class="col-3 ps-0 pe-0">
-                <a href="#" class="icon-user"
+                <a href="{{ route('reliver.index') }}" class="icon-user"
                     style="display: flex; flex-direction: column; align-items: center; text-align: center;">
                     <img src="https://img.icons8.com/?size=256&id=23282&format=png" alt="" width="50px"
                         style="margin-bottom: 5px; border: none; border: 1px solid #eef2f1; border-radius: 8px; padding: 10px; margin: 5px; box-sizing: border-box;">

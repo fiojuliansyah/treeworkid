@@ -28,6 +28,32 @@
     
     @yield('content')
     @yield('modal')
+    @if (session('success'))
+        <div id="notification-1" class="notification notification-ios bg-highlight ms-2 me-2 mt-2 rounded-s" role="alert">
+            <span class="notification-icon color-white bg-highlight rounded-s">
+                <i class="fa fa-bell"></i>
+                <em>Treework</em>
+                <i data-bs-dismiss="toast" class="fa fa-times-circle"></i>
+            </span>
+            <h1 class="font-18 color-white mb-n3">All Good</h1>
+            <p class="pt-1">
+                {{ session('success') }}
+            </p>
+        </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var toastElement = document.getElementById('notification-1');
+                if (toastElement) {
+                    var toast = new bootstrap.Toast(toastElement, {
+                        autohide: true,
+                        delay: 3000
+                    });
+                    toast.show();
+                }
+            });
+        </script>
+    @endif
     <!-- end of page content-->
     
     {{-- <div id="menu-share" 

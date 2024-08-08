@@ -257,6 +257,14 @@
                                         <span class="menu-title">Sites</span>
                                     </a>
                                 </div>
+                                <div class="menu-item">
+                                    <a class="menu-link {{ request()->routeIs('types.index') ? 'active' : '' }}" href="{{ route('types.index') }}" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                                        <span class="menu-bullet">
+                                            <span class="bullet bullet-dot"></span>
+                                        </span>
+                                        <span class="menu-title">Type Leaves</span>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>

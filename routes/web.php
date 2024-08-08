@@ -17,11 +17,13 @@ use App\Http\Controllers\GenerateController;
 use App\Http\Controllers\OvertimeController;
 use App\Http\Controllers\ApplicantController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\TypeLeaveController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\mobile\HomeController;
 use App\Http\Controllers\mobile\MLeaveController;
 use App\Http\Controllers\mobile\MMinuteController;
+use App\Http\Controllers\mobile\MReliverController;
 use App\Http\Controllers\mobile\MOvertimeController;
 use App\Http\Controllers\mobile\MAttendanceController;
 
@@ -49,6 +51,7 @@ Route::middleware('auth')->prefix('manage')->group(function () {
     Route::resource('overtimes', OvertimeController::class);
     Route::resource('minutes', MinuteController::class);
     Route::resource('leaves', LeaveController::class);
+    Route::resource('types', TypeLeaveController::class);
     Route::get('/letter/{id}/regenerate', [GenerateController::class, 'regenerate'])->name('letter-regenerate');
 
     Route::resource('careers', CareerController::class);
@@ -109,4 +112,11 @@ Route::middleware('auth')->prefix('mobile')->group(function () {
     Route::get('/leave/create', [MLeaveController::class, 'create'])->name('leave.create');
     Route::post('/leave/store', [MLeaveController::class, 'store'])->name('leave.store');
     Route::get('/leave/{id}/show', [MLeaveController::class, 'show'])->name('leave.show');
+
+    Route::get('/reliver', [MReliverController::class, 'index'])->name('reliver.index');
+    Route::post('/reliver/update-site', [MReliverController::class, 'updateSite'])->name('reliver.updateSite');
+    Route::post('/reliver/clockin/site', [MReliverController::class, 'clockin'])->name('reliver.clockin');
+    Route::post('/reliver/clockin', [MReliverController::class, 'clockinStore'])->name('reliver.clockin.store');
+    Route::get('/reliver/clockout', [MReliverController::class, 'clockout'])->name('reliver.clockout');
+    Route::post('/reliver/clockout', [MReliverController::class, 'clockoutStore'])->name('reliver.clockout.store');
 });

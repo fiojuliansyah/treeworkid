@@ -63,7 +63,6 @@ class MMinuteController extends Controller
                 $lastAttendance->remark = $request->remark;
                 $lastAttendance->save();
             } else {
-                // Handle the case where there is no previous attendance record
                 return redirect()->route('minute.index')
                                  ->with('error', 'No clock-in record found. Please clock in first.');
             }

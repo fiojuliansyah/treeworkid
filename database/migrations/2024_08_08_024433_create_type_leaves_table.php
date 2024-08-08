@@ -11,17 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('leaves', function (Blueprint $table) {
+        Schema::create('type_leaves', function (Blueprint $table) {
             $table->id();
-            $table->string('type_id')->nullable();
-            $table->string('user_id')->nullable();
             $table->string('site_id')->nullable();
-            $table->string('start_date')->nullable();
-            $table->string('end_date')->nullable();
-            $table->text('reason')->nullable();
+            $table->string('name')->nullable();
             $table->string('is_paid')->nullable();
-            $table->string('image_url')->nullable();
-            $table->string('image_public_id')->nullable();
+            $table->string('total')->nullable();
+            $table->string('max_per_month')->nullable();
             $table->timestamps();
         });
     }
@@ -31,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('leaves');
+        Schema::dropIfExists('type_leaves');
     }
 };

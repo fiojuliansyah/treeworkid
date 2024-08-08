@@ -6,20 +6,17 @@
     <div class="page-title page-title-small" style="position: absolute; top: 0; left: 0; width: 100%; z-index: 10; padding: 10px;">
         <h2>
             <a href="#" data-back-button><i class="fa fa-arrow-left"></i></a>
-            <span>Clock In</span>
+            <span>Clock Out</span>
         </h2>
     </div>
 
     <!-- Camera Container -->
     <div class="camera-container" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden;">
         <video id="cameraFeed" autoplay playsinline style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1);"></video>
-    
-        <!-- Transparent Text -->
-        <h6 style="position: absolute; top: 15%; left: 50%; width: 100%; height: auto; transform: translate(-50%, -50%); z-index: 15; text-align: center; pointer-events: none; color: white;">Hallo <span style="color: #f84e45">{{ Auth::user()->name }}</span>,</h6>
-        <h6 style="position: absolute; top: 18%; left: 50%; width: 100%; height: auto; transform: translate(-50%, -50%); z-index: 15; text-align: center; pointer-events: none; color: white;">Selamat menjalani Aktivitasmu!</h6>
+
+        <!-- Transparent Image -->
         <img src="https://seeklogo.com/images/F/face-id-logo-6DA02A33C5-seeklogo.com.png" alt="Overlay Image" style="position: absolute; top: 50%; left: 50%; width: 60%; height: 60%; object-fit: contain; opacity: 0.5; pointer-events: none; transform: translate(-50%, -50%); z-index: 15;">
     </div>
-    
 
     <!-- Capture Button -->
     <div style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 20; padding: 10px;">
@@ -27,10 +24,9 @@
             <i class="fas fa-camera"></i>
         </button>
     </div>
-    <form class="form" action="{{ route('clockin.store') }}" method="POST" id="attendanceForm">
+    <form class="form" action="{{ route('clockout.store') }}" method="POST" id="attendanceForm">
         @csrf
         <input type="hidden" name="image" id="imageInput">
-        <input type="hidden" name="latlong" id="latlongInput">
     </form>
 
     <!-- Canvas for capturing the image -->
@@ -52,17 +48,15 @@
 
 @push('js')
 <script>
-    let captureButtonEnabled = true;
-
     document.addEventListener('DOMContentLoaded', function() {
         const video = document.getElementById('cameraFeed');
         const captureButton = document.getElementById('captureButton');
         const canvas = document.getElementById('captureCanvas');
         const context = canvas.getContext('2d');
         const imageInput = document.getElementById('imageInput');
-        const latlongInput = document.getElementById('latlongInput');
         const attendanceForm = document.getElementById('attendanceForm');
         const loader = document.getElementById('loader');
+        let captureButtonEnabled = true;
 
         if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
             navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } })
@@ -76,44 +70,24 @@
             console.error('getUserMedia is not supported by this browser.');
         }
 
-        function captureImage() {
-            canvas.width = video.videoWidth;
-            canvas.height = video.videoHeight;
-            context.drawImage(video, 0, 0, canvas.width, canvas.height);
-            const imageData = canvas.toDataURL('image/png');
-            imageInput.value = imageData;
-        }
-
-        function getLocationAndSubmit() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function(position) {
-                    const latlong = `${position.coords.latitude},${position.coords.longitude}`;
-                    latlongInput.value = latlong;
-                    attendanceForm.submit();
-                }, function(error) {
-                    console.error('Error getting location:', error);
-                    alert('Could not get your location. Please enable location services.');
-                    captureButton.disabled = false;
-                    captureButtonEnabled = true;
-                });
-            } else {
-                console.error('Geolocation is not supported by this browser.');
-                alert('Geolocation is not supported by your browser.');
-                captureButton.disabled = false;
-                captureButtonEnabled = true;
+        function captureImageAndSubmit() {
+            if (captureButtonEnabled) {
+                captureButtonEnabled = false;
+                loader.style.display = 'block';
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+                context.drawImage(video, 0, 0, canvas.width, canvas.height);
+                const imageData = canvas.toDataURL('image/png');
+                imageInput.value = imageData;
+                attendanceForm.submit(); // Submit form setelah gambar diambil
             }
         }
 
         captureButton.addEventListener('click', function(event) {
             event.preventDefault();
-            if (captureButtonEnabled) {
-                captureButtonEnabled = false;
-                captureButton.disabled = true;
-                loader.style.display = 'block';
-                captureImage();
-                getLocationAndSubmit();
-            }
+            captureImageAndSubmit();
         });
     });
 </script>
+
 @endpush
