@@ -30,7 +30,14 @@ class Attendance extends Model
         return $this->hasMany(Minute::class);
     }
 
+    public function leave()
+    {
+        return $this->belongsTo(Leave::class);
+    }
+
     protected $casts = [
         'date' => 'datetime',
+        'clock_in' => 'datetime',
+        'clock_out' => 'datetime',
       ];
 }

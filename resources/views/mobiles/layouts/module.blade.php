@@ -11,7 +11,7 @@
 <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900|Roboto:300,300i,400,400i,500,500i,700,700i,900,900i&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="/assets/mobiles/fonts/css/fontawesome-all.min.css">    
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-<link rel="manifest" href="_manifest.json" data-pwa-version="set_in_manifest_and_pwa_js">
+<link rel="manifest" href="/_manifest.json" data-pwa-version="set_in_manifest_and_pwa_js">
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/mobiles/app/icons/icon-192x192.png">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/signature_pad/1.5.3/signature_pad.min.js"></script>
 @livewireStyles
@@ -81,7 +81,7 @@
     
     <!-- Be sure this is on your main visiting page, for example, the index.html page-->
     <!-- Install Prompt for Android -->
-    {{-- <div id="menu-install-pwa-android" class="menu menu-box-bottom menu-box-detached rounded-l"
+    <div id="menu-install-pwa-android" class="menu menu-box-bottom menu-box-detached rounded-l"
          data-menu-height="350" 
         data-menu-effect="menu-parallax">
         <div class="boxed-text-l mt-4">
@@ -94,7 +94,7 @@
             <a href="#" class="pwa-dismiss close-menu color-gray2-light text-uppercase font-900 opacity-60 font-10">Maybe later</a>
             <div class="clear"></div>
         </div>
-    </div>    --}}
+    </div>   
 
     <!-- Install instructions for iOS -->
     {{-- <div id="menu-install-pwa-ios" 

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\mobile;
 
+use Carbon\Carbon;
 use App\Models\Leave;
 use App\Models\TypeLeave;
+use App\Models\Attendance;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -29,6 +31,7 @@ class MLeaveController extends Controller
     public function store(Request $request)
     {
         $user = Auth::user();
+        $dateNow = Carbon::now()->toDateString();
         $cloudinaryImage = $request->file('image')->storeOnCloudinary('leaves_logo');
         $url = $cloudinaryImage->getSecurePath();
         $public_id = $cloudinaryImage->getPublicId();
@@ -44,6 +47,13 @@ class MLeaveController extends Controller
         $leave->reason = $request->reason;
         $leave->contact = $request->contact;
         $leave->save();
+
+        $attendance = new Attendance;
+        $attendance->date = $leave->start_date;
+        $attendance->user_id = $user->id;
+        $attendance->site_id = $user->site_id;
+        $attendance->leave_id = $leave->id;
+        $attendance->save();
 
         return redirect()->route('leave.index')
                         ->with('success', 'Pengajuan permohonan cuti berhasil diajukan');

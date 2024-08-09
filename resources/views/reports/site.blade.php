@@ -47,21 +47,30 @@
                                             Overtime
                                         </td>
                                         @foreach ($userAttendances as $attendance)
-                                            @php
-                                                $hasMinutes = $attendance->minutes->isNotEmpty();
-                                            @endphp
-                                            <td>
-                                                {!! $hasMinutes ? '<i class="fas fa-file-alt"></i>' : '' !!}
-                                                {{ $attendance->clock_in }}
-                                                <br>
-                                                {{ $attendance->overtimes->firstWhere('attendance_id', $attendance->id)->clock_in ?? '' }}
-                                            </td>
-                                            <td>
-                                                {!! $hasMinutes ? '<i class="fas fa-file-alt"></i>' : '' !!}
-                                                {{ $attendance->clock_out }}
-                                                <br>
-                                                {{ $attendance->overtimes->firstWhere('attendance_id', $attendance->id)->clock_out ?? '' }}
-                                            </td>
+                                            @if ($attendance->leave_id != null)
+                                                <td colspan="2">
+                                                    {{ $attendance->leave->type['name'] }}
+                                                </td>
+                                            @else  
+                                                <td>
+                                                    @if ($attendance->type == 'berita_acara')
+                                                        <p style="color: blue">{{ $attendance->clock_in->format('H:i') }}</p>
+                                                    @else       
+                                                        {{ $attendance->clock_in->format('H:i') }}
+                                                    @endif
+                                                    <br>
+                                                    {{ $attendance->overtimes->firstWhere('attendance_id', $attendance->id)->clock_in ?? '' }}
+                                                </td>
+                                                <td>
+                                                    @if ($attendance->type == 'berita_acara')
+                                                        <p style="color: blue">{{ $attendance->clock_out->format('H:i') }}</p>
+                                                    @else       
+                                                        {{ $attendance->clock_out->format('H:i') }}
+                                                    @endif
+                                                    <br>
+                                                    {{ $attendance->overtimes->firstWhere('attendance_id', $attendance->id)->clock_out ?? '' }}
+                                                </td>
+                                            @endif
                                         @endforeach
                                     </tr>
                                 @endforeach

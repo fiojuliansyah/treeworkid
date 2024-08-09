@@ -17,7 +17,6 @@
         <!-- Transparent Text -->
         <h6 style="position: absolute; top: 15%; left: 50%; width: 100%; height: auto; transform: translate(-50%, -50%); z-index: 15; text-align: center; pointer-events: none; color: white;">Hallo <span style="color: #f84e45">{{ Auth::user()->name }}</span>,</h6>
         <h6 style="position: absolute; top: 18%; left: 50%; width: 100%; height: auto; transform: translate(-50%, -50%); z-index: 15; text-align: center; pointer-events: none; color: white;">Selamat menjalani Aktivitasmu!</h6>
-        <img src="https://seeklogo.com/images/F/face-id-logo-6DA02A33C5-seeklogo.com.png" alt="Overlay Image" style="position: absolute; top: 50%; left: 50%; width: 60%; height: 60%; object-fit: contain; opacity: 0.5; pointer-events: none; transform: translate(-50%, -50%); z-index: 15;">
     </div>
     
 

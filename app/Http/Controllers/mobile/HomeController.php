@@ -36,4 +36,9 @@ class HomeController extends Controller
     {
         return view('mobiles.setting');
     }
+
+    public function getStarted()
+    {
+        return view('mobiles.walkthrough');
+    }
 }

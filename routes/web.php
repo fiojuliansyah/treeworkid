@@ -90,6 +90,8 @@ Route::middleware('auth')->prefix('manage')->group(function () {
     Route::get('/site/view', [ReportController::class, 'siteView'])->name('site.view');
 });
 
+Route::get('/get-started', [HomeController::class, 'getStarted'])->name('mobile.walkthrough');
+
 Route::middleware('auth')->prefix('mobile')->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('mobile.home');
     Route::get('/setting', [HomeController::class, 'setting'])->name('mobile.setting');

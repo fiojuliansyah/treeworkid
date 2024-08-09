@@ -5,7 +5,7 @@
     <div class="page-content">
         <div class="card header-card shape-rounded" data-card-height="250">
             <div class="card-overlay bg-highlight opacity-95"></div>
-            <div class="card-bg preload-img" data-src="{{ asset('') }}mobile/images/pictures/18s.jpg"></div>
+            <div class="card-bg preload-img" data-src="/assets/mobiles/images/pictures/18s.jpg"></div>
         </div>
         <div class="page-title page-title-small" style="margin-top: 50px">
             <div class="d-flex content mb-1">
@@ -107,99 +107,111 @@
             <h5 class="float-start font-16 font-600">Happy Customers</h5>
             <div class="clearfix"></div>
         </div> --}}
-        <div class="row me-0 ms-0 mb-0" style="margin-top: 20px; padding-left: 20px; padding-right: 20px">
-            <div class="col-3 ps-0 pe-0">
-                <a href="{{ route('attendance.index') }}" class="icon-user"
-                    style="display: flex; flex-direction: column; align-items: center; text-align: center;">
-                    <img src="https://img.icons8.com/?size=256&id=dAfquhWBFKe3&format=png" alt="" width="50px"
-                        style="margin-bottom: 5px; border: none; border: 1px solid #eef2f1; border-radius: 8px; padding: 10px; margin: 5px; box-sizing: border-box;">
-                    <div style="display: flex; align-items: center;">
-                        <p style="margin: 0;">Presensi</p>
-                    </div>
-                </a>       
+        @can('attendance-module')   
+            <div class="row me-0 ms-0 mb-0" style="margin-top: 20px; padding-left: 20px; padding-right: 20px">
+                <div class="col-3 ps-0 pe-0">
+                    <a href="{{ route('attendance.index') }}" class="icon-user"
+                        style="display: flex; flex-direction: column; align-items: center; text-align: center;">
+                        <img src="https://img.icons8.com/?size=256&id=dAfquhWBFKe3&format=png" alt="" width="50px"
+                            style="margin-bottom: 5px; border: none; border: 1px solid #eef2f1; border-radius: 8px; padding: 10px; margin: 5px; box-sizing: border-box;">
+                        <div style="display: flex; align-items: center;">
+                            <p style="margin: 0;">Presensi</p>
+                        </div>
+                    </a>       
+                </div>
+                <div class="col-3 pe-0 ps-0">
+                    <a href="{{ route('overtime.index') }}" class="icon-user"
+                        style="display: flex; flex-direction: column; align-items: center; text-align: center;">
+                        <img src="https://img.icons8.com/fluency/48/hourglass-sand-bottom.png" alt="" width="50px"
+                            style="margin-bottom: 5px; border: none; border: 1px solid #eef2f1; border-radius: 8px; padding: 10px; margin: 5px; box-sizing: border-box;">
+                        <div style="display: flex; align-items: center;">
+                            <p style="margin: 0;">Lembur</p>
+                        </div>
+                    </a>       
+                </div>
+                <div class="col-3 pe-0 ps-0">
+                    <a href="{{ route('minute.index') }}" class="icon-user"
+                        style="display: flex; flex-direction: column; align-items: center; text-align: center;">
+                        <img src="https://img.icons8.com/color-glass/48/task.png" alt="" width="50px"
+                            style="margin-bottom: 5px; border: none; border: 1px solid #eef2f1; border-radius: 8px; padding: 10px; margin: 5px; box-sizing: border-box;">
+                        <div style="display: flex; align-items: center;">
+                            <p style="margin: 0;">Berita Acara</p>
+                        </div>
+                    </a>      
+                </div>
+                <div class="col-3 pe-0 ps-0">
+                    <a href="{{ route('leave.index') }}" class="icon-user"
+                        style="display: flex; flex-direction: column; align-items: center; text-align: center;">
+                        <img src="https://img.icons8.com/color-glass/48/exit.png" alt="" width="50px"
+                            style="margin-bottom: 5px; border: none; border: 1px solid #eef2f1; border-radius: 8px; padding: 10px; margin: 5px; box-sizing: border-box;">
+                        <div style="display: flex; align-items: center;">
+                            <p style="margin: 0;">Cuti</p>
+                        </div>
+                    </a>       
+                </div>
             </div>
-            <div class="col-3 pe-0 ps-0">
-                <a href="{{ route('overtime.index') }}" class="icon-user"
-                    style="display: flex; flex-direction: column; align-items: center; text-align: center;">
-                    <img src="https://img.icons8.com/fluency/48/hourglass-sand-bottom.png" alt="" width="50px"
-                        style="margin-bottom: 5px; border: none; border: 1px solid #eef2f1; border-radius: 8px; padding: 10px; margin: 5px; box-sizing: border-box;">
-                    <div style="display: flex; align-items: center;">
-                        <p style="margin: 0;">Lembur</p>
+            <div class="row me-0 ms-0 mb-0" style="margin-top: 10px; padding-left: 20px; padding-right: 20px">
+                @can('reliver-app')   
+                    <div class="col-3 ps-0 pe-0">
+                        <a href="{{ route('reliver.index') }}" class="icon-user"
+                            style="display: flex; flex-direction: column; align-items: center; text-align: center;">
+                            <img src="https://img.icons8.com/?size=256&id=23282&format=png" alt="" width="50px"
+                                style="margin-bottom: 5px; border: none; border: 1px solid #eef2f1; border-radius: 8px; padding: 10px; margin: 5px; box-sizing: border-box;">
+                            <div style="display: flex; align-items: center;">
+                                <p style="margin: 0;">Reliver</p>
+                            </div>
+                        </a>       
                     </div>
-                </a>       
+                @endcan
             </div>
-            <div class="col-3 pe-0 ps-0">
-                <a href="{{ route('minute.index') }}" class="icon-user"
-                    style="display: flex; flex-direction: column; align-items: center; text-align: center;">
-                    <img src="https://img.icons8.com/color-glass/48/task.png" alt="" width="50px"
-                        style="margin-bottom: 5px; border: none; border: 1px solid #eef2f1; border-radius: 8px; padding: 10px; margin: 5px; box-sizing: border-box;">
-                    <div style="display: flex; align-items: center;">
-                        <p style="margin: 0;">Berita Acara</p>
-                    </div>
-                </a>      
-            </div>
-            <div class="col-3 pe-0 ps-0">
-                <a href="{{ route('leave.index') }}" class="icon-user"
-                    style="display: flex; flex-direction: column; align-items: center; text-align: center;">
-                    <img src="https://img.icons8.com/color-glass/48/exit.png" alt="" width="50px"
-                        style="margin-bottom: 5px; border: none; border: 1px solid #eef2f1; border-radius: 8px; padding: 10px; margin: 5px; box-sizing: border-box;">
-                    <div style="display: flex; align-items: center;">
-                        <p style="margin: 0;">Cuti</p>
-                    </div>
-                </a>       
-            </div>
-        </div>
-        <div class="row me-0 ms-0 mb-0" style="margin-top: 10px; padding-left: 20px; padding-right: 20px">
-            <div class="col-3 ps-0 pe-0">
-                <a href="{{ route('reliver.index') }}" class="icon-user"
-                    style="display: flex; flex-direction: column; align-items: center; text-align: center;">
-                    <img src="https://img.icons8.com/?size=256&id=23282&format=png" alt="" width="50px"
-                        style="margin-bottom: 5px; border: none; border: 1px solid #eef2f1; border-radius: 8px; padding: 10px; margin: 5px; box-sizing: border-box;">
-                    <div style="display: flex; align-items: center;">
-                        <p style="margin: 0;">Reliver</p>
-                    </div>
-                </a>       
-            </div>
-        </div>
-        <div class="content mb-2">
-            <h5 class="float-start font-16 font-500">App Module &nbsp;</h5><span class="badge bg-danger">soon</span>
-            <a class="float-end font-12 color-highlight mt-n1" href="#">View All</a>
-            <div class="clearfix"></div>
-        </div>
+        @endcan
 
-        <div class="splide double-slider visible-slider slider-no-arrows slider-no-dots" id="double-slider-1">
-            <div class="splide__track">
-                <div class="splide__list">
-                    <div class="splide__slide ps-3">
-                        <div class="bg-theme rounded-m shadow-m text-center">
-                        <img src="https://img.icons8.com/?size=256&id=12850&format=png" alt="" width="80px"" class="mt-3">
-                        <h5 class="font-16">Cleaning</h5>
-                        <p class="line-height-s font-11 pb-4">
-                            Built with care and <br>every detail in mind
-                        </p>
+        @can('work-module') 
+            <div class="content mb-2">
+                <h5 class="float-start font-16 font-500">App Module &nbsp;</h5><span class="badge bg-danger">soon</span>
+                <a class="float-end font-12 color-highlight mt-n1" href="#">View All</a>
+                <div class="clearfix"></div>
+            </div>
+            <div class="splide double-slider visible-slider slider-no-arrows slider-no-dots" id="double-slider-1">
+                <div class="splide__track">
+                    <div class="splide__list">
+                        @can('cleaning-app') 
+                            <div class="splide__slide ps-3">
+                                <div class="bg-theme rounded-m shadow-m text-center">
+                                <img src="https://img.icons8.com/?size=256&id=12850&format=png" alt="" width="80px"" class="mt-3">
+                                <h5 class="font-16">Cleaning</h5>
+                                <p class="line-height-s font-11 pb-4">
+                                    Built with care and <br>every detail in mind
+                                </p>
+                                </div>
+                            </div>
+                        @endcan
+                        @can('security-app')
+                        <div class="splide__slide ps-3">
+                            <div class="bg-theme rounded-m shadow-m text-center">
+                            <img src="https://img.icons8.com/?size=256&id=jOAIkIGgvYmp&format=png" alt="" width="80px"" class="mt-3">
+                            <h5 class="font-16">Digital Patrol</h5>
+                            <p class="line-height-s font-11 pb-4">
+                                Built with care and <br>every detail in mind
+                            </p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="splide__slide ps-3">
-                        <div class="bg-theme rounded-m shadow-m text-center">
-                        <img src="https://img.icons8.com/?size=256&id=jOAIkIGgvYmp&format=png" alt="" width="80px"" class="mt-3">
-                        <h5 class="font-16">Digital Patrol</h5>
-                        <p class="line-height-s font-11 pb-4">
-                            Built with care and <br>every detail in mind
-                        </p>
+                        @endcan
+                        @can('civil-app')
+                        <div class="splide__slide ps-3">
+                            <div class="bg-theme rounded-m shadow-m text-center">
+                            <img src="https://img.icons8.com/?size=256&id=PEIZi5jOSErg&format=png" alt="" width="80px"" class="mt-3">
+                            <h5 class="font-16">Civil</h5>
+                            <p class="line-height-s font-11 pb-4">
+                                Built with care and <br>every detail in mind
+                            </p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="splide__slide ps-3">
-                        <div class="bg-theme rounded-m shadow-m text-center">
-                        <img src="https://img.icons8.com/?size=256&id=PEIZi5jOSErg&format=png" alt="" width="80px"" class="mt-3">
-                        <h5 class="font-16">Civil</h5>
-                        <p class="line-height-s font-11 pb-4">
-                            Built with care and <br>every detail in mind
-                        </p>
-                        </div>
+                        @endcan
                     </div>
                 </div>
             </div>
-        </div>
+        @endcan
     </div>
 @endsection
 @push('js')

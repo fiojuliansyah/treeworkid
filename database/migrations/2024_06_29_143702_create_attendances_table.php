@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('type')->nullable();
             $table->string('is_reliver')->nullable();
             $table->string('backup_id')->nullable();
+            $table->string('leave_id')->nullable();
             $table->text('remark')->nullable();
             $table->timestamps();
         });

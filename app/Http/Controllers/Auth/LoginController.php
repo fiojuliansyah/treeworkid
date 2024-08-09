@@ -2,44 +2,91 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Jenssegers\Agent\Agent;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class LoginController extends Controller
 {
     use AuthenticatesUsers;
 
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
     protected $redirectTo = '/dashboard';
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
     }
 
-    /**
-     * The user has been authenticated.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  mixed  $user
-     * @return mixed
-     */
-    protected function authenticated(Request $request, $user)
+    public function showLoginForm()
     {
-        if (!$user->can('view-dashboard')) {
-            return redirect('/');
+        $agent = new Agent();
+
+        if ($agent->isMobile()) {
+            return view('mobiles.auth.login');
         }
 
-        return redirect()->intended($this->redirectTo);
+        return view('auth.login');
+    }
+
+    protected function validateLogin(Request $request)
+    {
+        $request->validate([
+            $this->username() => 'required|string|email|max:255',
+            'password' => 'required|string',
+        ], [
+            'required' => 'Kolom :attribute wajib diisi.',
+            'email' => 'Kolom :attribute harus berupa alamat email yang valid.',
+            'string' => 'Kolom :attribute harus berupa teks.',
+        ]);
+    }
+
+    protected function authenticated(Request $request, $user)
+    {
+        $agent = new Agent();
+
+        if ($agent->isMobile()) {
+
+            if (!$user->can('view-mobile')) {
+                return redirect('/');
+            }
+            return redirect()->route('mobile.home');
+
+        } elseif ($agent->isDesktop()) {
+
+            if (!$user->can('view-desktop')) {
+                return redirect('/');
+            }
+            return redirect()->intended($this->redirectTo);
+
+        } else {
+
+            if (!$user->can('view-desktop')) {
+                return redirect('/');
+            }
+            return redirect()->intended($this->redirectTo);
+
+        }
+    }
+
+    public function logout(Request $request)
+    {
+        $agent = new Agent();
+
+        // Log out the user
+        $this->guard()->logout();
+
+        // Invalidate the session
+        $request->session()->invalidate();
+
+        // Regenerate the CSRF token
+        $request->session()->regenerateToken();
+
+        if ($agent->isMobile()) {
+            return redirect()->route('mobile.walkthrough');
+        }
+
+        return redirect('/welcome');
     }
 }

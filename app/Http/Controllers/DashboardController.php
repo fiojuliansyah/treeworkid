@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Site;
+use App\Models\User;
 use App\Models\Career;
 use App\Models\Status;
 use App\Models\Document;
@@ -15,7 +16,11 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        return view('dashboards.dashboard');
+        $careerCount = Career::count();
+        $siteCount = Site::count();
+        $applicantCount = Applicant::count();
+        $userCount = User::where('is_employee', 1)->count();
+        return view('dashboards.dashboard', compact('siteCount', 'careerCount', 'userCount', 'applicantCount'));
     }
 
     public function recruit()

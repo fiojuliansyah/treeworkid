@@ -45,20 +45,20 @@
                                 <div class="d-flex flex-column text-gray-600">
                                     @foreach($role->permissions->groupBy('category') as $category => $permissionGroup)
                                     <div class="d-flex align-items-center py-2">
-                                    <span class="bullet bg-primary me-3"></span>{{ $category }}
-                                    </div>
-                                    <div class="d-flex align-items-center py-2">
-                                        @foreach($permissionGroup as $permission)
-                                            @if ($permission->status == '1')
-                                                    <span class="badge badge-light-info">{{ $permission->mock }}</span> &nbsp;
-                                            @endif
-                                        @endforeach
-                                        </div>
+                                    <span class="bullet bg-primary me-3"></span>{{ $category }} &nbsp;
+                                    @foreach($permissionGroup as $permission)
+                                        @if ($permission->status == '1')
+                                                <span class="badge badge-light-danger">{{ $permission->mock }}</span> &nbsp;
+                                        @endif
                                     @endforeach
-                                    {{-- <div class='d-flex align-items-center py-2'>
-                                        <span class='bullet bg-primary me-3'></span>
-                                        <em>and 7 more...</em>
+                                    </div>
+                                    {{-- <div class="d-flex align-items-center py-2">
                                     </div> --}}
+                                    @endforeach
+                                    <div class='d-flex align-items-center py-2'>
+                                        <span class='bullet bg-primary me-3'></span>
+                                        <em>and more...</em>
+                                    </div>
                                 </div>
                             </div>
                             <!--end::Card body-->

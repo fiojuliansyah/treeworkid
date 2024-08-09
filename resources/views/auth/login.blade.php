@@ -11,6 +11,7 @@
 		<meta property="og:title" content="#" />
 		<meta property="og:url" content="#" />
 		<meta property="og:site_name" content="#" />
+		<meta name="csrf-token" content="{{ csrf_token() }}">
 		<link rel="canonical" href="#" />
 		<link rel="shortcut icon" href="/assets/media/logos/icon.png" />
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />

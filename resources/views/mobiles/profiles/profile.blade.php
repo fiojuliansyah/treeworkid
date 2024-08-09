@@ -9,7 +9,7 @@
         <div class="divider"></div>
     </div>
     <div class="content mb-0">
-        <form id="profile-update" class="form" action="{{ route('mobile.update.profile') }}" method="POST">
+        <form id="profile-update" class="form" action="{{ route('mobile.update.profile') }}" method="POST" enctype="multipart/form-data">
             @csrf
         <div class="mt-2 mb-4">
             <span>Tambah Avatar</span>
@@ -19,31 +19,36 @@
             <img id="image-preview" src="{{ $user->profile['avatar_url'] ?? '/assets/mobiles/images/empty.png' }}" alt="Preview" class="preload-img img-fluid bottom-20 mt-3">
         </div>
         <div class="input-style has-borders hnoas-icon input-style-always-active mb-4">
-            <input type="name" name="employee_nik" class="form-control" value="{{ $user->profile['employee_nik'] }}" disabled>
+            <input type="name" name="employee_nik" class="form-control" value="{{ $user->profile['employee_nik'] ?? '' }}" disabled>
             <label for="form1" class="color-highlight font-400 font-13">NIK Karyawan</label>
         </div>
         <div class="input-style has-borders hnoas-icon input-style-always-active mb-4">
-            <textarea name="address" class="form-control">{{ $user->profile['address'] }}</textarea>
+            <textarea name="address" class="form-control">{{ $user->profile['address'] ?? '' }}</textarea>
             <label for="form1" class="color-highlight font-400 font-13">Alamat</label>
         </div>
         <div class="input-style has-borders hnoas-icon input-style-always-active mb-4">
             <select name="gender" class="form-select">
                 <option value="" disabled>Pilih</option>
+                @if($user->profile && isset($user->profile['gender']))
                 <option value="laki-laki" {{ $user->profile['gender'] == 'laki-laki' ? 'selected' : '' }}>Laki-laki</option>
                 <option value="perempuan" {{ $user->profile['gender'] == 'perempuan' ? 'selected' : '' }}>Perempuan</option>
+                @else
+                <option value="laki-laki">Laki-laki</option>
+                <option value="perempuan">Perempuan</option>
+                @endif
             </select>
             <label for="form1" class="color-highlight font-400 font-13">Jenis Kelamin</label>
         </div>
         <div class="input-style has-borders hnoas-icon input-style-always-active mb-4">
-            <input type="name" name="birth_place" class="form-control" value="{{ $user->profile['birth_place'] }}">
+            <input type="name" name="birth_place" class="form-control" value="{{ $user->profile['birth_place'] ?? '' }}">
             <label for="form1" class="color-highlight font-400 font-13">Tempat Lahir</label>
         </div>
         <div class="input-style has-borders hnoas-icon input-style-always-active mb-4">
-            <input type="date" name="birth_date" class="form-control" value="{{ $user->profile['birth_date'] }}">
+            <input type="date" name="birth_date" class="form-control" value="{{ $user->profile['birth_date'] ?? '' }}">
             <label for="form1" class="color-highlight font-400 font-13">Tanggal Lahir</label>
         </div>
         <div class="input-style has-borders hnoas-icon input-style-always-active mb-4">
-            <input type="name" name="mother_name" class="form-control" value="{{ $user->profile['mother_name'] }}">
+            <input type="name" name="mother_name" class="form-control" value="{{ $user->profile['mother_name'] ?? '' }}">
             <label for="form1" class="color-highlight font-400 font-13">Nama Ibu Kandung</label>
         </div>
         <div class="input-style has-borders hnoas-icon input-style-always-active mb-4">
@@ -72,7 +77,7 @@
             <label for="form1" class="color-highlight font-400 font-13">Status Pernikahan</label>
         </div>
         <div class="input-style has-borders hnoas-icon input-style-always-active mb-4 mt-4">
-            <input type="name" name="npwp_number" class="form-control" value="{{ $user->profile['npwp_number'] }}">
+            <input type="name" name="npwp_number" class="form-control" value="{{ $user->profile['npwp_number'] ?? '' }}">
             <label for="form1" class="color-highlight font-400 font-13">No NPWP</label>
         </div>
         </form>                      

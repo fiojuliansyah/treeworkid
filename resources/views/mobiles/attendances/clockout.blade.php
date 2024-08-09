@@ -15,7 +15,6 @@
         <video id="cameraFeed" autoplay playsinline style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1);"></video>
 
         <!-- Transparent Image -->
-        <img src="https://seeklogo.com/images/F/face-id-logo-6DA02A33C5-seeklogo.com.png" alt="Overlay Image" style="position: absolute; top: 50%; left: 50%; width: 60%; height: 60%; object-fit: contain; opacity: 0.5; pointer-events: none; transform: translate(-50%, -50%); z-index: 15;">
     </div>
 
     <!-- Capture Button -->
@@ -24,7 +23,7 @@
             <i class="fas fa-camera"></i>
         </button>
     </div>
-    <form class="form" action="{{ route('clockout.store') }}" method="POST" id="attendanceForm">
+    <form class="form" action="{{ route('reliver.clockout.store') }}" method="POST" id="attendanceForm">
         @csrf
         <input type="hidden" name="image" id="imageInput">
     </form>
