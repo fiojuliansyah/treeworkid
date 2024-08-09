@@ -4,13 +4,14 @@
 <div class="page-content">
         
     <div class="page-title page-title-small">
-        <h2><a href="{{ route('mobile.home') }}"><i class="fa fa-arrow-left"></i></a>Berita Acara</h2>
+        <h2 style="color: black"><a href="{{ route('mobile.home') }}"><i class="fa fa-arrow-left" style="color: black"></i></a>Berita Acara</h2>
+        <div class="divider"></div>
     </div>
-    <div class="card header-card" data-card-height="80">
+    {{-- <div class="card header-card" data-card-height="80">
         <div class="card-overlay bg-highlight opacity-95"></div>
         <div class="card-overlay dark-mode-tint"></div>
         <div class="card-bg preload-img" data-src="images/pictures/20s.jpg"></div>
-    </div>
+    </div> --}}
     <div class="content mt-0 mb-0">
         <div class="list-group list-custom-large">
             @foreach ($minutes as $minute)    

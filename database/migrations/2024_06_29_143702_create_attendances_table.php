@@ -24,6 +24,8 @@ return new class extends Migration
             $table->string('imageout_public_id')->nullable();
             $table->string('clock_out')->nullable();
             $table->string('type')->nullable();
+            $table->string('is_reliver')->nullable();
+            $table->string('backup_id')->nullable();
             $table->text('remark')->nullable();
             $table->timestamps();
         });

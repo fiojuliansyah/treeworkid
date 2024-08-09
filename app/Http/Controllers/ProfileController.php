@@ -57,46 +57,43 @@ class ProfileController extends Controller
 
     public function updateProfile(Request $request)
     {
-        $user = User::findOrFail(Auth::user()->id);
+        $user = Auth::user();
+        $profile = $user->profile()->first();
     
         if ($request->hasFile('avatar')) {
             $cloudinaryImage = $request->file('avatar')->storeOnCloudinary('avatars');
             $url = $cloudinaryImage->getSecurePath();
             $public_id = $cloudinaryImage->getPublicId();
     
-            $user->profile()->updateOrCreate([
-                'user_id' => $user->id,
+            $data = [
                 'avatar_url' => $url,
                 'avatar_public_id' => $public_id,
                 'avatar_encode' => $avatarEncoded ?? null,
-                'employee_nik' => $request->employee_nik,
-                'address' => $request->address,
-                'gender' => $request->gender,
-                'birth_place' => $request->birth_place,
-                'birth_date' => $request->birth_date,
-                'mother_name' => $request->mother_name,
-                'npwp_number' => $request->npwp_number,
-                'marriage_status' => $request->marriage_status,
-                'bank_name' => $request->bank_name,
-                'account_name' => $request->account_name,
-                'account_number' => $request->account_number,
-            ]);
+            ];
         } else {
-            $user->profile()->updateOrCreate([
-                'user_id' => $user->id,
+            $data = [
                 'avatar_encode' => $avatarEncoded ?? null,
-                'employee_nik' => $request->employee_nik,
-                'address' => $request->address,
-                'gender' => $request->gender,
-                'birth_place' => $request->birth_place,
-                'birth_date' => $request->birth_date,
-                'mother_name' => $request->mother_name,
-                'npwp_number' => $request->npwp_number,
-                'marriage_status' => $request->marriage_status,
-                'bank_name' => $request->bank_name,
-                'account_name' => $request->account_name,
-                'account_number' => $request->account_number,
-            ]);
+            ];
+        }
+    
+        $data += [
+            'employee_nik' => $request->employee_nik,
+            'address' => $request->address,
+            'gender' => $request->gender,
+            'birth_place' => $request->birth_place,
+            'birth_date' => $request->birth_date,
+            'mother_name' => $request->mother_name,
+            'npwp_number' => $request->npwp_number,
+            'marriage_status' => $request->marriage_status,
+            'bank_name' => $request->bank_name,
+            'account_name' => $request->account_name,
+            'account_number' => $request->account_number,
+        ];
+    
+        if ($profile) {
+            $profile->update($data);
+        } else {
+            $user->profile()->create($data);
         }
     
         return redirect()->back()

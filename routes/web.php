@@ -23,6 +23,7 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\mobile\HomeController;
 use App\Http\Controllers\mobile\MLeaveController;
 use App\Http\Controllers\mobile\MMinuteController;
+use App\Http\Controllers\mobile\MProfileController;
 use App\Http\Controllers\mobile\MReliverController;
 use App\Http\Controllers\mobile\MOvertimeController;
 use App\Http\Controllers\mobile\MAttendanceController;
@@ -92,6 +93,18 @@ Route::middleware('auth')->prefix('manage')->group(function () {
 Route::middleware('auth')->prefix('mobile')->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('mobile.home');
     Route::get('/setting', [HomeController::class, 'setting'])->name('mobile.setting');
+
+    Route::get('/account', [MProfileController::class, 'account'])->name('mobile.account');
+    Route::post('/account/update', [MProfileController::class, 'updateAccount'])->name('mobile.update.account');
+
+    Route::get('/profile', [MProfileController::class, 'profile'])->name('mobile.profile');
+    Route::post('/profile/update', [MProfileController::class, 'updateProfile'])->name('mobile.update.profile');
+
+    Route::get('/bank', [MProfileController::class, 'bank'])->name('mobile.bank');
+    Route::post('/bank/update', [MProfileController::class, 'updateBank'])->name('mobile.update.bank');
+
+    Route::get('/esign', [MProfileController::class, 'esign'])->name('mobile.esign');
+    Route::post('/esign/update', [MProfileController::class, 'updateEsign'])->name('mobile.update.esign');
 
     Route::get('/attendance', [MAttendanceController::class, 'index'])->name('attendance.index');
     Route::get('/attendance/clockin', [MAttendanceController::class, 'clockin'])->name('attendance.clockin');

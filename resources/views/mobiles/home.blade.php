@@ -15,8 +15,10 @@
                         {{ Auth::user()->email ?? 'Guest' }}
                     </p>
                 </div>
-                <img src="{{ Auth::user()->profile['avatar_url'] ?? '/assets/media/avatars/blank.png' }}" width="70"
-                    height="70" class="bg-highlight rounded-circle shadow-xl">
+                <a href="{{ route('mobile.setting') }}">
+                    <img src="{{ Auth::user()->profile['avatar_url'] ?? '/assets/media/avatars/blank.png' }}" width="70"
+                        height="70" class="bg-highlight rounded-circle shadow-xl">
+                </a>
             </div>
         </div>
         <div class="card card-style">
