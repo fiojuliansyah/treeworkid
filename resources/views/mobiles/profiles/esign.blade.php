@@ -24,6 +24,8 @@
         @if ($user->profile['esign_url'])
         <h5 class="font-16 font-500">tanda tangan digital anda.</h5>
             <img src="{{ $user->profile['esign_url'] ?? '' }}" width="300" alt="Existing Signature">
+        @else
+        <h5 class="font-16 font-500">Belum ada.</h5>
         @endif
     </div>
     @endsection
