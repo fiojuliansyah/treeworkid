@@ -103,8 +103,8 @@
                     <td>{{ $attendance->latlong }}</td>
                     <td>{{ $attendance->user->name ?? 'N/A' }}</td>
                     <td>{{ $attendance->site->name ?? 'N/A' }}</td>
-                    <td>{{ $attendance->clock_in->format('H:i') }}</td>
-                    <td>{{ $attendance->clock_out->format('H:i') }}</td>
+                    <td>{{ $attendance->clock_in }}</td>
+                    <td>{{ $attendance->clock_out }}</td>
                     <td>
                         @if ($attendance->overtimes)
                             @foreach ($attendance->overtimes as $overtime)    
