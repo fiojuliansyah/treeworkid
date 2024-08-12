@@ -12,21 +12,21 @@
         <form id="bank-update" class="form" action="{{ route('mobile.update.bank') }}" method="POST">
             @csrf
         <div class="input-style has-borders hnoas-icon input-style-always-active validate-field mb-4">
-            <input type="name" name="bank_name" class="form-control validate-name" value="{{ $user->profile['bank_name'] }}">
+            <input type="name" name="bank_name" class="form-control validate-name" value="{{ $user->profile['bank_name'] ?? '' }}">
             <label for="form1" class="color-highlight font-400 font-13">Nama Bank</label>
             <i class="fa fa-times disabled invalid color-red-dark"></i>
             <i class="fa fa-check disabled valid color-green-dark"></i>
             <em>(required)</em>
         </div>
         <div class="input-style has-borders hnoas-icon input-style-always-active validate-field mb-4">
-            <input type="name" name="account_name" class="form-control validate-name" value="{{ $user->profile['account_name'] }}">
+            <input type="name" name="account_name" class="form-control validate-name" value="{{ $user->profile['account_name'] ?? '' }}">
             <label for="form1" class="color-highlight font-400 font-13">Nama Akun</label>
             <i class="fa fa-times disabled invalid color-red-dark"></i>
             <i class="fa fa-check disabled valid color-green-dark"></i>
             <em>(required)</em>
         </div>
         <div class="input-style has-borders hnoas-icon input-style-always-active validate-field mb-4">
-            <input type="name" name="account_number" class="form-control validate-name" value="{{ $user->profile['account_number'] }}">
+            <input type="name" name="account_number" class="form-control validate-name" value="{{ $user->profile['account_number'] ?? '' }}">
             <label for="form1" class="color-highlight font-400 font-13">No Rekening</label>
             <i class="fa fa-times disabled invalid color-red-dark"></i>
             <i class="fa fa-check disabled valid color-green-dark"></i>
