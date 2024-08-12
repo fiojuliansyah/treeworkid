@@ -21,7 +21,7 @@
     </div>
     <a href="#" onclick="event.preventDefault(); saveSignature();" class="btn btn-full btn-margins bg-highlight rounded-sm shadow-xl btn-m text-uppercase font-900">Save Signature</a>
     <div class="content mt-5">
-        @if ($user->profile['esign_url'] != null)
+        @if ($user->profile['esign_url'] !== null)
         <h5 class="font-16 font-500">tanda tangan digital anda.</h5>
             <img src="{{ $user->profile['esign_url'] ?? '' }}" width="300" alt="Existing Signature">
         @else
