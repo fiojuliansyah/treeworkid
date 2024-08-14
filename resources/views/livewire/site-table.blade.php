@@ -91,6 +91,7 @@
                             <input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_table_users .form-check-input" value="1" />
                         </div>
                     </th>
+                    <th class="min-w-125px">ID</th>
                     <th class="min-w-125px">Company</th>
                     <th class="min-w-125px">Name</th>
                     <th class="text-end min-w-100px">Actions</th>
@@ -104,6 +105,7 @@
                             <input class="form-check-input" type="checkbox" value="1" />
                         </div>
                     </td>
+                    <td>{{ $site->id }}</td>
                     <td>{{ $site->company['name'] ?? '' }}</td>
                     <td>{{ $site->name }}</td>
                     <td class="text-end">
