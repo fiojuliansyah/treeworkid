@@ -25,11 +25,9 @@ class LoginController extends Controller
         $agent = new Agent();
     
         if (Auth::check()) {
-            // Pastikan pengalihan ke halaman sesuai dengan perangkat
             if ($agent->isMobile()) {
                 return redirect()->route('mobile.home');
             }
-            return redirect()->intended($this->redirectTo);
         }
     
         if ($agent->isMobile()) {
