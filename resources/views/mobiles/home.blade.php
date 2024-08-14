@@ -71,7 +71,7 @@
                         </div>
                     </div>
                 </div>
-                @if ($latestAttendance->type == 'shift_off')
+                @if ($latestAttendance && $latestAttendance->type == 'shift_off')
                 <a href="#" class="btn btn-full btn-m rounded-s text-uppercase font-900 shadow-xl bg-red-dark">
                     <span style="display: block; text-align: center;">
                         LIBUR
