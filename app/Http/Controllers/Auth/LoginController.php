@@ -28,7 +28,7 @@ class LoginController extends Controller
             if ($agent->isMobile()) {
                 return redirect()->route('mobile.home');
             }
-            return redirect()->intended($this->redirectTo);
+            return redirect()->route('mobile.home');
         }
 
         if ($agent->isMobile()) {
@@ -67,12 +67,6 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
-        $agent = new Agent();
-    
-        if ($agent->isDesktop()) {
-            return redirect()->intended($this->redirectTo);
-        }
-    
         return redirect()->route('mobile.home');
     }
     
