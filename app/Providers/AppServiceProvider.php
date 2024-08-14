@@ -8,6 +8,7 @@ use App\Models\Company;
 use App\Models\Applicant;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Auth;
 
 class AppServiceProvider extends ServiceProvider
 {

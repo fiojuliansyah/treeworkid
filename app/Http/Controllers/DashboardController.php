@@ -20,6 +20,12 @@ class DashboardController extends Controller
         $siteCount = Site::count();
         $applicantCount = Applicant::count();
         $userCount = User::where('is_employee', 1)->count();
+
+
+        if (Auth::check() && !Auth::user()->can('view-desktop')) {
+            return redirect()->route('mobile.home');
+        };
+
         return view('dashboards.dashboard', compact('siteCount', 'careerCount', 'userCount', 'applicantCount'));
     }
 
