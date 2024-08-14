@@ -22,18 +22,23 @@ class LoginController extends Controller
 
     public function showLoginForm()
     {
+        $agent = new Agent();
+    
         if (Auth::check()) {
+            // Pastikan pengalihan ke halaman sesuai dengan perangkat
+            if ($agent->isMobile()) {
+                return redirect()->route('mobile.home');
+            }
             return redirect()->intended($this->redirectTo);
         }
-
-        $agent = new Agent();
-
+    
         if ($agent->isMobile()) {
             return view('mobiles.auth.login');
         }
-
+    
         return view('auth.login');
     }
+    
 
     protected function validateLogin(Request $request)
     {
