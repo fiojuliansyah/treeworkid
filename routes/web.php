@@ -19,6 +19,7 @@ use App\Http\Controllers\ApplicantController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TypeLeaveController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\mobile\HomeController;
 use App\Http\Controllers\mobile\MLeaveController;
