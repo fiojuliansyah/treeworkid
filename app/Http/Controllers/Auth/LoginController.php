@@ -70,27 +70,25 @@ class LoginController extends Controller
     protected function authenticated(Request $request, $user)
     {
         $agent = new Agent();
-
+    
         if ($agent->isMobile()) {
             if (!$user->can('view-mobile')) {
-                return redirect()->route('mobile.home');
+                return redirect()->route('mobile.walkthrough'); // Mengarahkan ke walkthrough jika hak akses tidak sesuai
             }
-            return redirect()->route('mobile.home');
+            return redirect()->route('mobile.home'); // Halaman untuk mobile
         }
-
+    
         if ($agent->isDesktop()) {
             if (!$user->can('view-desktop')) {
-                return redirect('/');
+                return redirect('/'); // Halaman default jika hak akses tidak sesuai
             }
-            return redirect()->intended($this->redirectTo);
+            return redirect()->intended($this->redirectTo); // Halaman default setelah login
         }
-
-        // Jika perangkat tidak dikenali, default ke desktop
-        if (!$user->can('view-mobile')) {
-            return redirect()->route('mobile.home');
-            }
-        return redirect()->route('mobile.home');
+    
+        // Default untuk perangkat lainnya
+        return redirect()->intended($this->redirectTo);
     }
+    
 
     public function logout(Request $request)
     {
