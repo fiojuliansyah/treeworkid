@@ -86,16 +86,17 @@ class LoginController extends Controller
 
     public function logout(Request $request)
     {
-        $agent = new Agent();
-
-        $this->guard()->logout();
+        $guard = $this->guard();
+        
+        $guard->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-
-        if ($agent->isMobile()) {
+    
+        if ((new Agent())->isMobile()) {
             return redirect()->route('mobile.walkthrough');
         }
-
+    
         return redirect('/welcome');
     }
+    
 }
