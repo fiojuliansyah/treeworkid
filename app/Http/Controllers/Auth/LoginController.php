@@ -13,7 +13,7 @@ class LoginController extends Controller
 {
     use AuthenticatesUsers;
 
-    protected $redirectTo = '/';
+    protected $redirectTo = '/moble/home';
 
     public function __construct()
     {
@@ -28,6 +28,7 @@ class LoginController extends Controller
             if ($agent->isMobile()) {
                 return redirect()->route('mobile.home');
             }
+            return redirect()->intended($this->redirectTo);
         }
     
         if ($agent->isMobile()) {
