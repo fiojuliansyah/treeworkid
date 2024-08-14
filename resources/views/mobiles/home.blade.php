@@ -84,7 +84,7 @@
                         @if($latestAttendance && $latestAttendance->date)
                         {{ $latestAttendance->date->format('d M Y') }}
                         @endif
-                        @if ($latestAttendance->clock_out)
+                        @if ($latestAttendance && $latestAttendance->clock_out)
                         - 
                         {{ $latestAttendance->clock_out->format('d M Y') }}</p>
                         @else
