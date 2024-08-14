@@ -19,6 +19,17 @@ document.addEventListener('DOMContentLoaded', () => {
     var pwaLocation = "/_service-worker.js";
 
     //Place all your custom Javascript functions and plugin calls below this line
+    // Tambahkan event listener untuk menangani tombol "back"
+    window.addEventListener('popstate', function(event) {
+        // Arahkan ke /mobile/home jika pengguna menekan tombol "back"
+        if (window.location.pathname !== '/mobile/home') {
+            window.location.href = '/mobile/home';
+        }
+    });
+
+    // Tambahkan state awal untuk memastikan popstate terpicu
+    history.replaceState(null, null, location.href);
+    
     function init_template(){
         //Caching Global Variables
         var i, e, el; //https://www.w3schools.com/js/js_performance.asp
