@@ -24,7 +24,6 @@ class LoginController extends Controller
     {
         $agent = new Agent();
 
-        // Jika pengguna sudah login, arahkan ke halaman yang sesuai
         if (Auth::check()) {
             if ($agent->isMobile()) {
                 return redirect()->route('mobile.home');
@@ -32,7 +31,6 @@ class LoginController extends Controller
             return redirect()->intended($this->redirectTo);
         }
 
-        // Tampilkan form login sesuai perangkat
         if ($agent->isMobile()) {
             return view('mobiles.auth.login');
         }
@@ -72,20 +70,13 @@ class LoginController extends Controller
         $agent = new Agent();
     
         if ($agent->isMobile()) {
-            if (!$user->can('view-mobile')) {
-                return redirect()->route('mobile.walkthrough'); // Mengarahkan ke walkthrough jika hak akses tidak sesuai
-            }
-            return redirect()->route('mobile.home'); // Halaman untuk mobile
+            return redirect()->route('mobile.home');
         }
     
         if ($agent->isDesktop()) {
-            if (!$user->can('view-desktop')) {
-                return redirect('/'); // Halaman default jika hak akses tidak sesuai
-            }
-            return redirect()->intended($this->redirectTo); // Halaman default setelah login
+            return redirect()->intended($this->redirectTo);
         }
     
-        // Default untuk perangkat lainnya
         return redirect()->intended($this->redirectTo);
     }
     
