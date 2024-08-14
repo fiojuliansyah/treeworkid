@@ -74,7 +74,7 @@
                             <div class="card-bottom ms-4 me-4 mb-5 pb-4">
                                 <div class="row">
                                     <div class="col-6">
-                                        <a href="#" class="btn-full btn btn-m btn-border border-highlight color-highlight rounded-sm font-900 text-uppercase btn-install">Install</a>
+                                        <a href="#" class="btn-full btn btn-m btn-border border-green-dark color-green-dark rounded-sm font-900 text-uppercase btn-install"><i class="fab fa-android">&nbsp;</i> Install</a>
                                     </div>
                                     <div class="col-6">
                                         <a href="{{ route('login') }}" class="slider-next btn-full btn btn-m bg-highlight color-white rounded-sm font-900 text-uppercase scale-box">Masuk</a>
