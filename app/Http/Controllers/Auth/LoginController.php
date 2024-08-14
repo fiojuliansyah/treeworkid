@@ -23,20 +23,22 @@ class LoginController extends Controller
     public function showLoginForm()
     {
         $agent = new Agent();
-    
+
+        // Jika pengguna sudah login, arahkan ke halaman yang sesuai
         if (Auth::check()) {
             if ($agent->isMobile()) {
                 return redirect()->route('mobile.home');
             }
+            return redirect()->intended($this->redirectTo);
         }
-    
+
+        // Tampilkan form login sesuai perangkat
         if ($agent->isMobile()) {
             return view('mobiles.auth.login');
         }
-    
+
         return view('auth.login');
     }
-    
 
     protected function validateLogin(Request $request)
     {
@@ -74,32 +76,34 @@ class LoginController extends Controller
                 return redirect()->route('mobile.home');
             }
             return redirect()->route('mobile.home');
-        } elseif ($agent->isDesktop()) {
-            if (!$user->can('view-desktop')) {
-                return redirect('/');
-            }
-            return redirect()->intended($this->redirectTo);
-        } else {
+        }
+
+        if ($agent->isDesktop()) {
             if (!$user->can('view-desktop')) {
                 return redirect('/');
             }
             return redirect()->intended($this->redirectTo);
         }
+
+        // Jika perangkat tidak dikenali, default ke desktop
+        if (!$user->can('view-mobile')) {
+            return redirect()->route('mobile.home');
+            }
+        return redirect()->route('mobile.home');
     }
 
     public function logout(Request $request)
     {
-        $guard = $this->guard();
-        
-        $guard->logout();
+        $this->guard()->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-    
-        if ((new Agent())->isMobile()) {
+
+        $agent = new Agent();
+
+        if ($agent->isMobile()) {
             return redirect()->route('mobile.walkthrough');
         }
-    
+
         return redirect('/welcome');
     }
-    
 }
