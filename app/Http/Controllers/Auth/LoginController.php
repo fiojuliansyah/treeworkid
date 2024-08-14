@@ -28,7 +28,6 @@ class LoginController extends Controller
             if ($agent->isMobile()) {
                 return redirect()->route('mobile.home');
             }
-            return redirect()->intended($this->redirectTo);
         }
     
         if ($agent->isMobile()) {
