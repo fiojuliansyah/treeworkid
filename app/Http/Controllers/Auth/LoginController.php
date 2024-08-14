@@ -13,7 +13,7 @@ class LoginController extends Controller
 {
     use AuthenticatesUsers;
 
-    protected $redirectTo = '/dashboard';
+    protected $redirectTo = '/';
 
     public function __construct()
     {
@@ -22,6 +22,10 @@ class LoginController extends Controller
 
     public function showLoginForm()
     {
+        if (Auth::check()) {
+            return redirect()->intended($this->redirectTo);
+        }
+
         $agent = new Agent();
 
         if ($agent->isMobile()) {
@@ -95,4 +99,3 @@ class LoginController extends Controller
         return redirect('/welcome');
     }
 }
-
