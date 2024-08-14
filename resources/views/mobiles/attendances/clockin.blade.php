@@ -5,7 +5,7 @@
     <!-- Page Title -->
     <div class="page-title page-title-small" style="position: absolute; top: 0; left: 0; width: 100%; z-index: 10; padding: 10px;">
         <h2>
-            <a href="#" data-back-button><i class="fa fa-arrow-left"></i></a>
+            <a href="{{ route('attendance.index') }}"><i class="fa fa-arrow-left"></i></a>
             <span>Clock In</span>
         </h2>
     </div>
@@ -13,10 +13,6 @@
     <!-- Camera Container -->
     <div class="camera-container" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden;">
         <video id="cameraFeed" autoplay playsinline style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1);"></video>
-    
-        <!-- Transparent Text -->
-        <h6 style="position: absolute; top: 15%; left: 50%; width: 100%; height: auto; transform: translate(-50%, -50%); z-index: 15; text-align: center; pointer-events: none; color: white;">Hallo <span style="color: #f84e45">{{ Auth::user()->name }}</span>,</h6>
-        <h6 style="position: absolute; top: 18%; left: 50%; width: 100%; height: auto; transform: translate(-50%, -50%); z-index: 15; text-align: center; pointer-events: none; color: white;">Selamat menjalani Aktivitasmu!</h6>
     </div>
     
 
@@ -53,7 +49,7 @@
 <script>
     let captureButtonEnabled = true;
 
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('livewire:navigated', function() {
         const video = document.getElementById('cameraFeed');
         const captureButton = document.getElementById('captureButton');
         const canvas = document.getElementById('captureCanvas');

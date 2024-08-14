@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Carbon\Carbon;
 use App\Models\Status;
 use App\Models\Company;
 use App\Models\Applicant;
@@ -26,6 +27,10 @@ class AppServiceProvider extends ServiceProvider
         Schema::defaultStringLength(191);
 
         if (!$this->app->runningInConsole()) {
+            
+            config(['app.locale' => 'id']);
+	        Carbon::setLocale('id');
+
             $statuses = Status::all();
             view()->share('statuses', $statuses);
 

@@ -14,22 +14,18 @@ class HomeController extends Controller
     {
         $userId = Auth::id();
         $currentDate = Carbon::now()->toDateString();
-        $latestAttendance = Attendance::where('user_id', $userId)
-            ->latest()
-            ->first();
 
-        $clockInStatus = Attendance::where('user_id', $userId)
+        $latestClockIn = Attendance::where('user_id', $userId)
                         ->whereDate('date', $currentDate)
                         ->whereNotNull('clock_in')
                         ->exists();
 
-        $clockOutStatus = Attendance::where('user_id', $userId)
-                        ->whereDate('date', $currentDate)
-                        ->whereNotNull('clock_out')
-                        ->exists();
+        $latestAttendance = Attendance::where('user_id', $userId)
+                        ->latest()
+                        ->first();
 
 
-        return view('mobiles.home', compact('clockInStatus', 'clockOutStatus', 'latestAttendance'));
+        return view('mobiles.home', compact('latestClockIn', 'latestAttendance'));
     }
 
     public function setting()

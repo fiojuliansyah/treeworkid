@@ -5,7 +5,7 @@
     <!-- Page Title -->
     <div class="page-title page-title-small" style="position: absolute; top: 0; left: 0; width: 100%; z-index: 10; padding: 10px;">
         <h2>
-            <a href="#" data-back-button><i class="fa fa-arrow-left"></i></a>
+            <a href="{{ route('attendance.index') }}"><i class="fa fa-arrow-left"></i></a>
             <span>Clock Out</span>
         </h2>
     </div>
@@ -23,7 +23,7 @@
             <i class="fas fa-camera"></i>
         </button>
     </div>
-    <form class="form" action="{{ route('reliver.clockout.store') }}" method="POST" id="attendanceForm">
+    <form class="form" action="{{ route('clockout.store') }}" method="POST" id="attendanceForm">
         @csrf
         <input type="hidden" name="image" id="imageInput">
     </form>
@@ -47,7 +47,7 @@
 
 @push('js')
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('livewire:navigated', function() {
         const video = document.getElementById('cameraFeed');
         const captureButton = document.getElementById('captureButton');
         const canvas = document.getElementById('captureCanvas');

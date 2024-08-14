@@ -35,10 +35,15 @@
                     </div>
                     <div class="col-3 pt-2">
                         <div class="text-center">
-                            @if ($clockOutStatus)
-
+                            @if ($latestAttendance && $latestAttendance->clock_out != null)     
+                                <a href="{{ route('attendance.index') }}" class="btn rounded-xl bg-highlight">
+                                    <span style="display: block; text-align: center;">
+                                        <i class="fa fa-sign-in" style="font-size: 12px">&nbsp</i>
+                                    </span>
+                                </a>
+                                <p style="color: black">Clock In</p>
                             @else
-                                @if ($clockInStatus)
+                                @if ($latestClockIn)
                                     <a href="{{ route('attendance.index') }}" class="btn rounded-xl bg-highlight">
                                         <span style="display: block; text-align: center;">
                                             <i class="fa fa-sign-out" style="font-size: 12px">&nbsp</i>
@@ -46,59 +51,107 @@
                                     </a>
                                     <p style="color: black">Clock Out</p>
                                 @else
-                                    <a href="{{ route('attendance.index') }}" class="btn rounded-xl bg-highlight">
-                                        <span style="display: block; text-align: center;">
-                                            <i class="fa fa-sign-in" style="font-size: 12px">&nbsp</i>
-                                        </span>
-                                    </a>
-                                    <p style="color: black">Clock In</p>
+                                    @if ($latestAttendance && $latestAttendance->clock_out == null)
+                                        <a href="{{ route('attendance.index') }}" class="btn rounded-xl bg-highlight">
+                                            <span style="display: block; text-align: center;">
+                                                <i class="fa fa-sign-out" style="font-size: 12px">&nbsp</i>
+                                            </span>
+                                        </a>
+                                        <p style="color: black">Clock Out</p>
+                                    @else
+                                        <a href="{{ route('attendance.index') }}" class="btn rounded-xl bg-highlight">
+                                            <span style="display: block; text-align: center;">
+                                                <i class="fa fa-sign-in" style="font-size: 12px">&nbsp</i>
+                                            </span>
+                                        </a>
+                                        <p style="color: black">Clock In</p>
+                                    @endif
                                 @endif
                             @endif
                         </div>
                     </div>
                 </div>
+                <strong>Last Attendance</strong
+                <br>
+                <p class="mb-2">{{ $latestAttendance->date->format('d M Y') }}
+                     @if ($latestAttendance->clock_out)
+                     - 
+                     {{ $latestAttendance->clock_out->format('d M Y') }}</p>
+                     @else
+                     @endif
                 <div class="row mb-2">
                     <div class="col-6">
-                        @if ($clockInStatus)
-                        <a href="#" class="btn btn-full btn-m rounded-s text-uppercase font-900 shadow-xl bg-highlight">
-                            <span style="display: block; text-align: center;">
-                                START TIME
-                            </span>
-                            <span style="display: block; text-align: center;">
-                                {{ \Carbon\Carbon::parse($latestAttendance->clock_in)->format('H:i') ?? '- - : - -' }}
-                            </span>
-                        </a>
+                        @if ($latestClockIn)
+                            <a href="#" class="btn btn-full btn-m rounded-s text-uppercase font-900 shadow-xl
+                                @if($latestAttendance && $latestAttendance->clock_in)
+                                bg-highlight
+                                @else
+                                bg-secondary
+                                @endif
+                                ">
+                                <span style="display: block; text-align: center;">
+                                    START TIME
+                                </span>
+                                <span style="display: block; text-align: center;">
+                                    @if($latestAttendance && $latestAttendance->clock_in)
+                                    {{ $latestAttendance->clock_in->format('H:i') }}
+                                    @else
+                                        - - : - -
+                                    @endif
+                                </span>
+                            </a>
                         @else
-                        <a href="#" class="btn btn-full btn-m rounded-s text-uppercase font-900 shadow-xl bg-secondary">
-                            <span style="display: block; text-align: center;">
-                                START TIME
-                            </span>
-                            <span style="display: block; text-align: center;">
-                                - - : - -
-                            </span>
-                        </a>
+                            @if ($latestAttendance && $latestAttendance->clock_in == null)
+                                <a href="#" class="btn btn-full btn-m rounded-s text-uppercase font-900 shadow-xl bg-secondary
+                                    ">
+                                    <span style="display: block; text-align: center;">
+                                        START TIME
+                                    </span>
+                                    <span style="display: block; text-align: center;">
+                                            - - : - -
+                                    </span>
+                                </a>
+                            @else
+                                <a href="#" class="btn btn-full btn-m rounded-s text-uppercase font-900 shadow-xl
+                                    @if($latestAttendance && $latestAttendance->clock_in)
+                                    bg-highlight
+                                    @else
+                                    bg-secondary
+                                    @endif
+                                    ">
+                                    <span style="display: block; text-align: center;">
+                                        START TIME
+                                    </span>
+                                    <span style="display: block; text-align: center;">
+                                        @if($latestAttendance && $latestAttendance->clock_in)
+                                        {{ $latestAttendance->clock_in->format('H:i') }}
+                                        @else
+                                            - - : - -
+                                        @endif
+                                    </span>
+                                </a>
+                            @endif
                         @endif
                     </div>
                     <div class="col-6">
-                        @if ($clockOutStatus)
-                        <a href="#" class="btn btn-full btn-m rounded-s text-uppercase font-900 shadow-xl bg-highlight">
+                        <a href="#" class="btn btn-full btn-m rounded-s text-uppercase font-900 shadow-xl
+                            @if($latestAttendance && $latestAttendance->clock_out != null)
+                            bg-highlight
+                            @else
+                            bg-secondary
+                            @endif
+                            ">
                             <span style="display: block; text-align: center;">
                                 END TIME
                             </span>
                             <span style="display: block; text-align: center;">
-                                {{ \Carbon\Carbon::parse($latestAttendance->clock_out)->format('H:i') ?? '- - : - -' }}
+                                @if($latestAttendance && $latestAttendance->clock_out != null)
+                                {{ $latestAttendance->clock_out->format('H:i') }}
+                                @else
+                                    - - : - -
+                                @endif
                             </span>
                         </a>
-                        @else
-                        <a href="#" class="btn btn-full btn-m rounded-s text-uppercase font-900 shadow-xl bg-secondary">
-                            <span style="display: block; text-align: center;">
-                                END TIME
-                            </span>
-                            <span style="display: block; text-align: center;">
-                                - - : - -
-                            </span>
-                        </a>
-                        @endif
                     </div>
                 </div>
             </div>
@@ -110,12 +163,12 @@
         @can('attendance-module')   
             <div class="row me-0 ms-0 mb-0" style="margin-top: 20px; padding-left: 20px; padding-right: 20px">
                 <div class="col-3 ps-0 pe-0">
-                    <a href="{{ route('attendance.index') }}" class="icon-user"
+                    <a href="{{ route('attendance.logs') }}" class="icon-user"
                         style="display: flex; flex-direction: column; align-items: center; text-align: center;">
-                        <img src="https://img.icons8.com/?size=256&id=dAfquhWBFKe3&format=png" alt="" width="50px"
+                        <img src="https://img.icons8.com/?size=256&id=IYGgeCVcNuB1&format=png" alt="" width="50px"
                             style="margin-bottom: 5px; border: none; border: 1px solid #eef2f1; border-radius: 8px; padding: 10px; margin: 5px; box-sizing: border-box;">
                         <div style="display: flex; align-items: center;">
-                            <p style="margin: 0;">Presensi</p>
+                            <p style="margin: 0;">Log</p>
                         </div>
                     </a>       
                 </div>

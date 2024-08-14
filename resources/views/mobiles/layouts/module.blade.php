@@ -5,7 +5,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover" />
-<title>Azures BootStrap</title>
+<title>Treework Mobile App</title>
 <link rel="stylesheet" type="text/css" href="/assets/mobiles/styles/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="/assets/mobiles/styles/style.css">
 <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900|Roboto:300,300i,400,400i,500,500i,700,700i,900,900i&amp;display=swap" rel="stylesheet">
@@ -43,7 +43,7 @@
         </div>
 
         <script>
-            document.addEventListener('DOMContentLoaded', function() {
+            document.addEventListener('livewire:navigated', function() {
                 var toastElement = document.getElementById('notification-1');
                 if (toastElement) {
                     var toast = new bootstrap.Toast(toastElement, {
@@ -86,9 +86,9 @@
         data-menu-effect="menu-parallax">
         <div class="boxed-text-l mt-4">
             <img class="rounded-l mb-3" src="/assets/mobiles/app/icons/icon-128x128.png" alt="img" width="90">
-            <h4 class="mt-3">Azures on your Home Screen</h4>
+            <h4 class="mt-3">Treework on your Home Screen</h4>
             <p>
-                Install Azures on your home screen, and access it just like a regular app. It really is that simple!
+                Install Treework on your home screen, and access it just like a regular app. It really is that simple!
             </p>
             <a href="#" class="pwa-install btn btn-s rounded-s shadow-l text-uppercase font-900 bg-highlight mb-2">Add to Home Screen</a><br>
             <a href="#" class="pwa-dismiss close-menu color-gray2-light text-uppercase font-900 opacity-60 font-10">Maybe later</a>

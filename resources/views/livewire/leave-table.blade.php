@@ -96,7 +96,7 @@
                     <td>{{ $leave->start_date }}</td>
                     <td>{{ $leave->end_date }}</td>
                     <td>{{ $leave->user->name ?? 'N/A' }}</td>
-                    <td>{{ $leave->type }}</td>
+                    <td>{{ $leave->type['name'] }}</td>
                     <td>{{ $leave->reason }}</td>
                     <td class="text-end">
                         <a href="#" class="btn btn-light btn-active-light-primary btn-flex btn-center btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
@@ -148,7 +148,7 @@
                                 </div>
                             </div>
                             <div class="modal-body px-5 my-7">
-                                <form class="form" action="{{ route('leaves.update', ['leave' => $leave->id]) }}" method="POST">
+                                <form class="form" action="{{ route('leaves.update', $leave->id) }}" method="POST">
                                     @method('PUT')
                                     @csrf
                                     <div class="d-flex flex-column scroll-y px-5 px-lg-10" id="kt_modal_edit_leave_scroll" data-kt-scroll="true" data-kt-scroll-activate="true" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_edit_leave_header" data-kt-scroll-wrappers="#kt_modal_edit_leave_scroll" data-kt-scroll-offset="300px">

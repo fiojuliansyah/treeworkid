@@ -23,7 +23,7 @@
             <i class="fas fa-camera"></i>
         </button>
     </div>
-    <form class="form" action="{{ route('clockout.store') }}" method="POST" id="attendanceForm">
+    <form class="form" action="{{ route('reliver.clockout.store') }}" method="POST" id="attendanceForm">
         @csrf
         <input type="hidden" name="image" id="imageInput">
     </form>

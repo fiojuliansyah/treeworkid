@@ -20,21 +20,42 @@ class MAttendanceController extends Controller
             ->latest()
             ->first();
 
-        $clockInStatus = Attendance::where('user_id', $userId)
-                        ->whereDate('date', $currentDate)
-                        ->whereNotNull('clock_in')
-                        ->exists();
+        $latestClockIn = Attendance::where('user_id', $userId)
+            ->whereDate('date', $currentDate)
+            ->whereNotNull('clock_in')
+            ->exists();
 
-        $clockOutStatus = Attendance::where('user_id', $userId)
-                        ->whereDate('date', $currentDate)
-                        ->whereNotNull('clock_out')
-                        ->exists();
+        $latestClockOut = Attendance::where('user_id', $userId)
+            ->whereDate('date', $currentDate)
+            ->whereNotNull('clock_out')
+            ->exists();
 
         $logs = Attendance::where('user_id', $userId)
                         ->orderBy('date', 'desc') 
                         ->paginate(1); 
 
-        return view('mobiles.attendances.index', compact('clockInStatus', 'clockOutStatus', 'latestAttendance', 'logs', 'title'));
+        return view('mobiles.attendances.index', compact('latestClockIn', 'latestClockOut', 'latestAttendance', 'logs', 'title'));
+    }
+
+    public function timeOff(Request $request)
+    {
+        $user = Auth::user();
+
+        $dateNow = Carbon::now()->toDateString();
+        $timeNow = Carbon::now()->toTimeString();
+
+        $attendance = new Attendance;
+        $attendance->date = $dateNow;
+        $attendance->user_id = $user->id;
+        $attendance->site_id = $user->site_id;
+        $attendance->clock_in = $timeNow;
+        $attendance->clock_out = $timeNow;
+        $attendance->type = 'shift_off';
+
+        $attendance->save();
+
+        return redirect()->route('mobile.home')
+                         ->with('success', 'Attendance recorded successfully.');
     }
 
     public function clockin()
@@ -74,7 +95,7 @@ class MAttendanceController extends Controller
 
         $attendance->save();
 
-        return redirect()->route('attendance.index')
+        return redirect()->route('mobile.home')
                          ->with('success', 'Attendance recorded successfully.');
     }
 
@@ -115,8 +136,18 @@ class MAttendanceController extends Controller
             $lastAttendance->save();
         }
 
-        return redirect()->route('attendance.index')
+        return redirect()->route('mobile.home')
                          ->with('success', 'Attendance recorded successfully.');
+    }
+
+    public function logs()
+    {
+        $userId = Auth::id();
+        $logs = Attendance::where('user_id', $userId)
+                           ->where('created_at', '>=', now()->subDays(7))
+                           ->orderBy('created_at', 'DESC')
+                           ->get();
+        return view('mobiles.attendances.logs', compact('logs'));
     }
 }
 

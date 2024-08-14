@@ -18,34 +18,39 @@
     <div class="content" style="margin-top: 360px">
         <div class="row">
             <div class="col-2 pt-2">
-                <a href="{{ route('attendance.index') }}" class="btn rounded-xl bg-green-dark">
+                <a href="{{ route('reliver.index') }}" class="btn rounded-xl bg-green-dark">
                     <span style="display: block; text-align: center;">
                         <i class="fa fa-sign-in" style="font-size: 12px">&nbsp</i>
                     </span>
                 </a>
             </div>
-            <div class="col-10">
+            <div class="col-8">
                 <strong id="date" style="color: black"></strong>
                 <br>
                 <strong id="clock"></strong>
             </div>
+            <div class="col-2 pt-2">
+                <a href="#" onclick="refreshMap()" class="btn rounded-xl bg-yellow-dark">
+                    <span style="display: block; text-align: center;">
+                        <i class="fas fa-map-marker-alt" style="font-size: 12px"></i>
+                    </span>
+                </a>
+            </div>
+        </div>
             @if ($clockInStatus)
                 
             @else
-            <div class="mt-4">
-                <div class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
-                    <select name="site_id" class="form-select">
-                        <option value="default" disabled selected>pilih</option>
-                        @foreach ($sites as $site)    
-                            <option value="{{ $site->id }}"  {{ $user->site_id == $site->id ? 'selected' : '' }}>{{ $site->name }}</option>
-                        @endforeach
-                    </select>
-                    <label for="form2" class="color-highlight font-400 font-13">Pilih Lokasi</label>
-                    <em><i class="fa fa-angle-down"></i></em>
-                </div>
+            <div class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
+                <select name="site_id" class="form-select">
+                    <option value="default" disabled selected>pilih</option>
+                    @foreach ($sites as $site)    
+                        <option value="{{ $site->id }}"  {{ $user->site_id == $site->id ? 'selected' : '' }}>{{ $site->name }}</option>
+                    @endforeach
+                </select>
+                <label for="form2" class="color-highlight font-400 font-13">Pilih Lokasi</label>
+                <em><i class="fa fa-angle-down"></i></em>
             </div>
             @endif
-        </div>
         <div style="border: 1px solid #eef2f1; border-radius: 8px; padding: 10px; box-sizing: border-box;">
             <h5 class="font-16 font-500">Mode Reliver</h5>
             @if ($clockInStatus)
@@ -162,6 +167,7 @@
 @endsection
 
 @push('js')
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         document.querySelector('select[name="site_id"]').addEventListener('change', function() {
@@ -210,138 +216,79 @@
         function getServerTime() {
             return $.ajax({ async: false }).getResponseHeader('Date');
         }
-
+    
         function realtimeClock() {
             var rtClock = new Date();
-
+    
             var hours = rtClock.getHours();
             var minutes = rtClock.getMinutes();
             var seconds = rtClock.getSeconds();
             var day = rtClock.toLocaleDateString('id-ID', { weekday: 'long' });
             var date = rtClock.toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' });
-
+    
             hours = ("0" + hours).slice(-2);
             minutes = ("0" + minutes).slice(-2);
             seconds = ("0" + seconds).slice(-2);
-
+    
             document.getElementById("clock").innerHTML =
                 hours + " : " + minutes + " : " + seconds;
             document.getElementById("date").innerHTML =
                 day + ", " + date;
-
+    
             var jamnya = setTimeout(realtimeClock, 500);
         }
         window.onload = function() {
             realtimeClock();
         };
     </script>
-   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-   <script>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        var map;
+        var userLat = @json(Auth::user()->site['lat']);
+        var userLong = @json(Auth::user()->site['long']);
+        var radius = @json(Auth::user()->site['radius']);
+        var mobileDepartment = @json(Auth::user()->department_id);
+    
         function geoLocate() {
             const locationCoordinates = document.querySelector('.location-coordinates');
             const clockInButton = document.querySelectorAll('.clock-in-btn');
             const clockOutButton = document.querySelectorAll('.clock-out-btn');
             const disableButton = document.querySelectorAll('.bg-highlight');
-            const userLat = @json(Auth::user()->site['lat']);
-            const userLong = @json(Auth::user()->site['long']);
-            const radius = @json(Auth::user()->site['radius']);
-            const mobileDepartment = @json(Auth::user()->department_id);
-
+    
             function success(position) {
                 const latitude = position.coords.latitude;
                 const longitude = position.coords.longitude;
                 locationCoordinates.innerHTML = '<strong>Longitude:</strong> ' + longitude + '<br><strong>Latitude:</strong> ' + latitude;
-
-                const map = L.map('map', {
-                zoomControl: false 
-                }).setView([latitude, longitude], 16);
-
-                L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
-                    maxZoom: 20,
-                    subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
-                }).addTo(map);
-
-                L.control.zoom({
-                position: 'bottomright'
-                }).addTo(map);
-
-                if (mobileDepartment == '2') {
-                    const customIcon = L.icon({
-                        iconUrl: 'https://img.icons8.com/?size=256&id=114446&format=png',
-                        iconSize: [48],
-                        iconAnchor: [16, 32],
-                        popupAnchor: [0, -32]
-                    });
-
-                    L.marker([latitude, longitude], { icon: customIcon }).addTo(map)
-                        .bindPopup('Status absensi anda bisa dimana saja!')
-                        .openPopup();
-
-                } else {
-                    const customIcon = L.icon({
-                        iconUrl: 'https://img.icons8.com/?size=256&id=13783&format=png',
-                        iconSize: [48],
-                        iconAnchor: [16, 32],
-                        popupAnchor: [0, -32]
-                    });
-
-                    L.marker([latitude, longitude], { icon: customIcon }).addTo(map)
-                        .bindPopup('Pastikan anda dalam radius absen!')
-                        .openPopup();
-
-                    L.circle([userLat, userLong], {
-                        color: 'red',
-                        fillColor: '#f03',
-                        fillOpacity: 0.5,
-                        radius: radius
+    
+                if (!map) {
+                    map = L.map('map', {
+                        zoomControl: false
+                    }).setView([latitude, longitude], 16);
+    
+                    L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+                        maxZoom: 20,
+                        subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
                     }).addTo(map);
+    
+                    // Add initial marker and circle
+                    addMapMarkersAndCircles(latitude, longitude);
+    
+                } else {
+                    // Update map view without recreating the map
+                    map.setView([latitude, longitude], 16);
+                    updateMapMarkersAndCircles(latitude, longitude);
                 }
-
+    
                 const distance = haversineDistance(latitude, longitude, userLat, userLong) * 1000;
-
-                clockInButton.forEach(button => {
-                    if (mobileDepartment == '2' || distance <= radius) {
-                        button.classList.remove('btn-secondary');
-                        button.classList.add('bg-highlight');
-                        button.style.pointerEvents = 'auto';
-                    } else {
-                        button.classList.remove('bg-highlight');
-                        button.classList.add('btn-secondary');
-                        button.style.pointerEvents = 'none';
-                    }
-                });
-
-                clockInButton.forEach(button => {
-                    if (mobileDepartment == '2' || distance <= radius) {
-                        button.classList.remove('btn-secondary');
-                        button.classList.add('bg-highlight');
-                        button.style.pointerEvents = 'auto';
-                    } else {
-                        button.classList.remove('bg-highlight');
-                        button.classList.add('btn-secondary');
-                        button.style.pointerEvents = 'none';
-                    }
-                });
-
-                disableButton.forEach(button => {
-                    if (mobileDepartment == '2' || distance <= radius) {
-                        button.classList.remove('btn-secondary');
-                        button.classList.add('bg-highlight');
-                        button.style.pointerEvents = 'auto';
-                    } else {
-                        button.classList.remove('bg-highlight');
-                        button.classList.add('btn-secondary');
-                        button.style.pointerEvents = 'none';
-                    }
-                });
-
+    
+                updateButtonStates(distance);
                 document.querySelector('.get-location').setAttribute('href', `https://www.google.com/maps?q=${latitude},${longitude}&z=16`);
             }
-
+    
             function error() {
                 locationCoordinates.textContent = 'Unable to retrieve your location';
             }
-
+    
             if (!navigator.geolocation) {
                 locationCoordinates.textContent = 'Geolocation is not supported by your browser';
             } else {
@@ -349,9 +296,91 @@
                 navigator.geolocation.getCurrentPosition(success, error);
             }
         }
-
+    
+        function addMapMarkersAndCircles(lat, lon) {
+            if (mobileDepartment == '2') {
+                const customIcon = L.icon({
+                    iconUrl: 'https://img.icons8.com/?size=256&id=114446&format=png',
+                    iconSize: [48],
+                    iconAnchor: [16, 32],
+                    popupAnchor: [0, -32]
+                });
+                L.marker([lat, lon], { icon: customIcon }).addTo(map)
+                    .bindPopup('Status absensi anda bisa dimana saja!')
+                    .openPopup();
+            } else {
+                const customIcon = L.icon({
+                    iconUrl: 'https://img.icons8.com/?size=256&id=13783&format=png',
+                    iconSize: [48],
+                    iconAnchor: [16, 32],
+                    popupAnchor: [0, -32]
+                });
+                L.marker([lat, lon], { icon: customIcon }).addTo(map)
+                    .bindPopup('Pastikan anda dalam radius absen!')
+                    .openPopup();
+    
+                L.circle([userLat, userLong], {
+                    color: 'red',
+                    fillColor: '#f03',
+                    fillOpacity: 0.5,
+                    radius: radius
+                }).addTo(map);
+            }
+        }
+    
+        function updateMapMarkersAndCircles(lat, lon) {
+            map.eachLayer(function (layer) {
+                if (layer instanceof L.Marker || layer instanceof L.Circle) {
+                    map.removeLayer(layer);
+                }
+            });
+            addMapMarkersAndCircles(lat, lon);
+        }
+    
+        function updateButtonStates(distance) {
+            const clockInButton = document.querySelectorAll('.clock-in-btn');
+            const clockOutButton = document.querySelectorAll('.clock-out-btn');
+            const disableButton = document.querySelectorAll('.bg-highlight');
+    
+            clockInButton.forEach(button => {
+                if (mobileDepartment == '2' || distance <= radius) {
+                    button.classList.remove('btn-secondary');
+                    button.classList.add('bg-highlight');
+                    button.style.pointerEvents = 'auto';
+                } else {
+                    button.classList.remove('bg-highlight');
+                    button.classList.add('btn-secondary');
+                    button.style.pointerEvents = 'none';
+                }
+            });
+    
+            clockOutButton.forEach(button => {
+                if (mobileDepartment == '2' || distance <= radius) {
+                    button.classList.remove('btn-secondary');
+                    button.classList.add('bg-highlight');
+                    button.style.pointerEvents = 'auto';
+                } else {
+                    button.classList.remove('bg-highlight');
+                    button.classList.add('btn-secondary');
+                    button.style.pointerEvents = 'none';
+                }
+            });
+    
+            disableButton.forEach(button => {
+                if (mobileDepartment == '2' || distance <= radius) {
+                    button.classList.remove('btn-secondary');
+                    button.classList.add('bg-highlight');
+                    button.style.pointerEvents = 'auto';
+                } else {
+                    button.classList.remove('bg-highlight');
+                    button.classList.add('btn-secondary');
+                    button.style.pointerEvents = 'none';
+                }
+            });
+        }
+    
         function haversineDistance(lat1, lon1, lat2, lon2) {
-            const R = 6371; // Radius of the Earth in km
+            const R = 6371;
             const dLat = (lat2 - lat1) * (Math.PI / 180);
             const dLon = (lon2 - lon1) * (Math.PI / 180);
             const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
@@ -360,9 +389,13 @@
             const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
             return R * c;
         }
-
+    
         document.addEventListener('DOMContentLoaded', function() {
             geoLocate();
         });
+    
+        function refreshMap() {
+            geoLocate();
+        }
     </script>
 @endpush

@@ -109,10 +109,12 @@ Route::middleware('auth')->prefix('mobile')->group(function () {
     Route::post('/esign/update', [MProfileController::class, 'updateEsign'])->name('mobile.update.esign');
 
     Route::get('/attendance', [MAttendanceController::class, 'index'])->name('attendance.index');
+    Route::get('/attendance/logs', [MAttendanceController::class, 'logs'])->name('attendance.logs');
     Route::get('/attendance/clockin', [MAttendanceController::class, 'clockin'])->name('attendance.clockin');
     Route::post('/attendance/clockin', [MAttendanceController::class, 'clockinStore'])->name('clockin.store');
     Route::get('/attendance/clockout', [MAttendanceController::class, 'clockout'])->name('attendance.clockout');
     Route::post('/attendance/clockout', [MAttendanceController::class, 'clockoutStore'])->name('clockout.store');
+    Route::post('/attendance/off', [MAttendanceController::class, 'timeOff'])->name('attendance.off');
 
     Route::get('/overtime', [MOvertimeController::class, 'index'])->name('overtime.index');
     Route::post('/overtime/clockin', [MOvertimeController::class, 'clockinStore'])->name('overtime.clockin');

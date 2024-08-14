@@ -99,12 +99,24 @@
                             <input class="form-check-input" type="checkbox" value="1" />
                         </div>
                     </td>
-                    <td>{{ $attendance->date }}</td>
+                    <td>{{ $attendance->date->format('d-M-Y') }}</td>
                     <td>{{ $attendance->latlong }}</td>
                     <td>{{ $attendance->user->name ?? 'N/A' }}</td>
                     <td>{{ $attendance->site->name ?? 'N/A' }}</td>
-                    <td>{{ $attendance->clock_in }}</td>
-                    <td>{{ $attendance->clock_out }}</td>
+                    <td>
+                        @if($attendance->clock_in)
+                                {{ $attendance->clock_in->format('H:i') }}
+                        @else
+                            {{ '' }}
+                        @endif
+                    </td>
+                    <td>
+                        @if($attendance->clock_out)
+                                {{ $attendance->clock_out->format('H:i') }}
+                        @else
+                            {{ '' }}
+                        @endif
+                    </td>
                     <td>
                         @if ($attendance->overtimes)
                             @foreach ($attendance->overtimes as $overtime)    
