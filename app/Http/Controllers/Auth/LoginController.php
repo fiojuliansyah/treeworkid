@@ -5,11 +5,13 @@ namespace App\Http\Controllers\Auth;
 use Jenssegers\Agent\Agent;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 
 class LoginController extends Controller
 {
+    use AuthenticatesUsers;
 
     protected $redirectTo = '/';
 
@@ -20,14 +22,11 @@ class LoginController extends Controller
 
     public function showLoginForm()
     {
-        $agent = new Agent();
-
         if (Auth::check()) {
-            if ($agent->isMobile()) {
-                return redirect()->route('mobile.home');
-            }
-            return redirect()->route('mobile.home');
+            return redirect()->intended($this->redirectTo);
         }
+
+        $agent = new Agent();
 
         if ($agent->isMobile()) {
             return view('mobiles.auth.login');
@@ -65,22 +64,39 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
-        return redirect()->route('mobile.home');
-    }
-    
-
-    public function logout(Request $request)
-    {
-        $this->guard()->logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
         $agent = new Agent();
 
         if ($agent->isMobile()) {
+            if (!$user->can('view-mobile')) {
+                return redirect('/');
+            }
+            return redirect()->route('mobile.home');
+        } elseif ($agent->isDesktop()) {
+            if (!$user->can('view-desktop')) {
+                return redirect('/');
+            }
+            return redirect()->intended($this->redirectTo);
+        } else {
+            if (!$user->can('view-desktop')) {
+                return redirect('/');
+            }
+            return redirect()->intended($this->redirectTo);
+        }
+    }
+
+    public function logout(Request $request)
+    {
+        $guard = $this->guard();
+        
+        $guard->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+    
+        if ((new Agent())->isMobile()) {
             return redirect()->route('mobile.walkthrough');
         }
-
+    
         return redirect('/welcome');
     }
+    
 }
