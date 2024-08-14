@@ -13,7 +13,7 @@ class LoginController extends Controller
 {
     use AuthenticatesUsers;
 
-    protected $redirectTo = '/moble/home';
+    protected $redirectTo = '/';
 
     public function __construct()
     {
@@ -72,7 +72,7 @@ class LoginController extends Controller
 
         if ($agent->isMobile()) {
             if (!$user->can('view-mobile')) {
-                return redirect('/');
+                return redirect()->route('mobile.home');
             }
             return redirect()->route('mobile.home');
         } elseif ($agent->isDesktop()) {
