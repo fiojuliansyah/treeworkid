@@ -39,27 +39,27 @@ class AdminSeeder extends Seeder
         echo "Admin Token: " . $adminToken . "\n";
 
         // Create Dummy Users
-        $userDummy = User::create([
-            'name' => 'Dummy user', 
-            'email' => 'dummy@gmail.com',
-            'nik' => '326122166523423',
-            'phone' => '0812142208258',
-            'leader_id' => '3',
-            'password' => bcrypt('password')
-        ]);
+        // $userDummy = User::create([
+        //     'name' => 'Dummy user', 
+        //     'email' => 'dummy@gmail.com',
+        //     'nik' => '326122166523423',
+        //     'phone' => '0812142208258',
+        //     'leader_id' => '3',
+        //     'password' => bcrypt('password')
+        // ]);
 
-        $dummyToken = $userDummy->createToken('DummyToken')->plainTextToken;
-        echo "Dummy Token: " . $dummyToken . "\n";
+        // $dummyToken = $userDummy->createToken('DummyToken')->plainTextToken;
+        // echo "Dummy Token: " . $dummyToken . "\n";
 
-        $userDummy2 = User::create([
-            'name' => 'Dummy user 2', 
-            'email' => 'dummy2@gmail.com',
-            'nik' => '32612298877',
-            'phone' => '0812234234',
-            'password' => bcrypt('password')
-        ]);
+        // $userDummy2 = User::create([
+        //     'name' => 'Dummy user 2', 
+        //     'email' => 'dummy2@gmail.com',
+        //     'nik' => '32612298877',
+        //     'phone' => '0812234234',
+        //     'password' => bcrypt('password')
+        // ]);
 
-        $dummy2Token = $userDummy2->createToken('Dummy2Token')->plainTextToken;
-        echo "Dummy 2 Token: " . $dummy2Token . "\n";
+        // $dummy2Token = $userDummy2->createToken('Dummy2Token')->plainTextToken;
+        // echo "Dummy 2 Token: " . $dummy2Token . "\n";
     }
 }
