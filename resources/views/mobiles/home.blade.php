@@ -80,7 +80,10 @@
                 @else
                     <strong>Last Attendance</strong
                     <br>
-                    <p class="mb-2">{{ $latestAttendance->date->format('d M Y') }}
+                    <p class="mb-2">
+                        @if($latestAttendance && $latestAttendance->date)
+                        {{ $latestAttendance->date->format('d M Y') }}
+                        @endif
                         @if ($latestAttendance->clock_out)
                         - 
                         {{ $latestAttendance->clock_out->format('d M Y') }}</p>
