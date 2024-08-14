@@ -66,7 +66,6 @@ class MProfileController extends Controller
         }
     
         $data += [
-            'employee_nik' => $request->employee_nik,
             'address' => $request->address,
             'gender' => $request->gender,
             'birth_place' => $request->birth_place,

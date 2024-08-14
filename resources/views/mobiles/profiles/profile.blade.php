@@ -19,7 +19,7 @@
             <img id="image-preview" src="{{ $user->profile['avatar_url'] ?? '/assets/mobiles/images/empty.png' }}" alt="Preview" class="preload-img img-fluid bottom-20 mt-3">
         </div>
         <div class="input-style has-borders hnoas-icon input-style-always-active mb-4">
-            <input type="name" name="employee_nik" class="form-control" value="{{ $user->profile['employee_nik'] ?? '' }}" disabled>
+            <input type="name" name="employee_nik" class="form-control" value="{{ $user->employee_nik ?? '' }}" disabled>
             <label for="form1" class="color-highlight font-400 font-13">NIK Karyawan</label>
         </div>
         <div class="input-style has-borders hnoas-icon input-style-always-active mb-4">
