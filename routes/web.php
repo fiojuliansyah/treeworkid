@@ -22,6 +22,7 @@ use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\mobile\HomeController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\mobile\MLeaveController;
 use App\Http\Controllers\mobile\MMinuteController;
 use App\Http\Controllers\mobile\MProfileController;
@@ -39,6 +40,8 @@ Route::get('/account/tab-document-detail', [DashboardController::class, 'indexDo
 Route::middleware('guest')->group(function () {
     Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
     Route::post('login', [LoginController::class, 'login']);
+    Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+    Route::post('register', [RegisterController::class, 'register']);
 });
 Route::post('/logout', [LoginController::class, 'logout'])->middleware('web')->name('logout');
 
