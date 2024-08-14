@@ -71,47 +71,24 @@
                         </div>
                     </div>
                 </div>
-                <strong>Last Attendance</strong
-                <br>
-                <p class="mb-2">{{ $latestAttendance->date->format('d M Y') }}
-                     @if ($latestAttendance->clock_out)
-                     - 
-                     {{ $latestAttendance->clock_out->format('d M Y') }}</p>
-                     @else
-                     @endif
-                <div class="row mb-2">
-                    <div class="col-6">
-                        @if ($latestClockIn)
-                            <a href="#" class="btn btn-full btn-m rounded-s text-uppercase font-900 shadow-xl
-                                @if($latestAttendance && $latestAttendance->clock_in)
-                                bg-highlight
-                                @else
-                                bg-secondary
-                                @endif
-                                ">
-                                <span style="display: block; text-align: center;">
-                                    START TIME
-                                </span>
-                                <span style="display: block; text-align: center;">
-                                    @if($latestAttendance && $latestAttendance->clock_in)
-                                    {{ $latestAttendance->clock_in->format('H:i') }}
-                                    @else
-                                        - - : - -
-                                    @endif
-                                </span>
-                            </a>
+                @if ($latestAttendance->type == 'shift_off')
+                <a href="#" class="btn btn-full btn-m rounded-s text-uppercase font-900 shadow-xl bg-red-dark">
+                    <span style="display: block; text-align: center;">
+                        LIBUR
+                    </span>
+                </a>
+                @else
+                    <strong>Last Attendance</strong
+                    <br>
+                    <p class="mb-2">{{ $latestAttendance->date->format('d M Y') }}
+                        @if ($latestAttendance->clock_out)
+                        - 
+                        {{ $latestAttendance->clock_out->format('d M Y') }}</p>
                         @else
-                            @if ($latestAttendance && $latestAttendance->clock_in == null)
-                                <a href="#" class="btn btn-full btn-m rounded-s text-uppercase font-900 shadow-xl bg-secondary
-                                    ">
-                                    <span style="display: block; text-align: center;">
-                                        START TIME
-                                    </span>
-                                    <span style="display: block; text-align: center;">
-                                            - - : - -
-                                    </span>
-                                </a>
-                            @else
+                        @endif
+                    <div class="row mb-2">
+                        <div class="col-6">
+                            @if ($latestClockIn)
                                 <a href="#" class="btn btn-full btn-m rounded-s text-uppercase font-900 shadow-xl
                                     @if($latestAttendance && $latestAttendance->clock_in)
                                     bg-highlight
@@ -130,30 +107,61 @@
                                         @endif
                                     </span>
                                 </a>
-                            @endif
-                        @endif
-                    </div>
-                    <div class="col-6">
-                        <a href="#" class="btn btn-full btn-m rounded-s text-uppercase font-900 shadow-xl
-                            @if($latestAttendance && $latestAttendance->clock_out != null)
-                            bg-highlight
                             @else
-                            bg-secondary
-                            @endif
-                            ">
-                            <span style="display: block; text-align: center;">
-                                END TIME
-                            </span>
-                            <span style="display: block; text-align: center;">
-                                @if($latestAttendance && $latestAttendance->clock_out != null)
-                                {{ $latestAttendance->clock_out->format('H:i') }}
+                                @if ($latestAttendance && $latestAttendance->clock_in == null)
+                                    <a href="#" class="btn btn-full btn-m rounded-s text-uppercase font-900 shadow-xl bg-secondary
+                                        ">
+                                        <span style="display: block; text-align: center;">
+                                            START TIME
+                                        </span>
+                                        <span style="display: block; text-align: center;">
+                                                - - : - -
+                                        </span>
+                                    </a>
                                 @else
-                                    - - : - -
+                                    <a href="#" class="btn btn-full btn-m rounded-s text-uppercase font-900 shadow-xl
+                                        @if($latestAttendance && $latestAttendance->clock_in)
+                                        bg-highlight
+                                        @else
+                                        bg-secondary
+                                        @endif
+                                        ">
+                                        <span style="display: block; text-align: center;">
+                                            START TIME
+                                        </span>
+                                        <span style="display: block; text-align: center;">
+                                            @if($latestAttendance && $latestAttendance->clock_in)
+                                            {{ $latestAttendance->clock_in->format('H:i') }}
+                                            @else
+                                                - - : - -
+                                            @endif
+                                        </span>
+                                    </a>
                                 @endif
-                            </span>
-                        </a>
+                            @endif
+                        </div>
+                        <div class="col-6">
+                            <a href="#" class="btn btn-full btn-m rounded-s text-uppercase font-900 shadow-xl
+                                @if($latestAttendance && $latestAttendance->clock_out != null)
+                                bg-highlight
+                                @else
+                                bg-secondary
+                                @endif
+                                ">
+                                <span style="display: block; text-align: center;">
+                                    END TIME
+                                </span>
+                                <span style="display: block; text-align: center;">
+                                    @if($latestAttendance && $latestAttendance->clock_out != null)
+                                    {{ $latestAttendance->clock_out->format('H:i') }}
+                                    @else
+                                        - - : - -
+                                    @endif
+                                </span>
+                            </a>
+                        </div>
                     </div>
-                </div>
+                @endif
             </div>
         </div>
         {{-- <div class="content" style="margin-top: 60px">

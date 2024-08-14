@@ -6,8 +6,10 @@ use App\Models\Site;
 use App\Models\User;
 use App\Models\Document;
 use Illuminate\Http\Request;
+use App\Imports\EmployeeImport;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
+use Maatwebsite\Excel\Facades\Excel;
 use Spatie\Activitylog\Models\Activity;
 
 class UserController extends Controller
@@ -148,5 +150,11 @@ class UserController extends Controller
         User::find($id)->delete();
         return redirect()->back()
                         ->with('success', 'Berhasil Dihapus');
+    }
+
+    public function import(Request $request)
+    {
+        Excel::import(new EmployeeImport, $request->file('file')->store('files'));
+        return redirect()->back();
     }
 }

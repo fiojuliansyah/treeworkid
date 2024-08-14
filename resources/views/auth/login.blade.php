@@ -65,7 +65,7 @@
 										</span>
 									@enderror
 									<div class="fv-row mb-8">
-										<input type="text" placeholder="Email" name="email" autocomplete="off" class="form-control bg-transparent" />
+										<input type="text" placeholder="Email atau Employee NIK" name="login" autocomplete="off" class="form-control bg-transparent" />
 									</div>
 									@error('password')
 										<span class="text-danger">

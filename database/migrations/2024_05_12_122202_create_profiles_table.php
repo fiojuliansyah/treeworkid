@@ -19,7 +19,6 @@ return new class extends Migration
             $table->longText('avatar_encode')->nullable();
             $table->string('esign_url')->nullable();
             $table->string('esign_public_id')->nullable();
-            $table->string('employee_nik')->nullable();
             $table->string('gender')->nullable();
             $table->string('birth_place')->nullable();
             $table->string('birth_date')->nullable();
@@ -27,7 +26,6 @@ return new class extends Migration
             $table->string('npwp_number')->nullable();
             $table->string('marriage_status')->nullable();
             $table->text('address')->nullable();
-            $table->string('employee_status')->nullable();
             $table->string('join_date')->nullable();
             $table->string('resign_date')->nullable();
             $table->string('bank_name')->nullable();

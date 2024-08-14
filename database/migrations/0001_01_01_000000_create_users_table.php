@@ -18,6 +18,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('nik')->nullable();
+            $table->string('employee_nik')->unique()->nullable();
             $table->string('phone')->nullable();
             $table->string('site_id')->nullable();
             $table->string('leader_id')->nullable();

@@ -26,6 +26,11 @@ class User extends Authenticatable
         'password',
         'site_id',
         'leader_id',
+        'nik',
+        'phone',
+        'employee_nik',
+        'department_id',
+        'is_employee',
     ];
 
     public function getActivitylogOptions(): LogOptions

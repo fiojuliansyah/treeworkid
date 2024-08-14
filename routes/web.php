@@ -74,6 +74,7 @@ Route::middleware('auth')->prefix('manage')->group(function () {
     
     Route::post('/users/personal-data/{id}',[UserController::class, 'updatePersonalData'])->name('personal-data-user');
     Route::post('/users/site-zone/{id}',[UserController::class, 'updateSiteZone'])->name('site-zone-user');
+    Route::post('/users/import',[UserController::class,'import'])->name('import-user');
     Route::get('/profile/{id}/tab-resume-detail', [UserController::class, 'indexResume'])->name('user-resume');
     Route::get('/profile/{id}/tab-account-detail', [UserController::class, 'indexAccount'])->name('user-account');
     Route::get('/profile/{id}/tab-profile-detail', [UserController::class, 'indexProfile'])->name('user-profile');

@@ -6,6 +6,7 @@ use Jenssegers\Agent\Agent;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 
 class LoginController extends Controller
@@ -33,13 +34,28 @@ class LoginController extends Controller
     protected function validateLogin(Request $request)
     {
         $request->validate([
-            $this->username() => 'required|string|email|max:255',
+            'login' => 'required|string|max:255',
             'password' => 'required|string',
         ], [
             'required' => 'Kolom :attribute wajib diisi.',
-            'email' => 'Kolom :attribute harus berupa alamat email yang valid.',
             'string' => 'Kolom :attribute harus berupa teks.',
         ]);
+    }
+
+    public function username()
+    {
+        $login = request()->input('login');
+
+        $field = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'employee_nik';
+
+        request()->merge([$field => $login]);
+
+        return $field;
+    }
+
+    protected function credentials(Request $request)
+    {
+        return $request->only($this->username(), 'password');
     }
 
     protected function authenticated(Request $request, $user)
@@ -47,26 +63,20 @@ class LoginController extends Controller
         $agent = new Agent();
 
         if ($agent->isMobile()) {
-
             if (!$user->can('view-mobile')) {
                 return redirect('/');
             }
             return redirect()->route('mobile.home');
-
         } elseif ($agent->isDesktop()) {
-
             if (!$user->can('view-desktop')) {
                 return redirect('/');
             }
             return redirect()->intended($this->redirectTo);
-
         } else {
-
             if (!$user->can('view-desktop')) {
                 return redirect('/');
             }
             return redirect()->intended($this->redirectTo);
-
         }
     }
 
@@ -74,13 +84,8 @@ class LoginController extends Controller
     {
         $agent = new Agent();
 
-        // Log out the user
         $this->guard()->logout();
-
-        // Invalidate the session
         $request->session()->invalidate();
-
-        // Regenerate the CSRF token
         $request->session()->regenerateToken();
 
         if ($agent->isMobile()) {
@@ -90,3 +95,4 @@ class LoginController extends Controller
         return redirect('/welcome');
     }
 }
+
