@@ -118,6 +118,23 @@
                                 </div>
                                 <div class="row mb-6">
                                     <label class="col-lg-4 col-form-label fw-semibold fs-6">
+                                        <span class="required">Pilih Site</span>
+                                        <span class="ms-1" data-bs-toggle="tooltip">
+                                            <i class="ki-outline ki-information-5 text-gray-500 fs-6"></i>
+                                        </span>
+                                    </label>
+                                    <div class="col-lg-8 fv-row">
+                                        <select class="form-select form-control-lg form-control-solid" name="site_id" data-placeholder="Select an option">
+                                            @foreach($sites as $site)
+                                                <option value="{{ $site->id }}" {{ $site->id == $user->site_id ? 'selected' : '' }}>
+                                                    {{ $site->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mb-6">
+                                    <label class="col-lg-4 col-form-label fw-semibold fs-6">
                                         <span class="required">Pilih Jabatan</span>
                                         <span class="ms-1" data-bs-toggle="tooltip" title="bisa Pilih Lebih dari 1 Jabatan">
                                             <i class="ki-outline ki-information-5 text-gray-500 fs-6"></i>
