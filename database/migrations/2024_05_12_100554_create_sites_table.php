@@ -19,6 +19,9 @@ return new class extends Migration
             $table->string('lat')->nullable();
             $table->string('long')->nullable();
             $table->string('radius')->nullable();
+            $table->string('client_name')->nullable();
+            $table->string('client_phone')->nullable();
+            $table->string('client_email')->nullable();
             $table->timestamps();
         });
     }

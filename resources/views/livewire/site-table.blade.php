@@ -67,6 +67,28 @@
                                         <label class="required fw-semibold fs-6 mb-2">Radius</label>
                                         <input type="text" name="radius" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="100"/>
                                     </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="fv-row mb-7">
+                                                <div class="col">
+                                                    <label class="required fw-semibold fs-6 mb-2">Nama Client</label>
+                                                    <input type="text" name="client_name" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Jhon Doe"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="fv-row mb-7">
+                                                <div class="col">
+                                                    <label class="required fw-semibold fs-6 mb-2">No Whatsapp Client</label>
+                                                    <input type="text" name="client_phone" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="0812xxxxxx"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="fv-row mb-7">
+                                        <label class="required fw-semibold fs-6 mb-2">Email Client</label>
+                                        <input type="text" name="client_email" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="jhondoe@gmail.com"/>
+                                    </div>
                                 </div>
                                 <div class="text-center pt-10">
                                     <button type="submit" class="btn btn-primary">
@@ -211,6 +233,28 @@
                                         <div class="fv-row mb-7">
                                             <label class="required fw-semibold fs-6 mb-2">Radius</label>
                                             <input type="text" name="radius" class="form-control form-control-solid mb-3 mb-lg-0" value="{{ $site->radius }}" />
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="fv-row mb-7">
+                                                    <div class="col">
+                                                        <label class="required fw-semibold fs-6 mb-2">Nama Client</label>
+                                                        <input type="text" name="client_name" class="form-control form-control-solid mb-3 mb-lg-0" value="{{ $site->client_name }}"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="fv-row mb-7">
+                                                    <div class="col">
+                                                        <label class="required fw-semibold fs-6 mb-2">No Whatsapp Client</label>
+                                                        <input type="text" name="client_phone" class="form-control form-control-solid mb-3 mb-lg-0" value="{{ $site->client_phone }}"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="fv-row mb-7">
+                                            <label class="required fw-semibold fs-6 mb-2">Email Client</label>
+                                            <input type="text" name="client_email" class="form-control form-control-solid mb-3 mb-lg-0" value="{{ $site->client_email }}"/>
                                         </div>
                                     </div>
                                     <div class="text-center pt-10">

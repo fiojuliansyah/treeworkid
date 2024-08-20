@@ -22,6 +22,9 @@ class SiteController extends Controller
         $site->lat = $request->lat;
         $site->long = $request->long;
         $site->radius = $request->radius;
+        $site->client_name = $request->client_name;
+        $site->client_phone = $request->client_phone;
+        $site->client_email = $request->client_email;
         $site->save();
 
         return redirect()->back()
@@ -37,6 +40,9 @@ class SiteController extends Controller
         $site->lat = $request->lat;
         $site->long = $request->long;
         $site->radius = $request->radius;
+        $site->client_name = $request->client_name;
+        $site->client_phone = $request->client_phone;
+        $site->client_email = $request->client_email;
 
         $site->update();
 
