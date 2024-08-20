@@ -18,9 +18,18 @@
                 <em style="color: red">{{ $message }}</em>
                 @enderror
             </div>
-            <div class="input-style no-borders has-icon validate-field mb-4">
-                <input type="password" name="password" class="form-control validate-password" placeholder="Password">
-                <label class="color-blue-dark font-10 mt-1">Password</label>
+            <div class="row">
+                <div class="col-10">
+                    <div class="input-style no-borders has-icon validate-field mb-4">
+                        <input type="password" name="password" id="password" class="form-control validate-password" placeholder="Password">
+                        <label class="color-blue-dark font-10 mt-1">Password</label>
+                    </div>
+                </div>
+                <div class="col-2 d-flex align-items-center justify-content-center">
+                    <span class="cursor-pointer" onclick="togglePasswordVisibility()">
+                        <i id="eye-icon" class="fa fa-eye-slash"></i>
+                    </span>
+                </div>
                 @error('password')
                 <em style="color: red">{{ $message }}</em>
                 @enderror
@@ -31,3 +40,21 @@
     </div>
 </div>
 @endsection
+
+@push('js')
+<script>
+    function togglePasswordVisibility() {
+        const passwordInput = document.getElementById('password');
+        const eyeIcon = document.getElementById('eye-icon');
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            eyeIcon.classList.remove('fa-eye-slash');
+            eyeIcon.classList.add('fa-eye');
+        } else {
+            passwordInput.type = 'password';
+            eyeIcon.classList.remove('fa-eye');
+            eyeIcon.classList.add('fa-eye-slash');
+        }
+    }
+</script>
+@endpush

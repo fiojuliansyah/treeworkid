@@ -41,7 +41,7 @@
                                         <i class="fa fa-sign-in" style="font-size: 12px">&nbsp</i>
                                     </span>
                                 </a>
-                                <p style="color: black">Clock In</p>
+                                <p style="color: black">Masuk</p>
                             @else
                                 @if ($latestClockIn)
                                     <a href="{{ route('attendance.index') }}" class="btn rounded-xl bg-highlight">
@@ -49,7 +49,7 @@
                                             <i class="fa fa-sign-out" style="font-size: 12px">&nbsp</i>
                                         </span>
                                     </a>
-                                    <p style="color: black">Clock Out</p>
+                                    <p style="color: black">Pulang</p>
                                 @else
                                     @if ($latestAttendance && $latestAttendance->clock_out == null)
                                         <a href="{{ route('attendance.index') }}" class="btn rounded-xl bg-highlight">
@@ -57,14 +57,14 @@
                                                 <i class="fa fa-sign-out" style="font-size: 12px">&nbsp</i>
                                             </span>
                                         </a>
-                                        <p style="color: black">Clock Out</p>
+                                        <p style="color: black">Pulang</p>
                                     @else
                                         <a href="{{ route('attendance.index') }}" class="btn rounded-xl bg-highlight">
                                             <span style="display: block; text-align: center;">
                                                 <i class="fa fa-sign-in" style="font-size: 12px">&nbsp</i>
                                             </span>
                                         </a>
-                                        <p style="color: black">Clock In</p>
+                                        <p style="color: black">Masuk</p>
                                     @endif
                                 @endif
                             @endif

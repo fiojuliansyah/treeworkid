@@ -82,6 +82,7 @@ class MOvertimeController extends Controller
             [
                 'clock_in' => $timeNow,
                 'reason' => $request->reason,
+                'demand' => $request->demand,
                 'backup_id' => $request->backup_id
             ]
         );

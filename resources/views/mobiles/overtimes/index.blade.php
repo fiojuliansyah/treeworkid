@@ -28,7 +28,7 @@
                 <div class="col-6">
                     <strong>
                         <span style="display: block; text-align: center;">
-                            START TIME
+                            MULAI
                         </span>
                         <span style="display: block; text-align: center;">
                             {{ \Carbon\Carbon::parse($latestOvertime->clock_in)->format('H:i') ?? '- - : - -' }}
@@ -39,7 +39,7 @@
                     @if ($clockOutStatus)
                         <strong>
                             <span style="display: block; text-align: center;">
-                                END TIME
+                                SELESAI
                             </span>
                             <span style="display: block; text-align: center;">
                                 {{ \Carbon\Carbon::parse($latestOvertime->clock_out)->format('H:i') ?? '- - : - -' }}
@@ -48,7 +48,7 @@
                     @else
                         <strong>
                             <span style="display: block; text-align: center;">
-                                END TIME
+                                SELESAI
                             </span>
                             <span style="display: block; text-align: center;">
                                 - - : - -
@@ -78,7 +78,7 @@
                         </form>
                         <a href="#"  onclick="event.preventDefault(); document.getElementById('overtime-clockout').submit();"
                             class="btn btn-full btn-m rounded-s text-uppercase font-900 shadow-xl btn-primary">
-                            FINISH
+                            SELESAI
                         </a>
                     </div>
                 @endif
@@ -102,10 +102,12 @@
                     <form id="overtime-clockin-lembur" method="POST" action="{{ route('overtime.clockin') }}">
                         @csrf
                         <input type="hidden" name="latlong" id="latlongInput-lembur">
+                        <input type="text" class="form-control" name="demand" placeholder="Request">
+                        <br>
                         <input type="text" class="form-control" name="reason" placeholder="Tulis Tujuan Lembur Disini!!">
                         <div class="pt-4">
                             <button type="button" class="btn btn-full btn-m rounded-s text-uppercase font-900 shadow-xl btn-primary clock-in-btn-lembur" style="width: 100%; padding: 20px; font-size: 18px;">
-                                START
+                                MULAI
                             </button>
                         </div>
                     </form>
@@ -121,10 +123,12 @@
                             @endforeach
                         </select>
                         <br>
+                        <input type="text" class="form-control" name="demand" placeholder="Request">
+                        <br>
                         <input type="text" class="form-control" name="reason" placeholder="Tulis Tujuan Lembur Disini!!">
                         <div class="pt-4">
                             <button type="button" class="btn btn-full btn-m rounded-s text-uppercase font-900 shadow-xl btn-primary clock-in-btn-backup" style="width: 100%; padding: 20px; font-size: 18px;">
-                                START
+                                MULAI
                             </button>
                         </div>
                     </form>

@@ -144,11 +144,11 @@
             @else
                 @if ($clockInStatus)
                     <a href="{{ route('reliver.clockout') }}" class="btn btn-full btn-m rounded-s text-uppercase font-900 shadow-xl bg-highlight clock-out-btn">
-                        <i class="fas fa-camera">&nbsp;</i>Clock OUT
+                        <i class="fas fa-camera">&nbsp;</i>Pulang
                     </a>
                 @else
                     <a href="#" onclick="event.preventDefault(); document.getElementById('reliver-form').submit();" class="btn btn-full btn-m rounded-s text-uppercase font-900 shadow-xl bg-highlight clock-in-btn">
-                        <i class="fas fa-camera">&nbsp;</i>Clock IN
+                        <i class="fas fa-camera">&nbsp;</i>Masuk
                     </a>
                 @endif
             @endif

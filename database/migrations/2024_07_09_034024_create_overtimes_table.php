@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('clock_out')->nullable();
             $table->text('reason')->nullable();
             $table->string('backup_id')->nullable();
+            $table->string('demand')->nullable();
             $table->timestamps();
 
             $table->foreign('attendance_id')->references('id')->on('attendances')->onDelete('cascade');
