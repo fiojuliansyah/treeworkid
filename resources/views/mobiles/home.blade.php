@@ -179,7 +179,7 @@
                         <img src="https://img.icons8.com/?size=256&id=IYGgeCVcNuB1&format=png" alt="" width="50px"
                             style="margin-bottom: 5px; border: none; border: 1px solid #eef2f1; border-radius: 8px; padding: 10px; margin: 5px; box-sizing: border-box;">
                         <div style="display: flex; align-items: center;">
-                            <p style="margin: 0;">Log</p>
+                            <p style="margin: 0;">Riwayat</p>
                         </div>
                     </a>       
                 </div>
