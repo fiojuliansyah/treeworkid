@@ -55,7 +55,7 @@ class SiteController extends Controller
      */
     public function destroy($id)
     {
-        $site = Site::findOrFail($id);
+        $site = Site::find($id);
         $site->delete();
     
         return redirect()->back()

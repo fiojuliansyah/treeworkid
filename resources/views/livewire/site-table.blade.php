@@ -165,9 +165,9 @@
                 
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                                <a href="{{ route('sites.destroy', $site->id) }}"
+                                <a href="#"
                                 onclick="event.preventDefault();
-                                              document.getElementById('delete-site-{{ $site->id }}'.).submit();" class="btn btn-danger">Hapus</a>
+                                              document.getElementById('delete-site-{{ $site->id }}').submit();" class="btn btn-danger">Hapus</a>
                             </div>
                             <form id="delete-site-{{ $site->id }}" action="{{ route('sites.destroy', $site->id) }}" method="POST">
                                 @csrf
