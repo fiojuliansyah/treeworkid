@@ -47,7 +47,7 @@ class ReportController extends Controller
                                 ->whereBetween('date', [$start_date, $end_date])
                                 ->get();
 
-    return view('reports.employee', compact('attendances', 'site_id', 'start_date', 'end_date'));
+    return view('reports.employee', compact('attendances', 'start_date', 'end_date'));
     }
 
     public function siteView(Request $request)
