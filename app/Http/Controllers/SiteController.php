@@ -50,9 +50,12 @@ class SiteController extends Controller
                         ->with('success', 'Lokasi ' . $site->name . ' berhasil diperbarui');
     }
 
+    /**
+     * Remove the specified resource from storage.
+     */
     public function destroy($id)
     {
-        $site = Site::find($id);
+        $site = Site::findOrFail($id);
         $site->delete();
     
         return redirect()->back()
