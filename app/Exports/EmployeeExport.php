@@ -24,7 +24,7 @@ class EmployeeExport implements FromCollection, WithHeadings, WithEvents
 
     public function collection()
     {
-        return Attendance::with(['site', 'overtime', 'minutes'])
+        return Attendance::with(['site', 'overtimes', 'minutes'])
             ->where('user_id', $this->userId)
             ->whereBetween('date', [$this->startDate, $this->endDate])
             ->get()
