@@ -57,11 +57,6 @@ class MProfileController extends Controller
             $data = [
                 'avatar_url' => $url,
                 'avatar_public_id' => $public_id,
-                'avatar_encode' => $avatarEncoded ?? null,
-            ];
-        } else {
-            $data = [
-                'avatar_encode' => $avatarEncoded ?? null,
             ];
         }
     
@@ -73,6 +68,8 @@ class MProfileController extends Controller
             'mother_name' => $request->mother_name,
             'npwp_number' => $request->npwp_number,
             'marriage_status' => $request->marriage_status,
+            'faceid_1' => $request->faceid_1,
+            'faceid_2' => $request->faceid_1,
         ];
     
         if ($profile) {

@@ -17,6 +17,7 @@
             <label for="file-upload" class="float-right btn btn-xs bg-highlight rounded-xl shadow-xl text-uppercase font-900 mt-2 font-11"><i class="fas fa-camera" style="color: white;"></i> Upload</label>  
             <input type="file" id="file-upload" name="avatar" style="display: none;" onchange="previewImage()">
             <img id="image-preview" src="{{ $user->profile['avatar_url'] ?? '/assets/mobiles/images/empty.png' }}" alt="Preview" class="preload-img img-fluid bottom-20 mt-3">
+            <input type="hidden" id="faceid" name="faceid_1">
         </div>
         <div class="input-style has-borders hnoas-icon input-style-always-active mb-4">
             <input type="name" name="employee_nik" class="form-control" value="{{ $user->employee_nik ?? '' }}" disabled>
@@ -88,36 +89,43 @@
 
 @endsection
 @push('js')
+<script defer src="/dist/face-api.js/face-api.min.js"></script>
 <script>
-    function previewImage() {
-      var input = document.getElementById('file-upload');
-      var imageContainer = document.getElementById('image-preview');
-      var files = input.files;
-      var file = files[files.length - 1];
-
-      var reader = new FileReader();
-
-      reader.onload = function(e) {
-        imageContainer.src = e.target.result;
-      };
-
-      reader.readAsDataURL(file);
+    async function loadModels() {
+        await faceapi.nets.tinyFaceDetector.loadFromUri('/dist/face-api.js/models');
+        await faceapi.nets.faceLandmark68Net.loadFromUri('/dist/face-api.js/models');
+        await faceapi.nets.faceRecognitionNet.loadFromUri('/dist/face-api.js/models');
+        await faceapi.nets.ssdMobilenetv1.loadFromUri('/dist/face-api.js/models');
     }
 
-    function submitFormWithLocation(event) {
-        event.preventDefault();
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position) {
-                const latlong = `${position.coords.latitude},${position.coords.longitude}`;
-                document.getElementById('latlongInput').value = latlong;
-                document.getElementById('formStore').submit();
-            }, function(error) {
-                console.error('Error getting location:', error);
-                alert('Could not get your location. Please enable location services.');
-            });
+    function previewImage() {
+        var input = document.getElementById('file-upload');
+        var imageContainer = document.getElementById('image-preview');
+        var file = input.files[0];
+
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            imageContainer.src = e.target.result;
+            imageContainer.onload = async function() {
+                await processImage(imageContainer);
+            };
+        };
+        reader.readAsDataURL(file);
+    }
+
+    async function processImage(image) {
+        const detections = await faceapi.detectAllFaces(image).withFaceLandmarks().withFaceDescriptors();
+
+        if (detections.length > 0) {
+            document.getElementById('faceid').value = JSON.stringify(Array.from(detections[0].descriptor));
         } else {
-            alert('Geolocation is not supported by your browser.');
+            alert('No face detected in the uploaded image.');
         }
     }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        loadModels(); 
+    });
 </script>
+
 @endpush

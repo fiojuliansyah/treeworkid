@@ -16,7 +16,8 @@ return new class extends Migration
             $table->string('user_id')->nullable();
             $table->string('avatar_url')->nullable();
             $table->string('avatar_public_id')->nullable();
-            $table->longText('avatar_encode')->nullable();
+            $table->longText('faceid_1')->nullable();
+            $table->longText('faceid_2')->nullable();
             $table->string('esign_url')->nullable();
             $table->string('esign_public_id')->nullable();
             $table->string('gender')->nullable();

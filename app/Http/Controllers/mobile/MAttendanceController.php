@@ -60,7 +60,9 @@ class MAttendanceController extends Controller
 
     public function clockin()
     {
-        return view('mobiles.attendances.clockin');
+        $user = Auth::user();
+
+        return view('mobiles.attendances.clockin', compact('user'));
     }
 
     public function clockinStore(Request $request)

@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Imports\EmployeeImport;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
 use Spatie\Activitylog\Models\Activity;
 
