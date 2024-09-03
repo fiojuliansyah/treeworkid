@@ -76,18 +76,13 @@ class ReportController extends Controller
             $totalLeave = 0;
     
             foreach ($userAttendances as $attendance) {
-                // Calculate HK (workdays)
                 if ($attendance->type !== 'shift_off' && $attendance->leave_id === null) {
                     $totalHK++;
                 }
     
-                // Calculate Overtime
-                foreach ($attendance->overtimes as $overtime) {
-                    $overtimeStart = \Carbon\Carbon::parse($overtime->clock_in);
-                    $overtimeEnd = \Carbon\Carbon::parse($overtime->clock_out);
-    
-                    if ($overtimeEnd && $overtimeStart) {
-                        $totalOvertime += $overtimeStart->diffInHours($overtimeEnd);
+                if ($attendance->overtimes->isNotEmpty()) {
+                    foreach ($attendance->overtimes as $overtime) {
+                        $totalOvertime += $overtime->duration_in_hours;
                     }
                 }
     
@@ -119,5 +114,5 @@ class ReportController extends Controller
     
         return view('reports.site', compact('attendancesByUser', 'site_id', 'start_date', 'end_date', 'dates', 'totalsByUser'));
     }
-    
+      
 }
