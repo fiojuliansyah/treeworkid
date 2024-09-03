@@ -20,18 +20,24 @@
                                 @foreach ($dates as $date)
                                     <th colspan="2">{{ $date->format('d') }}</th>
                                 @endforeach
+                                <th colspan="8">Total Keseluruhan</th>
                             </tr>
                             <tr class="text-muted fw-bold fs-7 text-uppercase gs-0">
                                 @foreach ($dates as $date)
                                     <th>IN</th>
                                     <th>OUT</th>
                                 @endforeach
+                                <th colspan="2">Total HK</th>
+                                <th colspan="2">Total Lembur</th>
+                                <th colspan="2">Total BA</th>
+                                <th colspan="2">Total Cuti</th>
                             </tr>
                         </thead>
                         <tbody class="text-gray-600 fw-semibold text-center">
                             @forelse ($attendancesByUser as $user_id => $userAttendances)
                                 @php
                                     $user = $userAttendances->first()->user;
+                                    $totals = $totalsByUser[$user_id];
                                 @endphp
                                 <tr>
                                     <td>
@@ -77,10 +83,14 @@
                                             <td>-</td>
                                         @endif
                                     @endforeach
+                                    <td colspan="2">{{ $totals['totalHK'] }}</td>
+                                    <td colspan="2">{{ $totals['totalOvertime'] }}</td>
+                                    <td colspan="2">{{ $totals['totalBA'] }}</td>
+                                    <td colspan="2">{{ $totals['totalLeave'] }}</td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="{{ 2 + $dates->count() * 2 }}" class="text-center">
+                                    <td colspan="{{ 2 + $dates->count() * 2 + 8 }}" class="text-center">
                                         No data available for the selected date range.
                                     </td>
                                 </tr>

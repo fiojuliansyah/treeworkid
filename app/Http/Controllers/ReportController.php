@@ -61,14 +61,53 @@ class ReportController extends Controller
                                 ->with(['user', 'overtimes', 'leave'])
                                 ->get();
     
-        // Group attendances by user_id and then by date
         $attendancesByUser = $attendances->groupBy('user_id')->map(function($userAttendances) {
             return $userAttendances->keyBy(function($attendance) {
                 return $attendance->date->format('Y-m-d');
             });
         });
     
-        // Generate the range of dates
+        $totalsByUser = [];
+    
+        foreach ($attendancesByUser as $user_id => $userAttendances) {
+            $totalHK = 0;
+            $totalOvertime = 0;
+            $totalBA = 0;
+            $totalLeave = 0;
+    
+            foreach ($userAttendances as $attendance) {
+                // Calculate HK (workdays)
+                if ($attendance->type !== 'shift_off' && $attendance->leave_id === null) {
+                    $totalHK++;
+                }
+    
+                // Calculate Overtime
+                foreach ($attendance->overtimes as $overtime) {
+                    $overtimeStart = \Carbon\Carbon::parse($overtime->clock_in);
+                    $overtimeEnd = \Carbon\Carbon::parse($overtime->clock_out);
+    
+                    if ($overtimeEnd && $overtimeStart) {
+                        $totalOvertime += $overtimeStart->diffInHours($overtimeEnd);
+                    }
+                }
+    
+                if ($attendance->type === 'berita_acara') {
+                    $totalBA++;
+                }
+    
+                if ($attendance->leave_id !== null) {
+                    $totalLeave++;
+                }
+            }
+    
+            $totalsByUser[$user_id] = [
+                'totalHK' => $totalHK,
+                'totalOvertime' => $totalOvertime,
+                'totalBA' => $totalBA,
+                'totalLeave' => $totalLeave,
+            ];
+        }
+    
         $dates = collect();
         $currentDate = \Carbon\Carbon::parse($start_date);
         $endDate = \Carbon\Carbon::parse($end_date);
@@ -78,8 +117,7 @@ class ReportController extends Controller
             $currentDate->addDay();
         }
     
-        return view('reports.site', compact('attendancesByUser', 'site_id', 'start_date', 'end_date', 'dates'));
+        return view('reports.site', compact('attendancesByUser', 'site_id', 'start_date', 'end_date', 'dates', 'totalsByUser'));
     }
     
-      
 }
