@@ -14,10 +14,38 @@
                         </div>
                     </div>
                     <div class="card-body py-4 table-responsive">
+                        <style>
+                            /* Make the table header fixed */
+                            #kt_table_users thead {
+                                position: sticky;
+                                top: 0;
+                                background-color: #fff; /* Adjust if needed to match your theme */
+                                z-index: 10; /* Ensure it is above other content */
+                            }
+
+                            /* Optional: Add a border to differentiate */
+                            #kt_table_users thead th {
+                                border-bottom: 2px solid #dee2e6;
+                            }
+
+                            /* Freeze the first column */
+                            #kt_table_users .frozen-col {
+                                position: -webkit-sticky; /* For Safari */
+                                position: sticky;
+                                left: 0;
+                                background-color: #fff; /* Match your theme */
+                                z-index: 20; /* Ensure it's above other content */
+                                border-right: 2px solid #dee2e6; /* Optional: add a border */
+                            }
+
+                            #kt_table_users td {
+                                white-space: nowrap; /* Prevent text from wrapping */
+                            }
+                        </style>
                         <table class="table table-bordered align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
                             <thead class="text-center">
                                 <tr class="text-muted fw-bold fs-7 text-uppercase gs-0">
-                                    <th rowspan="2">Name</th>
+                                    <th class="frozen-col" rowspan="2">Name</th>
                                     @foreach ($dates as $date)
                                         <th colspan="2">{{ $date->format('d') }}</th>
                                     @endforeach
@@ -35,13 +63,18 @@
                                 </tr>
                             </thead>
                             <tbody class="text-gray-600 fw-semibold text-center">
-                                @forelse ($attendancesByUser as $user_id => $userAttendances)
+                                @forelse ($users as $user)
                                     @php
-                                        $user = $userAttendances->first()->user;
-                                        $totals = $totalsByUser[$user_id];
+                                        $userAttendances = $attendancesByUser->get($user->id, collect());
+                                        $totals = $totalsByUser[$user->id] ?? [
+                                            'totalHK' => 0,
+                                            'totalOvertime' => '0 jam 0 menit',
+                                            'totalBA' => 0,
+                                            'totalLeave' => 0,
+                                        ];
                                     @endphp
                                     <tr>
-                                        <td>
+                                        <td class="frozen-col" >
                                             {{ $user->name }}
                                             <br>
                                             Overtime
@@ -93,9 +126,12 @@
                                         <td colspan="2">{{ $totals['totalOvertime'] }}</td>
                                         <td colspan="2">{{ $totals['totalBA'] }}</td>
                                         <td colspan="2">{{ $totals['totalLeave'] }}</td>
-                                </tr> @empty <tr>
-                                        <td colspan="{{ 2 + $dates->count() * 2 }}" class="text-center"> No data available
-                                            for the selected date range. </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="{{ 2 + $dates->count() * 2 }}" class="text-center">
+                                            No data available for the selected date range.
+                                        </td>
                                     </tr>
                                 @endforelse
                             </tbody>
