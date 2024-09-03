@@ -6,6 +6,7 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
 
 class SiteAttendanceExport implements FromCollection, WithHeadings, WithStyles
 {
@@ -87,12 +88,30 @@ class SiteAttendanceExport implements FromCollection, WithHeadings, WithStyles
     public function styles(Worksheet $sheet)
     {
         // Set the header row style
-        $sheet->getStyle('1:1')->getFont()->setBold(true);
-        $sheet->getStyle('1:1')->getAlignment()->setHorizontal('center');
-        $sheet->getStyle('1:1')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
-                                          ->getStartColor()->setARGB('FFFF00');
+        $headerRow = '1';
+        $sheet->getStyle($headerRow)->getFont()->setBold(true);
+        $sheet->getStyle($headerRow)->getAlignment()->setHorizontal('center');
+        $sheet->getStyle($headerRow)->getFill()->setFillType(Fill::FILL_SOLID)
+            ->getStartColor()->setARGB('FFFF00');
 
         // Freeze the first row
         $sheet->freezePane('A2');
+
+        // Set the style for leave and shift_off cells
+        $highestRow = $sheet->getHighestRow();
+        $highestColumn = $sheet->getHighestColumn();
+
+        for ($row = 2; $row <= $highestRow; $row++) {
+            for ($col = 'B'; $col <= $highestColumn; $col++) {
+                $cell = $sheet->getCell($col . $row);
+                if ($cell->getValue() === 'OFF') {
+                    $sheet->getStyle($col . $row)->getFill()->setFillType(Fill::FILL_SOLID)
+                        ->getStartColor()->setARGB('FF0000');
+                } elseif ($cell->getValue() === 'Leave') {
+                    $sheet->getStyle($col . $row)->getFill()->setFillType(Fill::FILL_SOLID)
+                        ->getStartColor()->setARGB('FFFF00');
+                }
+            }
+        }
     }
 }
