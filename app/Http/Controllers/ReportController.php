@@ -71,38 +71,50 @@ class ReportController extends Controller
     
         foreach ($attendancesByUser as $user_id => $userAttendances) {
             $totalHK = 0;
-            $totalOvertime = 0;
+            $totalOvertimeMinutes = 0;
             $totalBA = 0;
             $totalLeave = 0;
     
             foreach ($userAttendances as $attendance) {
+                // Calculate HK (workdays)
                 if ($attendance->type !== 'shift_off' && $attendance->leave_id === null) {
                     $totalHK++;
                 }
     
-                if ($attendance->overtimes->isNotEmpty()) {
-                    foreach ($attendance->overtimes as $overtime) {
-                        $totalOvertime += $overtime->duration_in_hours;
+                // Calculate Overtime
+                foreach ($attendance->overtimes as $overtime) {
+                    $overtimeStart = \Carbon\Carbon::parse($overtime->clock_in);
+                    $overtimeEnd = \Carbon\Carbon::parse($overtime->clock_out);
+    
+                    if ($overtimeEnd && $overtimeStart) {
+                        $totalOvertimeMinutes += $overtimeStart->diffInMinutes($overtimeEnd);
                     }
                 }
     
+                // Calculate BA (Berita Acara)
                 if ($attendance->type === 'berita_acara') {
                     $totalBA++;
                 }
     
+                // Calculate Leave (Cuti)
                 if ($attendance->leave_id !== null) {
                     $totalLeave++;
                 }
             }
     
+            // Convert total minutes to hours and minutes
+            $totalOvertimeHours = intdiv($totalOvertimeMinutes, 60);
+            $remainingMinutes = $totalOvertimeMinutes % 60;
+    
             $totalsByUser[$user_id] = [
                 'totalHK' => $totalHK,
-                'totalOvertime' => $totalOvertime,
+                'totalOvertime' => sprintf('%d jam %d menit', $totalOvertimeHours, $remainingMinutes),
                 'totalBA' => $totalBA,
                 'totalLeave' => $totalLeave,
             ];
         }
     
+        // Generate the range of dates
         $dates = collect();
         $currentDate = \Carbon\Carbon::parse($start_date);
         $endDate = \Carbon\Carbon::parse($end_date);
@@ -114,5 +126,5 @@ class ReportController extends Controller
     
         return view('reports.site', compact('attendancesByUser', 'site_id', 'start_date', 'end_date', 'dates', 'totalsByUser'));
     }
-      
+    
 }
