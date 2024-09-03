@@ -73,7 +73,10 @@
                                                     <td>
                                                         @if ($attendance->type == 'berita_acara')
                                                             <p style="color: blue">
-                                                                {{ $attendance->clock_out->format('H:i') ?? '-' }}</p>
+                                                                @if($attendance->clock_out == null)
+                                                                    {{ $attendance->clock_out->format('H:i') }}
+                                                                @endif
+                                                            </p>
                                                         @else
                                                             {{ $attendance->clock_out ? $attendance->clock_out->format('H:i') : '-' }}
                                                         @endif
