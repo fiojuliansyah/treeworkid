@@ -41,7 +41,6 @@
                                     </td>
                                     @foreach ($dates as $date)
                                         @php
-                                            // Retrieve the attendance for the current user on the current date
                                             $attendance = $userAttendances->get($date->format('Y-m-d'));
                                         @endphp
                                         @if ($attendance)
@@ -50,6 +49,9 @@
                                                     {{ $attendance->leave->type['name'] }}
                                                 </td>
                                             @else
+                                                @if($attendance->type == 'shift_off')
+                                                OFF
+                                                @else
                                                 <td>
                                                     @if ($attendance->type == 'berita_acara')
                                                         <p style="color: blue">{{ $attendance->clock_in->format('H:i') }}</p>
@@ -68,6 +70,7 @@
                                                     <br>
                                                     {{ $attendance->overtimes->firstWhere('attendance_id', $attendance->id)->clock_out ?? '-' }}
                                                 </td>
+                                                @endif
                                             @endif
                                         @else
                                             <td>-</td>
