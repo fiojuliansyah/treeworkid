@@ -59,23 +59,10 @@ class MOvertimeController extends Controller
         $user = Auth::user();
         $timeNow = Carbon::now()->toTimeString();
     
-        // Cari data kehadiran (attendance) untuk hari ini
-        $attendance = Attendance::where('user_id', $user->id)
-            ->orderBy('created_at', 'desc')
-            ->first();
-    
-        if ($attendance) {
-            $attendance->update([
-                'latlong' => $request->latlong
-            ]);
-        } else {
-            $attendance = Attendance::create([
-                'date' => $today,
-                'user_id' => $user->id,
-                'site_id' => $user->site_id,
-                'latlong' => $request->latlong
-            ]);
-        }
+        $attendance = Attendance::firstOrCreate(
+            ['date' => $today, 'user_id' => $user->id],
+            ['site_id' => $user->site_id, 'clock_in' => $timeNow]
+        );
     
         Overtime::updateOrCreate(
             ['attendance_id' => $attendance->id],
@@ -95,9 +82,18 @@ class MOvertimeController extends Controller
     public function clockoutStore(Request $request)
     {
         $timeNow = Carbon::now()->toTimeString();
+        $today = Carbon::now()->toDateString();
+        $user = Auth::user();
 
+        $lastAttendance = Attendance::orderBy('created_at', 'desc')
+            ->first();
         $lastOvertime = Overtime::orderBy('created_at', 'desc')
             ->first();
+
+        if ($lastAttendance) {
+            $lastAttendance->clock_out = $timeNow;
+            $lastAttendance->save();
+        }
 
         if ($lastOvertime) {
             $lastOvertime->clock_out = $timeNow;
