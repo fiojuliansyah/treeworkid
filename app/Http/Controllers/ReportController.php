@@ -55,18 +55,31 @@ class ReportController extends Controller
         $site_id = $request->input('site_id');
         $start_date = $request->input('start_date');
         $end_date = $request->input('end_date');
-        
-        // Fetch attendances for the specified site and date range
+    
         $attendances = Attendance::where('site_id', $site_id)
                                 ->whereBetween('date', [$start_date, $end_date])
-                                ->with('user', 'overtimes') // Load user and overtimes
+                                ->with(['user', 'overtimes', 'leave'])
                                 ->get();
-        
-        // Group attendances by user_id
-        $attendancesByUser = $attendances->groupBy('user_id');
-        
-        // Pass data to view
-        return view('reports.site', compact('attendancesByUser', 'site_id', 'start_date', 'end_date'));
+    
+        // Group attendances by user_id and then by date
+        $attendancesByUser = $attendances->groupBy('user_id')->map(function($userAttendances) {
+            return $userAttendances->keyBy(function($attendance) {
+                return $attendance->date->format('Y-m-d');
+            });
+        });
+    
+        // Generate the range of dates
+        $dates = collect();
+        $currentDate = \Carbon\Carbon::parse($start_date);
+        $endDate = \Carbon\Carbon::parse($end_date);
+    
+        while ($currentDate->lte($endDate)) {
+            $dates->push($currentDate->copy());
+            $currentDate->addDay();
+        }
+    
+        return view('reports.site', compact('attendancesByUser', 'site_id', 'start_date', 'end_date', 'dates'));
     }
-  
+    
+      
 }
