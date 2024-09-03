@@ -2,80 +2,97 @@
 
 namespace App\Exports;
 
-use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
-use Maatwebsite\Excel\Concerns\Exportable;
-use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithStyles;
-use Maatwebsite\Excel\Concerns\WithEvents;
-use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
-use PhpOffice\PhpSpreadsheet\Style\Alignment;
 
-class SiteAttendanceExport implements FromCollection, WithHeadings, WithMapping, WithStyles, WithEvents, ShouldAutoSize
+class SiteAttendanceExport implements FromCollection, WithHeadings, WithStyles
 {
-    use Exportable;
+    protected $attendancesByUser;
+    protected $dates;
+    protected $totalsByUser;
 
-    protected $siteId;
-    protected $startDate;
-    protected $endDate;
-
-    public function __construct($siteId, $startDate, $endDate)
+    public function __construct($attendancesByUser, $dates, $totalsByUser)
     {
-        $this->siteId = $siteId;
-        $this->startDate = $startDate;
-        $this->endDate = $endDate;
+        $this->attendancesByUser = $attendancesByUser;
+        $this->dates = $dates;
+        $this->totalsByUser = $totalsByUser;
     }
 
     public function collection()
     {
-        return DB::table('attendances')
-            ->join('users', 'attendances.user_id', '=', 'users.id')
-            ->where('attendances.site_id', $this->siteId)
-            ->whereBetween('attendances.date', [$this->startDate, $this->endDate])
-            ->select(
-                'attendances.date',
-                'users.name as user_name',
-                'attendances.clock_in',
-                'attendances.clock_out'
-            )
-            ->get();
+        $data = [];
+
+        foreach ($this->attendancesByUser as $user_id => $userAttendances) {
+            $user = $userAttendances->first()->user;
+            $totals = $this->totalsByUser[$user_id] ?? [
+                'totalHK' => 0,
+                'totalOvertime' => '0 jam 0 menit',
+                'totalBA' => 0,
+                'totalLeave' => 0,
+            ];
+
+            $row = [$user->name];
+
+            foreach ($this->dates as $date) {
+                $attendance = $userAttendances->get($date->format('Y-m-d'));
+                if ($attendance) {
+                    if ($attendance->leave_id != null) {
+                        $row[] = $attendance->leave->type['name'];
+                        $row[] = '';
+                    } elseif ($attendance->type == 'shift_off') {
+                        $row[] = 'OFF';
+                        $row[] = '';
+                    } else {
+                        $row[] = $attendance->clock_in ? $attendance->clock_in->format('H:i') : '-';
+                        $row[] = $attendance->clock_out ? $attendance->clock_out->format('H:i') : '-';
+                    }
+                } else {
+                    $row[] = '-';
+                    $row[] = '-';
+                }
+            }
+
+            $row[] = $totals['totalHK'];
+            $row[] = $totals['totalOvertime'];
+            $row[] = $totals['totalBA'];
+            $row[] = $totals['totalLeave'];
+
+            $data[] = $row;
+        }
+
+        return collect($data);
     }
 
     public function headings(): array
     {
-        return [
-            ['Site Attendance Report'],
-            ['Date Range: ' . date('F j, Y', strtotime($this->startDate)) . ' - ' . date('F j, Y', strtotime($this->endDate))],
-            ['User', 'IN', 'OUT'],
-        ];
-    }
+        $headings = ['Name'];
 
-    public function map($row): array
-    {
-        return [
-            $row->user_name,
-            $row->clock_in,
-            $row->clock_out,
-        ];
+        foreach ($this->dates as $date) {
+            $headings[] = $date->format('d') . ' IN';
+            $headings[] = $date->format('d') . ' OUT';
+        }
+
+        $headings = array_merge($headings, [
+            'Total HK',
+            'Total Lembur',
+            'Total BA',
+            'Total Cuti'
+        ]);
+
+        return $headings;
     }
 
     public function styles(Worksheet $sheet)
     {
-        $sheet->getStyle('A1:C1')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
-        $sheet->getStyle('A2:C2')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
-        $sheet->getStyle('A3:C3')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+        // Set the header row style
+        $sheet->getStyle('1:1')->getFont()->setBold(true);
+        $sheet->getStyle('1:1')->getAlignment()->setHorizontal('center');
+        $sheet->getStyle('1:1')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+                                          ->getStartColor()->setARGB('FFFF00');
 
-        // Merge cells for date range
-        $sheet->mergeCells('A1:C1');
-        $sheet->mergeCells('A2:C2');
-    }
-
-    public function registerEvents(): array
-    {
-        return [
-            // Add any events you need to customize here
-        ];
+        // Freeze the first row
+        $sheet->freezePane('A2');
     }
 }

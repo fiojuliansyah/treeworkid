@@ -11,6 +11,12 @@
                                 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">
                                 Attendance Date : {{ $start_date }} - {{ $end_date }}
                             </h1>
+                            <form action="{{ route('export.excel') }}" method="GET" style="display: inline;">
+                                <input type="hidden" name="site_id" value="{{ $site_id }}">
+                                <input type="hidden" name="start_date" value="{{ $start_date }}">
+                                <input type="hidden" name="end_date" value="{{ $end_date }}">
+                                <button type="submit" class="btn btn-success">Export to Excel</button>
+                            </form>
                         </div>
                     </div>
                     <div class="card-body py-4 table-responsive">

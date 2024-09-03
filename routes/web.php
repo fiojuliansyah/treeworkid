@@ -97,6 +97,7 @@ Route::middleware('auth')->prefix('manage')->group(function () {
     Route::get('/employee/view', [ReportController::class, 'employeeView'])->name('employee.view');
     Route::get('/site/export', [ReportController::class, 'siteExport'])->name('site.export');
     Route::get('/site/view', [ReportController::class, 'siteView'])->name('site.view');
+    Route::get('/export/excel', [ReportController::class, 'exportToExcel'])->name('export.excel');
 });
 
 Route::get('/get-started', [HomeController::class, 'getStarted'])->name('mobile.walkthrough');
