@@ -5,9 +5,10 @@ namespace App\Exports;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithStyles;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class SiteAttendanceExport implements FromCollection, WithHeadings, WithStyles
+class SiteAttendanceExport implements FromCollection, WithHeadings, WithStyles, ShouldAutoSize
 {
     protected $attendancesByUser;
     protected $dates;
@@ -86,13 +87,38 @@ class SiteAttendanceExport implements FromCollection, WithHeadings, WithStyles
 
     public function styles(Worksheet $sheet)
     {
-        // Set the header row style
-        $sheet->getStyle('1:1')->getFont()->setBold(true);
-        $sheet->getStyle('1:1')->getAlignment()->setHorizontal('center');
-        $sheet->getStyle('1:1')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
-                                          ->getStartColor()->setARGB('FFFF00');
+        $styleArray = [
+            'alignment' => [
+                'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+            ],
+            'borders' => [
+                'allBorders' => [
+                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                ],
+            ],
+        ];
 
-        // Freeze the first row
-        $sheet->freezePane('A2');
+        $sheet->getStyle('A1:Z100')->applyFromArray($styleArray); // Apply styling to range
+
+        // Merge cells for leave and shift-off
+        $rowCount = count($this->attendancesByUser) + 1; // Number of rows with data
+        $dateCount = $this->dates->count();
+
+        for ($i = 2; $i <= $rowCount; $i++) {
+            for ($j = 1; $j <= $dateCount; $j++) {
+                $inCell = $sheet->getCellByColumnAndRow($j * 2, $i)->getValue();
+                $outCell = $sheet->getCellByColumnAndRow($j * 2 + 1, $i)->getValue();
+
+                if ($inCell === 'OFF' && $outCell === '') {
+                    $sheet->mergeCellsByColumnAndRow($j * 2, $i, $j * 2 + 1, $i);
+                } elseif ($inCell !== '' && $outCell === '') {
+                    $sheet->mergeCellsByColumnAndRow($j * 2, $i, $j * 2 + 1, $i);
+                } elseif ($inCell === '' && $outCell === '') {
+                    $sheet->mergeCellsByColumnAndRow($j * 2, $i, $j * 2 + 1, $i);
+                }
+            }
+        }
+
+        return [];
     }
 }
