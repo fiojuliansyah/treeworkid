@@ -48,10 +48,11 @@
                                                 <td colspan="2">
                                                     {{ $attendance->leave->type['name'] }}
                                                 </td>
+                                            @elseif($attendance->type == 'shift_off')
+                                                <td colspan="2">
+                                                    OFF
+                                                </td>
                                             @else
-                                                @if($attendance->type == 'shift_off')
-                                                OFF
-                                                @else
                                                 <td>
                                                     @if ($attendance->type == 'berita_acara')
                                                         <p style="color: blue">{{ $attendance->clock_in->format('H:i') }}</p>
@@ -70,7 +71,6 @@
                                                     <br>
                                                     {{ $attendance->overtimes->firstWhere('attendance_id', $attendance->id)->clock_out ?? '-' }}
                                                 </td>
-                                                @endif
                                             @endif
                                         @else
                                             <td>-</td>
