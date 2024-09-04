@@ -82,11 +82,17 @@ class ReportController extends Controller
             $totalOvertimeMinutes = 0;
             $totalBA = 0;
             $totalLeave = 0;
+            $totalShiftOff = 0; // Initialize the total shift_off variable
         
             foreach ($userAttendances as $attendance) {
                 // Calculate HK (workdays)
                 if ($attendance->type !== 'shift_off' && $attendance->leave_id === null) {
                     $totalHK++;
+                }
+    
+                // Calculate shift_off
+                if ($attendance->type === 'shift_off') {
+                    $totalShiftOff++;
                 }
         
                 // Calculate Overtime
@@ -110,7 +116,6 @@ class ReportController extends Controller
                 }
             }
         
-            // Convert total minutes to hours and minutes
             $totalOvertimeHours = intdiv($totalOvertimeMinutes, 60);
             $remainingMinutes = $totalOvertimeMinutes % 60;
         
@@ -119,6 +124,7 @@ class ReportController extends Controller
                 'totalOvertime' => sprintf('%d jam %d menit', $totalOvertimeHours, $remainingMinutes),
                 'totalBA' => $totalBA,
                 'totalLeave' => $totalLeave,
+                'totalShiftOff' => $totalShiftOff, // Include total shift_off in the totals array
             ];
         }
         
@@ -134,6 +140,7 @@ class ReportController extends Controller
         
         return view('reports.site', compact('users', 'attendancesByUser', 'site_id', 'start_date', 'end_date', 'dates', 'totalsByUser'));
     }
+    
 
     public function exportToExcel(Request $request)
     {

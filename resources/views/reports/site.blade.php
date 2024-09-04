@@ -55,7 +55,7 @@
                                     @foreach ($dates as $date)
                                         <th colspan="2">{{ $date->format('d') }}</th>
                                     @endforeach
-                                    <th colspan="8">Total Keseluruhan</th>
+                                    <th colspan="10">Total Keseluruhan</th>
                                 </tr>
                                 <tr class="text-muted fw-bold fs-7 text-uppercase gs-0">
                                     @foreach ($dates as $date)
@@ -63,6 +63,7 @@
                                         <th>OUT</th>
                                     @endforeach
                                     <th colspan="2">Total HK</th>
+                                    <th colspan="2">Total OFF</th>
                                     <th colspan="2">Total Lembur</th>
                                     <th colspan="2">Total BA</th>
                                     <th colspan="2">Total Cuti</th>
@@ -129,6 +130,7 @@
                                             @endif
                                         @endforeach
                                         <td colspan="2">{{ $totals['totalHK'] }}</td>
+                                        <td colspan="2">{{ $totals['totalShiftOff'] }}</td>
                                         <td colspan="2">{{ $totals['totalOvertime'] }}</td>
                                         <td colspan="2">{{ $totals['totalBA'] }}</td>
                                         <td colspan="2">{{ $totals['totalLeave'] }}</td>
