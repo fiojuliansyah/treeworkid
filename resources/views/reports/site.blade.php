@@ -53,7 +53,11 @@
                                 <tr class="text-muted fw-bold fs-7 text-uppercase gs-0">
                                     <th class="frozen-col" rowspan="2">Name</th>
                                     @foreach ($dates as $date)
-                                        <th colspan="2">{{ $date->format('d') }}</th>
+                                        <th colspan="2">
+                                            {{ $date->format('d') }}
+                                            <br>
+                                            {{ $date->format('l') }}
+                                        </th>
                                     @endforeach
                                     <th colspan="10">Total Keseluruhan</th>
                                 </tr>
@@ -96,8 +100,11 @@
                                                         {{ $attendance->leave->type['name'] }}
                                                     </td>
                                                 @elseif($attendance->type == 'shift_off')
-                                                    <td colspan="2">
-                                                        OFF
+                                                    <td>
+                                                        <i class="fas fa-calendar-minus" style="color: #FF6347;"></i>
+                                                    </td>
+                                                    <td>
+                                                        <i class="fas fa-calendar-minus" style="color: #FF6347;"></i>
                                                     </td>
                                                 @else
                                                     <td>
@@ -105,10 +112,15 @@
                                                             <p style="color: blue">
                                                                 {{ $attendance->clock_in->format('H:i') }}</p>
                                                         @else
-                                                            {{ $attendance->clock_in ? $attendance->clock_in->format('H:i') : '-' }}
+                                                            {!! $attendance->clock_in ? $attendance->clock_in->format('H:i') : '<i class="fas fa-times" style="color: grey;"></i>' !!}
                                                         @endif
                                                         <br>
-                                                        {{ $attendance->overtimes->firstWhere('attendance_id', $attendance->id)->clock_in ?? '-' }}
+                                                        @php
+                                                            $overtime = $attendance->overtimes->firstWhere('attendance_id', $attendance->id);
+                                                            $clockIn = $overtime ? \Carbon\Carbon::parse($overtime->clock_in) : null;
+                                                        @endphp
+
+                                                        {!! $clockIn ? $clockIn->format('H:i') : '<p></p>' !!}
                                                     </td>
                                                     <td>
                                                         @if ($attendance->type == 'berita_acara')
@@ -118,15 +130,19 @@
                                                                 @endif
                                                             </p>
                                                         @else
-                                                            {{ $attendance->clock_out ? $attendance->clock_out->format('H:i') : '-' }}
+                                                            {!! $attendance->clock_out ? $attendance->clock_out->format('H:i') : '<i class="fas fa-times" style="color: grey;"></i>' !!}
                                                         @endif
                                                         <br>
-                                                        {{ $attendance->overtimes->firstWhere('attendance_id', $attendance->id)->clock_out ?? '-' }}
-                                                    </td>
+                                                        @php
+                                                            $overtime = $attendance->overtimes->firstWhere('attendance_id', $attendance->id);
+                                                            $clockOut = $overtime ? \Carbon\Carbon::parse($overtime->clock_out) : null;
+                                                        @endphp
+
+                                                        {!! $clockOut ? $clockOut->format('H:i') : '<p></p>' !!}
                                                 @endif
                                             @else
-                                                <td>-</td>
-                                                <td>-</td>
+                                                <td><i class="fas fa-times" style="color: grey;"></i></td>
+                                                <td><i class="fas fa-times" style="color: grey;"></i></td>
                                             @endif
                                         @endforeach
                                         <td colspan="2">{{ $totals['totalHK'] }}</td>
