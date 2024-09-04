@@ -2,12 +2,13 @@
 
 namespace App\Exports;
 
-use Maatwebsite\Excel\Concerns\FromCollection;
-use Maatwebsite\Excel\Concerns\WithHeadings;
-use Maatwebsite\Excel\Concerns\WithStyles;
-use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use Carbon\Carbon;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
+use Maatwebsite\Excel\Concerns\WithStyles;
+use Maatwebsite\Excel\Concerns\WithHeadings;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use Maatwebsite\Excel\Concerns\FromCollection;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class SiteAttendanceExport implements FromCollection, WithHeadings, WithStyles
 {
@@ -17,6 +18,7 @@ class SiteAttendanceExport implements FromCollection, WithHeadings, WithStyles
     protected $highlightCellsLeave = [];
     protected $highlightCellsShiftOff = [];
     protected $highlightCellsBeritaAcara = [];
+    protected $highlightCellsOvertime = [];
     protected $mergedCells = [];
     protected $totalShiftOffByUser = [];
 
@@ -30,68 +32,113 @@ class SiteAttendanceExport implements FromCollection, WithHeadings, WithStyles
     public function collection()
     {
         $data = [];
-
+        
         foreach ($this->attendancesByUser as $user_id => $userAttendances) {
             $user = $userAttendances->first()->user;
             $totals = $this->totalsByUser[$user_id] ?? [
                 'totalHK' => '',
                 'totalOvertime' => '',
+                'totalOvertimeIn' => '',
+                'totalOvertimeOut' => '',
                 'totalBA' => '',
                 'totalLeave' => '',
             ];
-
+    
             $totalShiftOff = 0;
             $row = [$user->name];
-            $rowIndex = count($data) + 3; // Adjust row index for Excel rows starting from 3
-
+            $rowIndex = count($data) + 3;
+    
             foreach ($this->dates as $index => $date) {
                 $attendance = $userAttendances->get($date->format('Y-m-d'));
                 if ($attendance) {
                     if ($attendance->leave_id != null) {
                         $row[] = $attendance->leave->type['name'];
                         $row[] = '';
-                        $this->highlightCellsLeave[] = [$rowIndex, count($row) - 2]; // Highlight leave cell
-                        $this->mergedCells[] = [$rowIndex, count($row) - 2]; // Merge IN and OUT for leave
+                        $row[] = '';
+                        $this->highlightCellsLeave[] = [$rowIndex, count($row) - 3];
+                        $this->mergedCells[] = [$rowIndex, count($row) - 3];
                     } elseif ($attendance->type == 'shift_off') {
                         $row[] = 'OFF';
                         $row[] = '';
-                        $this->highlightCellsShiftOff[] = [$rowIndex, count($row) - 2]; // Highlight shift_off cell
-                        $this->mergedCells[] = [$rowIndex, count($row) - 2]; // Merge IN and OUT for shift_off
+                        $row[] = '';
+                        $this->highlightCellsShiftOff[] = [$rowIndex, count($row) - 3];
+                        $this->mergedCells[] = [$rowIndex, count($row) - 3];
                         $totalShiftOff++;
                     } elseif ($attendance->type == 'berita_acara') {
                         $row[] = $attendance->clock_in ? $attendance->clock_in->format('H:i') : '-';
                         $row[] = $attendance->clock_out ? $attendance->clock_out->format('H:i') : '-';
-                        $this->highlightCellsBeritaAcara[] = [$rowIndex, count($row) - 2]; // Highlight berita_acara cell
-                        $this->mergedCells[] = [$rowIndex, count($row) - 2]; // Merge IN and OUT for berita_acara
+                        $this->highlightCellsBeritaAcara[] = [$rowIndex, count($row) - 2];
+    
+                        $totalOvertimeMinutes = 0;
+                        foreach ($attendance->overtimes as $overtime) {
+                            try {
+                                $overtimeStart = Carbon::parse($overtime->clock_in);
+                                $overtimeEnd = Carbon::parse($overtime->clock_out);
+    
+                                if ($overtimeEnd && $overtimeStart) {
+                                    $overtimeMinutes = $overtimeStart->diffInMinutes($overtimeEnd);
+                                    $totalOvertimeMinutes += $overtimeMinutes;
+                                }
+                            } catch (\Exception $e) {
+                                // Handle exception if needed
+                            }
+                        }
+                        $overtimeHours = intdiv($totalOvertimeMinutes, 60);
+                        $remainingMinutes = $totalOvertimeMinutes % 60;
+                        $overtimeFormatted = $totalOvertimeMinutes > 0 ? sprintf('%02d:%02d', $overtimeHours, $remainingMinutes) : '-';
+                        $row[] = $overtimeFormatted;
+                        $this->highlightCellsOvertime[] = [$rowIndex, count($row) - 1];
                     } else {
                         $row[] = $attendance->clock_in ? $attendance->clock_in->format('H:i') : '-';
                         $row[] = $attendance->clock_out ? $attendance->clock_out->format('H:i') : '-';
+    
+                        $totalOvertimeMinutes = 0;
+                        foreach ($attendance->overtimes as $overtime) {
+                            try {
+                                $overtimeStart = Carbon::parse($overtime->clock_in);
+                                $overtimeEnd = Carbon::parse($overtime->clock_out);
+    
+                                if ($overtimeEnd && $overtimeStart) {
+                                    $overtimeMinutes = $overtimeStart->diffInMinutes($overtimeEnd);
+                                    $totalOvertimeMinutes += $overtimeMinutes;
+                                }
+                            } catch (\Exception $e) {
+                                // Handle exception if needed
+                            }
+                        }
+                        $overtimeHours = intdiv($totalOvertimeMinutes, 60);
+                        $remainingMinutes = $totalOvertimeMinutes % 60;
+                        $overtimeFormatted = $totalOvertimeMinutes > 0 ? sprintf('%02d:%02d', $overtimeHours, $remainingMinutes) : '-';
+                        $row[] = $overtimeFormatted;
+                        $this->highlightCellsOvertime[] = [$rowIndex, count($row) - 1];
                     }
                 } else {
                     $row[] = '-';
                     $row[] = '-';
+                    $row[] = '-'; 
                 }
             }
-
+    
             $row[] = $totals['totalHK'];
             $row[] = $totals['totalOvertime'];
             $row[] = $totals['totalBA'];
             $row[] = $totals['totalLeave'];
-            $row[] = $totalShiftOff; // Add total shift_off to the row
-
+            $row[] = $totalShiftOff; 
+    
             $data[] = $row;
             $this->totalShiftOffByUser[$user_id] = $totalShiftOff;
         }
-
+    
         return collect($data);
     }
-
+    
     public function headings(): array
     {
         $headings = ['Nama Karyawan'];
 
         foreach ($this->dates as $date) {
             $headings[] = $date->format('d');
+            $headings[] = '';
             $headings[] = '';
         }
 
@@ -100,14 +147,14 @@ class SiteAttendanceExport implements FromCollection, WithHeadings, WithStyles
             'Total Lembur',
             'Total BA',
             'Total Cuti',
-            'Total OFF' // Add heading for total shift-off
+            'Total OFF' 
         ]);
 
-        // Additional row for "IN" and "OUT"
         $subHeadings = [''];
         foreach ($this->dates as $date) {
             $subHeadings[] = 'IN';
             $subHeadings[] = 'OUT';
+            $subHeadings[] = 'OVERTIME';
         }
 
         return [
@@ -118,67 +165,68 @@ class SiteAttendanceExport implements FromCollection, WithHeadings, WithStyles
 
     public function styles(Worksheet $sheet)
     {
-        // Header row style
         $sheet->getStyle('1:1')->getFont()->setBold(true);
         $sheet->getStyle('1:1')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
-
-        // Sub-header row style
+    
         $sheet->getStyle('2:2')->getFont()->setBold(true);
         $sheet->getStyle('2:2')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
-
-        // Merge cells for IN and OUT headers
+    
         $startColumnIndex = 2;
         foreach ($this->dates as $index => $date) {
-            $endColumnIndex = $startColumnIndex + 1;
+            $endColumnIndex = $startColumnIndex + 2;
             $sheet->mergeCells($this->getColumnLetter($startColumnIndex) . '1:' . $this->getColumnLetter($endColumnIndex) . '1');
             $startColumnIndex = $endColumnIndex + 1;
         }
-
-        // Apply cell styles
+    
         foreach ($this->highlightCellsLeave as [$rowIndex, $columnIndex]) {
             $startCell = $this->getColumnLetter($columnIndex + 1) . $rowIndex;
-            $endCell = $this->getColumnLetter($columnIndex + 2) . $rowIndex;
+            $endCell = $this->getColumnLetter($columnIndex + 3) . $rowIndex;
             $sheet->mergeCells("$startCell:$endCell");
             $sheet->getStyle($startCell)->getFill()->setFillType(Fill::FILL_SOLID)
-                                                  ->getStartColor()->setARGB('FFFF00'); // Yellow for leave
-            $sheet->getStyle($startCell)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER); // Center alignment
+                                                  ->getStartColor()->setARGB('FFFF00');
+            $sheet->getStyle($startCell)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
         }
     
         foreach ($this->highlightCellsShiftOff as [$rowIndex, $columnIndex]) {
             $startCell = $this->getColumnLetter($columnIndex + 1) . $rowIndex;
-            $endCell = $this->getColumnLetter($columnIndex + 2) . $rowIndex;
+            $endCell = $this->getColumnLetter($columnIndex + 3) . $rowIndex;
             $sheet->mergeCells("$startCell:$endCell");
             $sheet->getStyle($startCell)->getFill()->setFillType(Fill::FILL_SOLID)
-                                                  ->getStartColor()->setARGB('FF6347'); // Orange for shift_off
-            $sheet->getStyle($startCell)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER); // Center alignment
+                                                  ->getStartColor()->setARGB('FF6347');
+            $sheet->getStyle($startCell)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
         }
-
+    
         foreach ($this->highlightCellsBeritaAcara as [$rowIndex, $columnIndex]) {
-            $cell = $this->getColumnLetter($columnIndex + 1) . $rowIndex;
-            $sheet->getStyle($cell)->getFill()->setFillType(Fill::FILL_SOLID)
-                                              ->getStartColor()->setARGB('1CADEA'); // Color for berita_acara (Tomato)
-            $sheet->getStyle($cell)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER); // Center alignment
+            $startCell = $this->getColumnLetter($columnIndex + 1) . $rowIndex;
+            $endCell = $this->getColumnLetter($columnIndex + 2) . $rowIndex;
+            $sheet->getStyle($startCell)->getFill()->setFillType(Fill::FILL_SOLID)
+                                                  ->getStartColor()->setARGB('1CADEA');
+            $sheet->getStyle($endCell)->getFill()->setFillType(Fill::FILL_SOLID)
+                                                  ->getStartColor()->setARGB('1CADEA');
+            $sheet->getStyle($startCell)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
         }
-
-        foreach ($this->highlightCellsBeritaAcara as [$rowIndex, $columnIndex]) {
-            $cell = $this->getColumnLetter($columnIndex + 2) . $rowIndex;
-            $sheet->getStyle($cell)->getFill()->setFillType(Fill::FILL_SOLID)
-                                              ->getStartColor()->setARGB('1CADEA'); // Color for berita_acara (Tomato)
-            $sheet->getStyle($cell)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER); // Center alignment
+    
+        foreach ($this->highlightCellsOvertime as [$rowIndex, $columnIndex]) {
+            $cellValue = $sheet->getCell($this->getColumnLetter($columnIndex + 1) . $rowIndex)->getValue();
+            if ($cellValue !== '-') {
+                $startCell = $this->getColumnLetter($columnIndex + 1) . $rowIndex;
+                $endCell = $this->getColumnLetter($columnIndex + 2) . $rowIndex;
+                $sheet->getStyle($startCell)->getFill()->setFillType(Fill::FILL_SOLID)
+                                                      ->getStartColor()->setARGB('6EE7B7');
+                $sheet->getStyle($startCell)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+            }
         }
-
-
-        // Freeze pane
-        $sheet->freezePane('A3');
     }
+    
 
-    private function getColumnLetter($index)
+    private function getColumnLetter($columnNumber)
     {
-        $letters = [];
-        while ($index > 0) {
-            $letters[] = chr(($index - 1) % 26 + 65);
-            $index = intval(($index - 1) / 26);
+        $letters = '';
+        while ($columnNumber > 0) {
+            $columnNumber--;
+            $letters = chr($columnNumber % 26 + 65) . $letters;
+            $columnNumber = (int)($columnNumber / 26);
         }
-        return implode('', array_reverse($letters));
+        return $letters;
     }
 }
