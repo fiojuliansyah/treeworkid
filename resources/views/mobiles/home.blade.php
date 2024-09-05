@@ -316,7 +316,5 @@
         window.onload = function() {
             realtimeClock();
         };
-
-        window.history.forward()
     </script>
 @endpush

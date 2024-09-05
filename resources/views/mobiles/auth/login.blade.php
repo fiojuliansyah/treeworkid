@@ -56,8 +56,5 @@
             eyeIcon.classList.add('fa-eye-slash');
         }
     }
-
-    window.history.forward()
-
 </script>
 @endpush
