@@ -61,11 +61,11 @@
 <script>
     window.onload = function () {
         // Menambahkan state ke history
-        window.history.replaceState(null, "", window.location.href);
+        window.history.pushState(null, "", window.location.href);
         
         // Cegah navigasi back
         window.onpopstate = function (event) {
-            window.history.replaceState(null, "", window.location.href);
+            window.history.pushState(null, "", window.location.href);
         };
     };
 </script>
