@@ -341,5 +341,7 @@
                 event.preventDefault();
             }
         });
+
+        history.pushState(null, null, '/mobile/home');
     </script>
 @endpush

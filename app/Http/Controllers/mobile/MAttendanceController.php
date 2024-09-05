@@ -62,7 +62,11 @@ class MAttendanceController extends Controller
     {
         $user = Auth::user();
 
-        return view('mobiles.attendances.clockin', compact('user'));
+        // return view('mobiles.attendances.clockin', compact('user'));
+        return response()->view('mobiles.attendances.clockin')
+        ->header('Cache-Control', 'no-cache, no-store, must-revalidate')
+        ->header('Pragma', 'no-cache')
+        ->header('Expires', '0');
     }
 
     public function clockinStore(Request $request)
@@ -103,7 +107,12 @@ class MAttendanceController extends Controller
 
     public function clockout()
     {
-        return view('mobiles.attendances.clockout');
+        // return view('mobiles.attendances.clockout');
+
+        return response()->view('mobiles.attendances.clockout')
+        ->header('Cache-Control', 'no-cache, no-store, must-revalidate')
+        ->header('Pragma', 'no-cache')
+        ->header('Expires', '0');
     }
 
     public function clockoutStore(Request $request)
