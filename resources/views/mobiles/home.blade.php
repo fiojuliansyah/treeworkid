@@ -318,16 +318,17 @@
         };
     </script>
 @if (Request::routeIs('mobile.home'))
-    <script>
-        window.onload = function() {
-            // Mencegah pengguna menggunakan tombol back
-            history.pushState(null, null, location.href);
-            history.back();
-            history.forward();
-            window.onpopstate = function () {
-                history.go(1);
-            };
+<script>
+    window.onload = function () {
+        // Menambahkan state ke history
+        window.history.pushState(null, "", window.location.href);
+        
+        // Cegah navigasi back
+        window.onpopstate = function (event) {
+            window.history.pushState(null, "", window.location.href);
         };
-    </script>
+    };
+</script>
 @endif
+
 @endpush
