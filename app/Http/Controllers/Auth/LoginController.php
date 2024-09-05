@@ -93,10 +93,10 @@ class LoginController extends Controller
         $request->session()->regenerateToken();
     
         if ((new Agent())->isMobile()) {
-            return redirect()->route('mobile.walkthrough');
+            return redirect()->route('login');
         }
     
-        return redirect('/welcome');
+        return redirect()->route('login');
     }
     
 }
