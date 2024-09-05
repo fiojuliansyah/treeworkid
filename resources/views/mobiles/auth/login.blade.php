@@ -9,7 +9,7 @@
         <h5 class="font-16 font-300">Ayo jelajahi treework!</h5>
     </div>
     <div class="content mb-0 text-center">
-        <form id="login-form" class="form w-100" method="POST" action="{{ route('login') }}">
+        <form id="login-form" class="form w-100" method="POST" action="{{ route('login') }}" onsubmit="return disableSubmit();">
             @csrf
             <div class="input-style no-borders has-icon validate-field mb-4">
                 <input type="text" name="login" class="form-control validate-name" placeholder="Email atau Employee NIK" oninput="this.value = this.value.toLowerCase()">
@@ -52,6 +52,8 @@
 
 @push('js')
 <script>
+    let formSubmitted = false;
+
     function togglePasswordVisibility() {
         const passwordInput = document.getElementById('password');
         const eyeIcon = document.getElementById('eye-icon');
@@ -67,17 +69,29 @@
     }
 
     function submitForm() {
-        // Nonaktifkan tombol login
-        const loginBtn = document.getElementById('login-btn');
-        loginBtn.disabled = true;
-        loginBtn.innerHTML = 'Loading...';
+        if (!formSubmitted) {
+            formSubmitted = true;
 
-        // Tampilkan loader
-        const loader = document.getElementById('loader');
-        loader.style.display = 'block';
+            // Nonaktifkan tombol login
+            const loginBtn = document.getElementById('login-btn');
+            loginBtn.disabled = true;
+            loginBtn.innerHTML = 'Loading...';
 
-        // Submit form setelah tombol ditekan
-        document.getElementById('login-form').submit();
+            // Tampilkan loader
+            const loader = document.getElementById('loader');
+            loader.style.display = 'block';
+
+            // Kirim form
+            document.getElementById('login-form').submit();
+        }
+    }
+
+    function disableSubmit() {
+        // Jika form sudah dikirim, matikan pengiriman ulang
+        if (formSubmitted) {
+            return false;
+        }
+        return true;
     }
 </script>
 @endpush
