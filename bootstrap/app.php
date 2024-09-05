@@ -14,7 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
             'prevent-back-history' => \App\Http\Middleware\PreventBackHistory::class,
-            'prevent.back.to.login' => \App\Http\Middleware\PreventBackToLogin::class,
+            'prevent-back-to-login' => \App\Http\Middleware\PreventBackToLogin::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
