@@ -3,7 +3,7 @@
 "lang" : "en",
 "name" : "Treework",
 "scope" : "/",
-"display" : "fullscreen",
+"display" : "standalone",
 "start_url" : "/mobile/home",
 "short_name" : "Treework",
 "description" : "",

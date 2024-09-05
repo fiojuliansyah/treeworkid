@@ -62,17 +62,27 @@ self.addEventListener('install', function(event) {
 });
 
 self.addEventListener('fetch', function(event) {
-	event.respondWith(
-		//Fetch Data from cache if offline
-		caches.match(event.request)
-			.then(function(response) {
-				if (response) {return response;}
-				return fetch(event.request);
-			}
-		)
-	);
-	if(APP_DIAG){console.log('Service Worker: Fetching '+APP_NAME+'-'+APP_VER+' files from Cache');}
+    if (event.request.mode === 'navigate') {
+        event.respondWith(
+            fetch(event.request)
+                .then(function(response) {
+                    // Always return a fresh response for navigation requests
+                    return response;
+                })
+                .catch(function() {
+                    return caches.match('/offline.html'); // Menampilkan halaman offline jika gagal
+                })
+        );
+    } else {
+        event.respondWith(
+            caches.match(event.request)
+                .then(function(response) {
+                    return response || fetch(event.request);
+                })
+        );
+    }
 });
+
 
 self.addEventListener('activate', function(event) {
 	event.waitUntil(self.clients.claim());
