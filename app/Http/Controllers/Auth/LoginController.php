@@ -25,15 +25,22 @@ class LoginController extends Controller
         if (Auth::check()) {
             return redirect()->intended($this->redirectTo);
         }
-
+    
         $agent = new Agent();
-
+    
         if ($agent->isMobile()) {
-            return view('mobiles.auth.login');
+            return response()->view('mobiles.auth.login')
+                ->header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
+                ->header('Cache-Control', 'post-check=0, pre-check=0')
+                ->header('Pragma', 'no-cache');
         }
-
-        return view('auth.login');
+    
+        return response()->view('auth.login')
+            ->header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
+            ->header('Cache-Control', 'post-check=0, pre-check=0')
+            ->header('Pragma', 'no-cache');
     }
+    
 
     protected function validateLogin(Request $request)
     {

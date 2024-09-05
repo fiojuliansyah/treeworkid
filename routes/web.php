@@ -37,7 +37,7 @@ Route::get('/account/tab-account-detail', [DashboardController::class, 'indexAcc
 Route::get('/account/tab-profile-detail', [DashboardController::class, 'indexProfile'])->name('web-profile');
 Route::get('/account/tab-document-detail', [DashboardController::class, 'indexDocument'])->name('web-document');
 
-Route::middleware('guest')->group(function () {
+Route::middleware(['guest', 'prevent.back.to.login'])->group(function () {
     Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
     Route::post('login', [LoginController::class, 'login']);
     Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
