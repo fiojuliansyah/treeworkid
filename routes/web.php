@@ -45,7 +45,7 @@ Route::middleware('guest')->group(function () {
 });
 Route::post('/logout', [LoginController::class, 'logout'])->middleware('web')->name('logout');
 
-Route::middleware('auth')->prefix('manage')->group(function () {
+Route::middleware(['auth', 'prevent-back-history'])->prefix('manage')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/recuit', [DashboardController::class, 'recruit'])->name('recruit');
     Route::get('/activities', [DashboardController::class, 'activities'])->name('activities');
@@ -102,7 +102,7 @@ Route::middleware('auth')->prefix('manage')->group(function () {
 
 Route::get('/get-started', [HomeController::class, 'getStarted'])->name('mobile.walkthrough');
 
-Route::middleware('auth')->prefix('mobile')->group(function () {
+Route::middleware(['auth', 'prevent-back-history'])->prefix('mobile')->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('mobile.home');
     Route::get('/setting', [HomeController::class, 'setting'])->name('mobile.setting');
 

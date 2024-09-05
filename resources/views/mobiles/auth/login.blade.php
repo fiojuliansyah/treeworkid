@@ -56,14 +56,8 @@
             eyeIcon.classList.add('fa-eye-slash');
         }
     }
-    
-    setInterval(autoRefresh, 1); // 30000 milliseconds = 30 seconds
-    window.onload = function () {
-        window.history.pushState(null, "", window.location.href);
-        
-        window.onpopstate = function (event) {
-            window.history.pushState(null, "", window.location.href);
-        };
-    };
+
+    widow.history.forward()
+
 </script>
 @endpush
