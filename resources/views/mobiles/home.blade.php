@@ -315,31 +315,6 @@
 
         window.onload = function() {
             realtimeClock();
-            if (window.location.pathname === '{{ route('mobile.home') }}') {
-                    history.pushState(null, null, window.location.href);
-                    window.onpopstate = function() {
-                        history.go(1);
-                    };
-                }
         };
-
-        // Disable swipe back and forward gesture
-        let startX = 0;
-        let startY = 0;
-
-        window.addEventListener('touchstart', function(event) {
-            startX = event.touches[0].clientX;
-            startY = event.touches[0].clientY;
-        });
-
-        window.addEventListener('touchmove', function(event) {
-            let diffX = event.touches[0].clientX - startX;
-            let diffY = event.touches[0].clientY - startY;
-
-            // Detect horizontal swipe (prevent swipe back/forward)
-            if (Math.abs(diffX) > Math.abs(diffY)) {
-                event.preventDefault();
-            }
-        });
     </script>
 @endpush
