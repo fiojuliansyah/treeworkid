@@ -36,9 +36,18 @@
             </div>
         </form>
 
-        <a href="#" onclick="event.preventDefault(); document.getElementById('login-form').submit();" class="btn btn-m mt-4 mb-4 btn-full bg-highlight rounded-sm text-uppercase font-900">Login</a>
+        <a href="#" id="login-btn" onclick="submitForm();" class="btn btn-m mt-4 mb-4 btn-full bg-highlight rounded-sm text-uppercase font-900">Login</a>
+    </div>
+    <div id="loader" style="display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 30;">
+        <div class="spinner" style="border: 8px solid #f3f3f3; border-top: 8px solid #f84e45; border-radius: 50%; width: 60px; height: 60px; animation: spin 1s linear infinite;"></div>
     </div>
 </div>
+<style>
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+</style>
 @endsection
 
 @push('js')
@@ -55,6 +64,20 @@
             eyeIcon.classList.remove('fa-eye');
             eyeIcon.classList.add('fa-eye-slash');
         }
+    }
+
+    function submitForm() {
+        // Nonaktifkan tombol login
+        const loginBtn = document.getElementById('login-btn');
+        loginBtn.disabled = true;
+        loginBtn.innerHTML = 'Loading...';
+
+        // Tampilkan loader
+        const loader = document.getElementById('loader');
+        loader.style.display = 'block';
+
+        // Submit form setelah tombol ditekan
+        document.getElementById('login-form').submit();
     }
 </script>
 @endpush
