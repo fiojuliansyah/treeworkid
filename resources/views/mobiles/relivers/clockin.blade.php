@@ -111,5 +111,7 @@
             }
         });
     });
+
+    window.history.forward()
 </script>
 @endpush

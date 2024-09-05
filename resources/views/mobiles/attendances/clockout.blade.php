@@ -87,6 +87,8 @@
             captureImageAndSubmit();
         });
     });
+
+    window.history.forward()
 </script>
 
 @endpush
