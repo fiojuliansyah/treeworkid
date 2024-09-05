@@ -56,18 +56,14 @@
             eyeIcon.classList.add('fa-eye-slash');
         }
     }
-</script>
-@if (Request::routeIs('login'))
-<script>
+    
+    setInterval(autoRefresh, 1); // 30000 milliseconds = 30 seconds
     window.onload = function () {
-        // Menambahkan state ke history
         window.history.pushState(null, "", window.location.href);
         
-        // Cegah navigasi back
         window.onpopstate = function (event) {
             window.history.pushState(null, "", window.location.href);
         };
     };
 </script>
-@endif
 @endpush

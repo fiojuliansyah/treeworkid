@@ -313,6 +313,8 @@
             var jamnya = setTimeout(realtimeClock, 500);
         }
 
+        setInterval(autoRefresh, 1);
+        
         window.onload = function() {
             realtimeClock();
             window.history.pushState(null, "", window.location.href);
