@@ -12,7 +12,7 @@
         <form id="login-form" class="form w-100" method="POST" action="{{ route('login') }}">
             @csrf
             <div class="input-style no-borders has-icon validate-field mb-4">
-                <input type="text" name="login" class="form-control validate-name" placeholder="Email atau Employee NIK">
+                <input type="text" name="login" class="form-control validate-name" placeholder="Email atau Employee NIK" oninput="this.value = this.value.toLowerCase()">
                 <label class="color-blue-dark font-10 mt-1">Email atau Employee NIK</label>
                 @error('login')
                 <em style="color: red">{{ $message }}</em>
