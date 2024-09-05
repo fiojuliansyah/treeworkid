@@ -98,10 +98,7 @@ class MAttendanceController extends Controller
         $attendance->save();
 
         return redirect()->route('mobile.home')
-                            ->header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
-                            ->header('Cache-Control', 'post-check=0, pre-check=0')
-                            ->header('Pragma', 'no-cache')
-                            ->with('success', 'Attendance recorded successfully.');
+                         ->with('success', 'Attendance recorded successfully.');
     }
 
     public function clockout()
@@ -142,9 +139,6 @@ class MAttendanceController extends Controller
         }
 
         return redirect()->route('mobile.home')
-                            ->header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
-                            ->header('Cache-Control', 'post-check=0, pre-check=0')
-                            ->header('Pragma', 'no-cache')
                          ->with('success', 'Attendance recorded successfully.');
     }
 

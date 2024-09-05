@@ -103,6 +103,19 @@ Route::middleware(['auth', 'prevent-back-history'])->prefix('manage')->group(fun
 
 Route::get('/get-started', [HomeController::class, 'getStarted'])->name('mobile.walkthrough');
 
+
+Route::middleware(['auth', 'prevent-back-history'])->prefix('mobile')->group(function () {
+    Route::get('/attendance/clockin', [MAttendanceController::class, 'clockin'])->name('attendance.clockin');
+    Route::post('/attendance/clockin', [MAttendanceController::class, 'clockinStore'])->name('clockin.store');
+    Route::get('/attendance/clockout', [MAttendanceController::class, 'clockout'])->name('attendance.clockout');
+    Route::post('/attendance/clockout', [MAttendanceController::class, 'clockoutStore'])->name('clockout.store');
+
+    Route::post('/reliver/clockin/site', [MReliverController::class, 'clockin'])->name('reliver.clockin');
+    Route::post('/reliver/clockin', [MReliverController::class, 'clockinStore'])->name('reliver.clockin.store');
+    Route::get('/reliver/clockout', [MReliverController::class, 'clockout'])->name('reliver.clockout');
+    Route::post('/reliver/clockout', [MReliverController::class, 'clockoutStore'])->name('reliver.clockout.store');
+});
+
 Route::middleware(['auth', 'prevent-back-history'])->prefix('mobile')->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('mobile.home');
     Route::get('/setting', [HomeController::class, 'setting'])->name('mobile.setting');
@@ -121,10 +134,6 @@ Route::middleware(['auth', 'prevent-back-history'])->prefix('mobile')->group(fun
 
     Route::get('/attendance', [MAttendanceController::class, 'index'])->name('attendance.index');
     Route::get('/attendance/logs', [MAttendanceController::class, 'logs'])->name('attendance.logs');
-    Route::get('/attendance/clockin', [MAttendanceController::class, 'clockin'])->name('attendance.clockin');
-    Route::post('/attendance/clockin', [MAttendanceController::class, 'clockinStore'])->name('clockin.store');
-    Route::get('/attendance/clockout', [MAttendanceController::class, 'clockout'])->name('attendance.clockout');
-    Route::post('/attendance/clockout', [MAttendanceController::class, 'clockoutStore'])->name('clockout.store');
     Route::post('/attendance/off', [MAttendanceController::class, 'timeOff'])->name('attendance.off');
 
     Route::get('/overtime', [MOvertimeController::class, 'index'])->name('overtime.index');
@@ -143,8 +152,4 @@ Route::middleware(['auth', 'prevent-back-history'])->prefix('mobile')->group(fun
 
     Route::get('/reliver', [MReliverController::class, 'index'])->name('reliver.index');
     Route::post('/reliver/update-site', [MReliverController::class, 'updateSite'])->name('reliver.updateSite');
-    Route::post('/reliver/clockin/site', [MReliverController::class, 'clockin'])->name('reliver.clockin');
-    Route::post('/reliver/clockin', [MReliverController::class, 'clockinStore'])->name('reliver.clockin.store');
-    Route::get('/reliver/clockout', [MReliverController::class, 'clockout'])->name('reliver.clockout');
-    Route::post('/reliver/clockout', [MReliverController::class, 'clockoutStore'])->name('reliver.clockout.store');
 });

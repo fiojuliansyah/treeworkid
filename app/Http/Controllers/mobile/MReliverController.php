@@ -68,10 +68,7 @@ class MReliverController extends Controller
         $attendance->remark = $request->remark;
         $attendance->save();
 
-        return view('mobiles.relivers.clockin')
-        ->header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
-        ->header('Cache-Control', 'post-check=0, pre-check=0')
-        ->header('Pragma', 'no-cache');
+        return view('mobiles.relivers.clockin');
     }
 
     public function clockinStore(Request $request)
@@ -107,9 +104,6 @@ class MReliverController extends Controller
         $lastAttendance->save();
 
         return redirect()->route('reliver.index')
-                             ->header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
-                            ->header('Cache-Control', 'post-check=0, pre-check=0')
-                            ->header('Pragma', 'no-cache')
                          ->with('success', 'Attendance recorded successfully.');
     }
 
