@@ -154,7 +154,7 @@ class SiteAttendanceExport implements FromCollection, WithHeadings, WithStyles
         foreach ($this->dates as $date) {
             $subHeadings[] = 'IN';
             $subHeadings[] = 'OUT';
-            $subHeadings[] = 'OVERTIME';
+            $subHeadings[] = 'LEMBUR';
         }
 
         return [

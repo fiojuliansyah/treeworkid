@@ -209,8 +209,6 @@ class ReportController extends Controller
             $totalsByUser[$user->id] = [
                 'totalHK' => $totalHK,
                 'totalOvertime' => sprintf('%d jam %d menit', $totalOvertimeHours, $remainingMinutes),
-                'totalOvertimeIn' => gmdate('H:i:s', $totalOvertimeIn), // Convert timestamp to time format
-                'totalOvertimeOut' => gmdate('H:i:s', $totalOvertimeOut), // Convert timestamp to time format
                 'totalBA' => $totalBA,
                 'totalLeave' => $totalLeave,
             ];
