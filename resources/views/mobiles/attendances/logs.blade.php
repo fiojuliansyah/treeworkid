@@ -5,7 +5,7 @@
     
     <div class="page-title page-title-small">
         <h2 style="color: black">
-            <a href="{{ route('mobile.home') }}">
+            <a href="#" data-back-button>
                 <i class="fa fa-arrow-left" style="color: black"></i>
             </a>Logs Attendance
         </h2>

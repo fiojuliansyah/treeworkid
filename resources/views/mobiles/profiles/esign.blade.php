@@ -4,7 +4,7 @@
 <div class="page-content">
     <div class="page-title page-title-small">
         <h2 style="color: black">
-            <a href="{{ route('mobile.setting') }}"><i class="fa fa-arrow-left" style="color: black"></i></a>Esign
+            <a href="#" data-back-button><i class="fa fa-arrow-left" style="color: black"></i></a>Esign
         </h2>
         <div class="divider"></div>
     </div>

@@ -317,6 +317,6 @@
             realtimeClock();
         };
 
-        widow.history.forward()
+        window.history.forward()
     </script>
 @endpush

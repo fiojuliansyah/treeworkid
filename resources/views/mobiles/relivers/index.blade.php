@@ -4,7 +4,7 @@
 @section('content')
 <div class="page-content">  
     <div class="page-title page-title-small" style="margin-top: 50px">
-        <a href="{{ route('mobile.home') }}" class="btn rounded-xl" style="background-color: #f9584f">
+        <a href="#" data-back-button class="btn rounded-xl" style="background-color: #f9584f">
             <span style="display: block; text-align: center;">
                 <i class="fa fa-arrow-left" style="font-size: 12px">&nbsp</i>
             </span>

@@ -3,7 +3,7 @@
 @section('content')
 <div class="page-content">
     <div class="page-title page-title-small">
-        <h2 style="color: black"><a href="{{ route('leave.index') }}"><i class="fa fa-arrow-left" style="color: black"></i></a></h2>
+        <h2 style="color: black"><a href="#" data-back-button><i class="fa fa-arrow-left" style="color: black"></i></a></h2>
         <div class="divider"></div>
     </div>
     {{-- <div class="card header-card" data-card-height="80">
