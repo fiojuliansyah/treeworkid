@@ -280,6 +280,18 @@
 @endsection
 @push('js')
     <script>
+        function preventBackNavigation() {
+            if (performance.navigation.type === 1) {
+                // Jika halaman dimuat ulang, arahkan ke home
+                window.location.replace('{{ route('mobile.home') }}');
+            }
+
+            window.history.pushState(null, null, window.location.href);
+            window.onpopstate = function () {
+                window.history.go(1);
+            };
+        }
+
         function getServerTime() {
             return $.ajax({
                 async: false
@@ -341,7 +353,5 @@
                 event.preventDefault();
             }
         });
-
-        history.pushState(null, null, '/mobile/home');
     </script>
 @endpush
