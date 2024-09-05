@@ -317,12 +317,18 @@
             realtimeClock();
         };
     </script>
-    @if (Request::routeIs('mobile.home'))
-        <script>
-            window.history.pushState(null, "", window.location.href);  
-            window.onpopstate = function() {
-                window.history.pushState(null, "", window.location.href);
-            };
-        </script>
-    @endif
+@if (Request::routeIs('mobile.home'))
+<script>
+    window.onload = function () {
+        // Menambahkan state ke history
+        window.history.pushState(null, "", window.location.href);
+        
+        // Cegah navigasi back
+        window.onpopstate = function (event) {
+            window.history.pushState(null, "", window.location.href);
+        };
+    };
+</script>
+@endif
+
 @endpush
