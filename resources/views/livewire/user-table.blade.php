@@ -89,7 +89,7 @@
                         <!--begin::User details-->
                         <div class="d-flex flex-column">
                             <a href="{{ route('user-account', ['id' => encrypt($user->id)]) }}" class="text-gray-800 text-hover-primary mb-1">{{ $user->name }}</a>
-                            <span>{{ $user->profile['employee_nik'] ?? '' }}</span>
+                            <span>{{ $user->employee_nik ?? '' }}</span>
                         </div>
                         <!--begin::User details-->
                     </td>
@@ -112,7 +112,11 @@
                         <span>Leader : <strong>{{ $user->leader['name'] ?? '' }}</strong></span>
                     </td>
                     <td>
-                        {{ $user->site['name'] ?? 'Tidak ada' }}
+                        <span>{{ $user->site->company['name'] ?? 'Tidak ada' }}</span>
+                        <br>
+                        <span>
+                            {{ $user->site['name'] ?? 'Tidak ada' }}
+                        </span>
                     </td>
                     <td class="text-end">
                         <a href="#" class="btn btn-light btn-active-light-primary btn-flex btn-center btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions 
