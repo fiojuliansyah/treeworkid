@@ -22,7 +22,7 @@ class UserTable extends Component
         $usersQuery = User::query();
 
         if ($this->selectedSite) {
-            $usersQuery->where('site', $this->selectedSite);
+            $usersQuery->where('site_id', $this->selectedSite);
         }
 
         if ($this->search) {

@@ -46,10 +46,17 @@ class LoginController extends Controller
     {
         $request->validate([
             'login' => 'required|string|max:255',
-            'password' => 'required|string',
+            'password' => [
+                'required',
+                'string',
+                'min:8',           // Password minimal 8 karakter
+                'confirmed',       // Pastikan password dikonfirmasi
+            ],
         ], [
             'required' => 'Kolom :attribute wajib diisi.',
             'string' => 'Kolom :attribute harus berupa teks.',
+            'min' => 'Kolom :attribute minimal :min karakter.',
+            'confirmed' => 'Konfirmasi password tidak cocok.',
         ]);
     }
 

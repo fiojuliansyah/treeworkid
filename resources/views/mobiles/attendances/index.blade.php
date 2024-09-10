@@ -10,7 +10,7 @@
             </span>
         </a>
     </div>
-    <div class="card header-card">
+    <div class="card header-card first">
         <a href="#" class="get-location btn btn-full btn-m bg-red2-dark rounded-sm text-uppercase shadow-l font-900" style="display: none">Show My Location</a>
         <p class="location-coordinates" style="display: none"></p>
         <div id="map" style="height: 400px"></div>
@@ -29,7 +29,7 @@
                 <br>
                 <strong id="clock"></strong>
             </div>
-            <div class="col-2 pt-2">
+            <div class="col-2 pt-2 second">
                 <a href="#" onclick="refreshMap()" class="btn rounded-xl bg-yellow-dark">
                     <span style="display: block; text-align: center;">
                         <i class="fas fa-map-marker-alt" style="font-size: 15px"></i>
@@ -38,7 +38,7 @@
             </div>
         </div>
         <div style="border: none; border: 1px solid #eef2f1; border-radius: 8px; padding: 10px; box-sizing: border-box;">
-            <div class="row">
+            <div class="row third">
                 <div class="col-4">
                     <strong style="color: black">Judul Shift</strong>
                     <br>
@@ -63,7 +63,7 @@
                 </div>
             </div>
             <div style="text-align: right">
-                <a href="#" data-menu="menu-confirm" class="btn btn-m rounded-s text-uppercase font-900 bg-red-dark">TIME OFF</a>
+                <a href="#" data-menu="menu-confirm" class="btn btn-m rounded-s text-uppercase font-900 bg-red-dark fourth">TIME OFF</a>
             </div>
         </div>
         <div class="mb-2 pt-1 mt-2">
@@ -106,7 +106,7 @@
         </div>
     </div>
     <div class="ad-300x50 ad-300x50-fixed">
-        <div class="content">
+        <div class="content fiveth">
             @if ($latestClockOut)
             @else
                 @if ($latestClockIn)
@@ -166,6 +166,40 @@ data-menu-width="320">
 @endsection
 
 @push('js')
+<script>
+    introJs().setOptions({
+            steps:[{
+            title: 'Selamat Datang',
+            intro: 'Tutorial ini akan membantu Anda memahami fitur-fitur penting yang tersedia.'
+        },
+        {
+            element: document.querySelector('.first'),
+            title: 'Absensi',
+            intro: 'Di sini Anda dapat melihat radius untuk melakukan absen pada MAP.'
+        },
+        {
+            element: document.querySelector('.second'),
+            title: 'MAP',
+            intro: 'Gunakan fitur ini untuk mengkalibrasi map anda jika terjadi gangguan.'
+        },
+        {
+            element: document.querySelector('.third'),
+            title: 'Absensi',
+            intro: 'Di bagian ini, adalah informasi terkait jadwal masuk dan pulang Anda.'
+        },
+        {
+            element: document.querySelector('.fourth'),
+            title: 'Absensi',
+            intro: 'Fitur ini digunakan ketika anda tidak mempunyai jadwal libur dan bisa melakukan secara manual.'
+        },
+        {
+            element: document.querySelector('.fiveth'),
+            title: 'Absensi',
+            intro: 'Tombol ini digunakan untuk anda melakukan absen masuk dan absen pulang.'
+        }],
+            dontShowAgain: true,
+        }).start();
+</script>
 <script>
     function getServerTime() {
         return $.ajax({ async: false }).getResponseHeader('Date');

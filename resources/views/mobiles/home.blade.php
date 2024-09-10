@@ -15,13 +15,13 @@
                         {{ Auth::user()->email ?? 'Guest' }}
                     </p>
                 </div>
-                <a href="{{ route('mobile.setting') }}">
+                <a href="{{ route('mobile.setting') }}" class="fourth">
                     <img src="{{ Auth::user()->profile['avatar_url'] ?? '/assets/media/avatars/blank.png' }}" width="70"
                         height="70" class="bg-highlight rounded-circle shadow-xl">
                 </a>
             </div>
         </div>
-        <div class="card card-style">
+        <div class="card card-style first">
             <div class="content">
                 <div class="row">
                     <div class="col-9" style="color: black">
@@ -33,7 +33,7 @@
                             <p>No shift information available</p>
                         </div>
                     </div>
-                    <div class="col-3 pt-2">
+                    <div class="col-3 pt-2 second">
                         <div class="text-center">
                             @if ($latestAttendance && $latestAttendance->clock_out != null)     
                                 <a href="{{ route('attendance.index') }}" class="btn rounded-xl bg-highlight">
@@ -171,8 +171,8 @@
             <h5 class="float-start font-16 font-600">Happy Customers</h5>
             <div class="clearfix"></div>
         </div> --}}
-        @can('attendance-module')   
-            <div class="row me-0 ms-0 mb-0" style="margin-top: 20px; padding-left: 20px; padding-right: 20px">
+        @can('attendance-module')
+            <div class="row me-0 ms-0 mb-0 third" style="margin-top: 20px;">
                 <div class="col-3 ps-0 pe-0">
                     <a href="{{ route('attendance.logs') }}" class="icon-user"
                         style="display: flex; flex-direction: column; align-items: center; text-align: center;">
@@ -213,20 +213,16 @@
                         </div>
                     </a>       
                 </div>
-            </div>
-            <div class="row me-0 ms-0 mb-0" style="margin-top: 10px; padding-left: 20px; padding-right: 20px">
-                @if(Auth::user()->department_id == '3')
-                    <div class="col-3 ps-0 pe-0">
-                        <a href="{{ route('reliver.index') }}" class="icon-user"
-                            style="display: flex; flex-direction: column; align-items: center; text-align: center;">
-                            <img src="https://img.icons8.com/?size=256&id=23282&format=png" alt="" width="50px"
-                                style="margin-bottom: 5px; border: none; border: 1px solid #eef2f1; border-radius: 8px; padding: 10px; margin: 5px; box-sizing: border-box;">
-                            <div style="display: flex; align-items: center;">
-                                <p style="margin: 0;">Reliver</p>
-                            </div>
-                        </a>       
-                    </div>
-                @endif
+                <div class="col-3 ps-0 pe-0 pt-3">
+                    <a href="{{ route('reliver.index') }}" class="icon-user"
+                        style="display: flex; flex-direction: column; align-items: center; text-align: center;">
+                        <img src="https://img.icons8.com/?size=256&id=23282&format=png" alt="" width="50px"
+                            style="margin-bottom: 5px; border: none; border: 1px solid #eef2f1; border-radius: 8px; padding: 10px; margin: 5px; box-sizing: border-box;">
+                        <div style="display: flex; align-items: center;">
+                            <p style="margin: 0;">Reliver</p>
+                        </div>
+                    </a>       
+                </div>
             </div>
         @endcan
 
@@ -279,6 +275,35 @@
     </div>
 @endsection
 @push('js')
+    <script>
+        introJs().setOptions({
+            steps:[{
+            title: 'Selamat Datang',
+            intro: 'Selamat datang di sistem kami! Tutorial ini akan membantu Anda memahami fitur-fitur penting yang tersedia.'
+        },
+        {
+            element: document.querySelector('.first'),
+            title: 'Absensi',
+            intro: 'Di sini Anda dapat melihat status absensi Anda, termasuk kehadiran harian dan riwayat cuti.'
+        },
+        {
+            element: document.querySelector('.second'),
+            title: 'Absensi',
+            intro: 'Gunakan fitur ini untuk mencatat waktu masuk dan pulang kerja secara real-time dengan mudah.'
+        },
+        {
+            element: document.querySelector('.third'),
+            title: 'Modul Fitur',
+            intro: 'Di bagian ini, Anda akan menemukan berbagai modul yang dapat digunakan untuk mengelola informasi dan laporan terkait pekerjaan Anda.'
+        },
+        {
+            element: document.querySelector('.fourth'),
+            title: 'Informasi',
+            intro: 'Di bagian ini, Anda bisa melihat informasi akun terkait pekerjaan Anda.'
+        }],
+            dontShowAgain: true,
+        }).start();
+    </script>
     <script>
         function getServerTime() {
             return $.ajax({

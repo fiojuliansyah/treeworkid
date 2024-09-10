@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 <link rel="manifest" href="/_manifest.json" data-pwa-version="set_in_manifest_and_pwa_js">
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/mobiles/app/icons/icon-192x192.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.2.0/introjs.min.css">
 @livewireStyles
 </head>
     
@@ -29,8 +30,8 @@
     @yield('content')
     @yield('modal')
     @if (session('success'))
-        <div id="notification-1" class="notification notification-ios bg-highlight ms-2 me-2 mt-2 rounded-s" role="alert">
-            <span class="notification-icon color-white bg-highlight rounded-s">
+        <div id="notification-1" class="notification notification-ios bg-dark ms-2 me-2 mt-2 rounded-s" role="alert">
+            <span class="notification-icon color-white bg-dark rounded-s">
                 <i class="fa fa-bell"></i>
                 <em>Treework</em>
                 <i data-bs-dismiss="toast" class="fa fa-times-circle"></i>
@@ -117,6 +118,7 @@
 
 <script type="text/javascript" src="/assets/mobiles/scripts/bootstrap.min.js"></script>
 <script type="text/javascript" src="/assets/mobiles/scripts/custom.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.2.0/intro.min.js"></script>
 @stack('js')
 @livewireScripts
 </body>

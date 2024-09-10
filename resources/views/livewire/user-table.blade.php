@@ -40,8 +40,8 @@
                     <div class="px-7 py-5" data-kt-user-table-filter="form">
                         <div class="mb-10">
                             <label class="form-label fs-6 fw-semibold">Site :</label>
-                            <select class="form-select form-select-solid fw-bold" data-kt-select2="true" data-placeholder="Select option" data-allow-clear="true" wire:model.live="selectedSite">
-                                <option>All SIte</option>
+                            <select class="form-select form-select-solid fw-bold" data-placeholder="Select option" wire:model.live="selectedSite" id="select-site">
+                                <option value="">All Site</option>
                                 @foreach ($sites as $site)
                                    <option value="{{ $site->id }}">{{ $site->name }}</option>
                                 @endforeach
@@ -177,3 +177,12 @@
         <!--end::Table-->
     </div>
 </div>
+@push('js')
+    <script>
+        $(document).ready(function() {
+            $('#select-site').select2().on('change', function (e) {
+                @this.set('selectedSite', $(this).val());
+            });
+        });
+    </script>
+@endpush
