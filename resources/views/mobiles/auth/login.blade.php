@@ -14,9 +14,6 @@
             <div class="input-style no-borders has-icon validate-field mb-4">
                 <input type="text" name="login" class="form-control validate-name" placeholder="Email atau Employee NIK" oninput="this.value = this.value.toLowerCase()">
                 <label class="color-blue-dark font-10 mt-1">Email atau Employee NIK</label>
-                @error('login')
-                <em style="color: red">{{ $message }}</em>
-                @enderror
             </div>
             <div class="row">
                 <div class="col-10">
@@ -30,9 +27,11 @@
                         <i id="eye-icon" class="fa fa-eye-slash"></i>
                     </span>
                 </div>
-                @error('password')
-                <em style="color: red">{{ $message }}</em>
-                @enderror
+                @if ($errors->any())
+                    @foreach ($errors->all() as $error)
+                        <em style="color: red">{{ $error }}</em>
+                    @endforeach
+                @endif
             </div>
         </form>
 

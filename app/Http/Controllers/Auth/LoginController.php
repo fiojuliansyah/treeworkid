@@ -5,9 +5,10 @@ namespace App\Http\Controllers\Auth;
 use Jenssegers\Agent\Agent;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
 {
@@ -106,4 +107,11 @@ class LoginController extends Controller
         return redirect()->route('login');
     }
     
+    protected function sendFailedLoginResponse(Request $request)
+    {
+        $errors = [
+            $this->username() => ['Email atau NIK dan password yang Anda masukkan tidak cocok.'],
+        ];
+        throw ValidationException::withMessages($errors);
+    }
 }
