@@ -67,7 +67,7 @@ class CompanyController extends Controller
     {
         $company = Company::findOrFail($id);
     
-        Cloudinary::destroy($company->image_public_id);
+        Cloudinary::destroy($company->logo_public_id);
         $company->delete();
     
         return redirect()->route('companies.index')
