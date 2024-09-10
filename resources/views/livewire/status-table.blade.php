@@ -162,9 +162,9 @@
                                 <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
                                 <a href="{{ route('statuses.destroy', $status->id) }}"
                                 onclick="event.preventDefault();
-                                              document.getElementById('delete-status').submit();" class="btn btn-danger">Hapus</a>
+                                              document.getElementById('delete-status-{{ $status->id }}').submit();" class="btn btn-danger">Hapus</a>
                             </div>
-                            <form id="delete-status" action="{{ route('statuses.destroy', $status->id) }}" method="POST">
+                            <form id="delete-status-{{ $status->id }}" action="{{ route('statuses.destroy', $status->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                             </form>

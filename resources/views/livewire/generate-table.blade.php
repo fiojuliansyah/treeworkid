@@ -124,11 +124,11 @@
                 
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                                <a href="{{ route('generates.destroy', $generate->id) }}"
+                                <a href="#"
                                 onclick="event.preventDefault();
-                                              document.getElementById('delete-generate').submit();" class="btn btn-danger">Hapus</a>
+                                              document.getElementById('delete-generate-{{ $generate->id }}').submit();" class="btn btn-danger">Hapus</a>
                             </div>
-                            <form id="delete-generate" action="{{ route('generates.destroy', $generate->id) }}" method="POST">
+                            <form id="delete-generate-{{ $generate->id }}" action="{{ route('generates.destroy', $generate->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                             </form>

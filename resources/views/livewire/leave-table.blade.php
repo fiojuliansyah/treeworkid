@@ -126,7 +126,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                                <a href="{{ route('leaves.destroy', $leave->id) }}"
+                                <a href="#"
                                     onclick="event.preventDefault(); document.getElementById('delete-leave-{{ $leave->id }}').submit();"
                                     class="btn btn-danger">Delete</a>
                                 <form id="delete-leave-{{ $leave->id }}" action="{{ route('leaves.destroy', $leave->id) }}" method="POST" style="display: none;">

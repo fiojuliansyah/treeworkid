@@ -146,7 +146,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                                <a href="{{ route('types.destroy', $type->id) }}" onclick="event.preventDefault(); document.getElementById('delete-type-{{ $type->id }}').submit();" class="btn btn-danger">Delete</a>
+                                <a href="#" onclick="event.preventDefault(); document.getElementById('delete-type-{{ $type->id }}').submit();" class="btn btn-danger">Delete</a>
                             </div>
                             <form id="delete-type-{{ $type->id }}" action="{{ route('types.destroy', $type->id) }}" method="POST">
                                 @csrf

@@ -118,11 +118,11 @@
                             
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                                            <a href="{{ route('applicants.destroy', $applicant->id) }}"
+                                            <a href="#"
                                             onclick="event.preventDefault();
-                                                        document.getElementById('delete-applicant').submit();" class="btn btn-danger">Hapus</a>
+                                                        document.getElementById('delete-applicant-{{ $applicant->id }}').submit();" class="btn btn-danger">Hapus</a>
                                         </div>
-                                        <form id="delete-applicant" action="{{ route('applicants.destroy', $applicant->id) }}" method="POST">
+                                        <form id="delete-applicant-{{ $applicant->id }}" action="{{ route('applicants.destroy', $applicant->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
                                         </form>

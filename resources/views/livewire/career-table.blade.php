@@ -212,11 +212,11 @@
                 
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                                <a href="{{ route('careers.destroy', $career->id) }}"
+                                <a href="#"
                                 onclick="event.preventDefault();
-                                              document.getElementById('delete-career').submit();" class="btn btn-danger">Hapus</a>
+                                              document.getElementById('delete-career-{{ $career->id }}').submit();" class="btn btn-danger">Hapus</a>
                             </div>
-                            <form id="delete-career" action="{{ route('careers.destroy', $career->id) }}" method="POST">
+                            <form id="delete-career-{{ $career->id }}" action="{{ route('careers.destroy', $career->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                             </form>
