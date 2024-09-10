@@ -67,6 +67,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('user-activities', ['id' => encrypt($user->id)]) }}">Activities</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('user-mutations', ['id' => encrypt($user->id)]) }}">Mutations</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -85,7 +88,7 @@
                                         <label class="col-lg-4 col-form-label fw-semibold fs-6">Avatar</label>
                                         <div class="col-lg-8">
                                             <div class="image-input image-input-outline" data-kt-image-input="true" style="background-image: url('assets/media/svg/avatars/blank.svg')">
-                                                <div class="image-input-wrapper w-125px h-125px" style="background-image: url({{ Auth::user()->profile['avatar_url'] ?? '/assets/media/avatars/blank.png' }})"></div>
+                                                <div class="image-input-wrapper w-125px h-125px" style="background-image: url({{ $user->profile['avatar_url'] ?? '/assets/media/avatars/blank.png' }})"></div>
                                                 <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change avatar">
                                                     <i class="ki-outline ki-pencil fs-7"></i>
                                                     <input type="file" name="avatar" accept=".png, .jpg, .jpeg" />
@@ -98,12 +101,6 @@
                                                 </span>
                                             </div>
                                             <div class="form-text">Allowed file types: png, jpg, jpeg.</div>
-                                        </div>
-                                    </div>
-                                    <div class="row mb-6">
-                                        <label class="col-lg-4 col-form-label required fw-semibold fs-6">NIK Karyawan</label>
-                                        <div class="col-lg-8 fv-row">
-                                            <input type="text" name="employee_nik" class="form-control form-control-lg form-control-solid" placeholder="NIK Karyawan" value="{{ $user->profile['employee_nik'] ?? '' }}" />
                                         </div>
                                     </div>
                                     <div class="row mb-6">

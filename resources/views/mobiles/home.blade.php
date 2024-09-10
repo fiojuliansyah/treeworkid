@@ -215,7 +215,7 @@
                 </div>
             </div>
             <div class="row me-0 ms-0 mb-0" style="margin-top: 10px; padding-left: 20px; padding-right: 20px">
-                @can('reliver-app')   
+                @if(Auth::user()->department_id == '3')
                     <div class="col-3 ps-0 pe-0">
                         <a href="{{ route('reliver.index') }}" class="icon-user"
                             style="display: flex; flex-direction: column; align-items: center; text-align: center;">
@@ -226,7 +226,7 @@
                             </div>
                         </a>       
                     </div>
-                @endcan
+                @endif
             </div>
         @endcan
 

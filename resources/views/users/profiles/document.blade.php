@@ -67,6 +67,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('user-activities', ['id' => encrypt($user->id)]) }}">Activities</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('user-mutations', ['id' => encrypt($user->id)]) }}">Mutations</a>
+                            </li>
                         </ul>
                     </div>
                 </div>

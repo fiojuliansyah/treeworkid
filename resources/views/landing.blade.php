@@ -31,9 +31,9 @@
 									<button class="btn btn-icon btn-active-color-primary me-3 d-flex d-lg-none" id="kt_landing_menu_toggle">
 										<i class="ki-outline ki-abstract-14 fs-2hx"></i>
 									</button>
-									<a href="landing.html">
-										<img alt="Logo" src="/assets/media/logos/logo.png" class="logo-default h-25px h-lg-30px" />
-										<img alt="Logo" src="/assets/media/logos/logo-dark.png" class="logo-sticky h-20px h-lg-25px" />
+									<a href="#" class="app-sidebar-logo">
+										<img alt="Logo" src="{{ $general->logo_url ?? '/assets/media/logos/logo-dark.png' }}" class="h-25px theme-light-show" />
+										<img alt="Logo" src="{{ $general->logo_url ?? '/assets/media/logos/logo.png' }}" class="h-25px theme-dark-show" />
 									</a>
 								</div>
 								<div class="d-lg-block" id="kt_header_nav_wrapper">

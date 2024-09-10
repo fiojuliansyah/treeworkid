@@ -59,13 +59,16 @@
                                 <a class="nav-link" href="{{ route('user-account', ['id' => encrypt($user->id)]) }}">Account</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('user-profile', ['id' => encrypt($user->id)]) }}">Profile</a>
+                                <a class="nav-link" href="{{ route('user-profile', ['id' => encrypt($user->id)]) }}">Profil</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('user-document', ['id' => encrypt($user->id)]) }}">Documents</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link active" href="{{ route('user-activities', ['id' => encrypt($user->id)]) }}">Activities</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('user-mutations', ['id' => encrypt($user->id)]) }}">Mutations</a>
                             </li>
                         </ul>
                     </div>

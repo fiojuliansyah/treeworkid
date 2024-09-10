@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Site;
 use App\Models\User;
 use App\Models\Document;
+use App\Models\Mutation;
 use Illuminate\Http\Request;
 use App\Imports\EmployeeImport;
 use Illuminate\Support\Facades\DB;
@@ -15,9 +16,6 @@ use Spatie\Activitylog\Models\Activity;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         return view('users.index');
@@ -66,6 +64,16 @@ class UserController extends Controller
         return view('users.profiles.activities',compact('user','activities'));
     }
 
+    public function indexMutations($id)
+    {
+        $ID = decrypt($id);
+        $user = User::findOrFail($ID);
+        $mutations = Mutation::where('user_id', $id)
+        ->orderBy('created_at', 'desc')
+        ->paginate(10);
+        return view('users.profiles.mutations',compact('user','mutations'));
+    }
+
     public function updateAccount(Request $request, $id)
     {
         $user = User::findOrFail($id);
@@ -90,7 +98,6 @@ class UserController extends Controller
     {
         $request->validate([
             'avatar' => 'image|mimes:png,jpg,jpeg|max:2048',
-            'employee_nik' => 'required|string|max:255',
             'address' => 'required|string|max:255',
             'gender' => 'required|string|in:Laki-Laki,Perempuan',
             'birth_place' => 'required|string|max:255',
@@ -105,7 +112,7 @@ class UserController extends Controller
 
         $user = User::findOrFail($id);
         $profileData = $request->only([
-            'employee_nik', 'address', 'gender', 'birth_place', 'birth_date', 'mother_name', 'npwp_number', 'marriage_status', 'bank_name', 'account_name', 'account_number'
+            'address', 'gender', 'birth_place', 'birth_date', 'mother_name', 'npwp_number', 'marriage_status', 'bank_name', 'account_name', 'account_number'
         ]);
 
         if ($request->hasFile('avatar')) {
@@ -144,8 +151,6 @@ class UserController extends Controller
         return redirect()->back()->with('success', 'Dokumen ' . $document->name . ' berhasil diunggah');
     }
     
-
-
     public function destroy($id)
     {
         User::find($id)->delete();

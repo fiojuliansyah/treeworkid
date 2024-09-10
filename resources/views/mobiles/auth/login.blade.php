@@ -4,7 +4,7 @@
 <div class="page-content d-flex flex-column justify-content-center min-vh-100">
 
     <div class="page-title page-title-small">
-        <img src="/assets/media/logos/logo-dark.png" width="200px">
+        <img src="{{ $general->logo_url ?? '/assets/media/logos/logo-dark.png' }}" width="200px">
         <h5 class="font-32 font-500 mt-5">Selamat datang</h5>
         <h5 class="font-16 font-300">Ayo jelajahi treework!</h5>
     </div>

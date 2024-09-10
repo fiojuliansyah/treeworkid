@@ -67,6 +67,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('user-activities', ['id' => encrypt($user->id)]) }}">Activities</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('user-mutations', ['id' => encrypt($user->id)]) }}">Mutations</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -94,6 +97,12 @@
                                     </div>
                                 </div>
                                 <div class="row mb-6">
+                                    <label class="col-lg-4 col-form-label required fw-semibold fs-6">NIK Karyawan</label>
+                                    <div class="col-lg-8 fv-row">
+                                        <input type="text" name="employee_nik" class="form-control form-control-lg form-control-solid" value="{{ $user->employee_nik }}" />
+                                    </div>
+                                </div>
+                                <div class="row mb-6">
                                     <label class="col-lg-4 col-form-label required fw-semibold fs-6">NIK KTP</label>
                                     <div class="col-lg-8 fv-row">
                                         <input type="text" name="nik" class="form-control form-control-lg form-control-solid" value="{{ $user->nik }}" />
@@ -114,6 +123,23 @@
                                     <label class="col-lg-4 col-form-label required fw-semibold fs-6">Password</label>
                                     <div class="col-lg-8 fv-row">
                                         <input type="password" name="password" class="form-control form-control-lg form-control-solid" />
+                                    </div>
+                                </div>
+                                <div class="row mb-6">
+                                    <label class="col-lg-4 col-form-label required fw-semibold fs-6">Department</label>
+                                    <div class="col-lg-8 fv-row">
+                                        <select class="form-select form-control-lg form-control-solid" name="department_id" data-placeholder="Select an option">
+                                            <option>Pilih</option>
+                                            @if($user->profile && isset($user->department_id))
+                                            <option value="1" {{ $user->department_id == '1' ? 'selected' : '' }}>Head Office</option>
+                                            <option value="2" {{ $user->department_id == '2' ? 'selected' : '' }}>Mobile</option>
+                                            <option value="3" {{ $user->department_id == '3' ? 'selected' : '' }}>Reliver</option>
+                                            @else
+                                            <option value="1">Laki-Laki</option>
+                                            <option value="2">Mobile</option>
+                                            <option value="3">Reliver</option>
+                                            @endif
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="row mb-6">

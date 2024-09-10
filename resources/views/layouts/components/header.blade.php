@@ -5,7 +5,7 @@
     <div class="btn btn-icon btn-active-color-primary w-35px h-35px ms-3 me-2 d-flex d-lg-none" id="kt_app_sidebar_mobile_toggle">
         <i class="ki-outline ki-abstract-14 fs-2"></i>
     </div>
-    <a href="index.html" class="app-sidebar-logo">
+    <a href="#" class="app-sidebar-logo">
         <img alt="Logo" src="{{ $general->logo_url ?? '/assets/media/logos/logo-dark.png' }}" class="h-25px theme-light-show" />
         <img alt="Logo" src="{{ $general->logo_url ?? '/assets/media/logos/logo.png' }}" class="h-25px theme-dark-show" />
     </a>

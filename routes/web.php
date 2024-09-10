@@ -89,6 +89,7 @@ Route::middleware(['auth', 'prevent-back-history'])->prefix('manage')->group(fun
     Route::get('/profile/{id}/tab-profile-detail', [UserController::class, 'indexProfile'])->name('user-profile');
     Route::get('/profile/{id}/tab-document-detail', [UserController::class, 'indexDocument'])->name('user-document');
     Route::get('/profile/{id}/tab-activities', [UserController::class, 'indexActivities'])->name('user-activities');
+    Route::get('/profile/{id}/tab-mutations', [UserController::class, 'indexMutations'])->name('user-mutations');
     Route::put('/profile/{id}/tab-account-detail', [UserController::class, 'updateAccount'])->name('user-update-account');
     Route::post('/profile/{id}/tab-profile-detail',[UserController::class, 'updateProfile'])->name('user-update-profile');
     Route::post('/profile/{id}/tab-document-detail',[UserController::class, 'storeDocument'])->name('user-store-document');
