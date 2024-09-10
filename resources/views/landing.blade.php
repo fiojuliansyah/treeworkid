@@ -59,7 +59,9 @@
 								</div>
 								<div class="flex-equal text-end ms-1">
 									@auth
-									<a href="{{ route('dashboard') }}" class="btn btn-success">Dashboard</a>
+										@can('view-desktop')
+											<a href="{{ route('dashboard') }}" class="btn btn-success">Dashboard</a>
+										@endcan
 									@else
 									<a href="{{ route('login') }}" class="btn btn-success">Sign In</a>
 									<a href="{{ route('register') }}" class="btn btn-info">Register</a>

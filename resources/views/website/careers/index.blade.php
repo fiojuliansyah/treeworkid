@@ -21,7 +21,7 @@
                     </div>
                 </div>
                 @livewire('careerWebsite')
-                <div class="mb-19">
+                {{-- <div class="mb-19">
                     <div class="text-center mb-12">
                         <h3 class="fs-2hx text-gray-900 mb-5">Publications</h3>
                         <div class="fs-5 text-muted fw-semibold">Our goal is to provide a complete and robust theme solution 
@@ -108,7 +108,7 @@
                             <img src="/assets/media/svg/brand-logos/dribbble-icon-1.svg" class="h-30px my-2" alt="" />
                         </a>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>
