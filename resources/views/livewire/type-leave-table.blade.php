@@ -113,10 +113,10 @@
                             <input class="form-check-input" type="checkbox" value="1" />
                         </div>
                     </td>
-                    <td>{{ $type->site['name'] }}</td>
-                    <td>{{ $type->name }}</td>
-                    <td>{{ $type->total }}</td>
-                    <td>{{ $type->max_per_month }}</td>
+                    <td>{{ $type->site['name'] ?? '' }}</td>
+                    <td>{{ $type->name ?? '' }}</td>
+                    <td>{{ $type->total ?? '' }}</td>
+                    <td>{{ $type->max_per_month ?? '' }}</td>
                     <td class="text-end">
                         <a href="#" class="btn btn-light btn-active-light-primary btn-flex btn-center btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions 
                         <i class="ki-outline ki-down fs-5 ms-1"></i></a>
