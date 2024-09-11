@@ -88,6 +88,7 @@
                     <th class="min-w-125px">Clock Out</th>
                     <th class="min-w-125px">Lebur   </th>
                     <th class="min-w-125px">Berita Acara</th>
+                    <th>Foto</th>
                     <th class="text-end min-w-100px">Actions</th>
                 </tr>
             </thead>
@@ -133,6 +134,9 @@
                             
                         @endif
                     </td>
+                    <td>
+                        <a href="#" class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#modal-show-image{{ $attendance->id }}">Lihat</a>
+                    </td>
                     <td class="text-end">
                         <a href="#" class="btn btn-light btn-active-light-primary btn-flex btn-center btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
                         <i class="ki-outline ki-down fs-5 ms-1"></i></a>
@@ -146,6 +150,34 @@
                         </div>
                     </td>
                 </tr>
+                <div class="modal fade" id="modal-show-image{{ $attendance->id }}" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3 class="modal-title">Foto Absensi</h3>
+                                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                                    <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
+                                </div>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row text-center">
+                                    <div class="col-6">
+                                        <div class="mb-7">
+                                            <strong>MASUK</strong>
+                                        </div>
+                                        <img src="{{ $attendance->imagein_url }}" width="200px" style="border-radius: 20px">
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="mb-7">
+                                            <strong>PULANG</strong>
+                                        </div>
+                                        <img src="{{ $attendance->imageout_url }}" width="200px" style="border-radius: 20px">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="modal fade" id="modal-delete{{ $attendance->id }}" tabindex="-1" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
