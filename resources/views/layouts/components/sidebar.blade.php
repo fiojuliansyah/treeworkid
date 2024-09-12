@@ -109,7 +109,20 @@
                                                 <span class="badge badge-danger">{{ $countPending }}</span>
                                             </span>
                                         @endif
-                                    </a>                                
+                                    </a>
+                                    @foreach ($statuses as $status)
+                                        <a class="menu-link" href="{{ route('statuses.show', $status->name) }}" target="_blank">
+                                            <span class="menu-bullet">
+                                                <span class="bullet bullet-dot"></span>
+                                            </span>
+                                            <span class="menu-title">{{ $status->name }}</span>
+                                            @if ($status->unapprovedApplicants() && $status->unapprovedApplicants()->count() > 0)  
+                                                <span class="menu-badge">
+                                                    <span class="badge badge-danger">{{ $status->unapprovedApplicants()->count() }}</span>
+                                                </span>
+                                            @endif
+                                        </a>
+                                    @endforeach                                
                                 </div>
                             </div>
                         </div>
