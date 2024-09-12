@@ -32,6 +32,9 @@ class AppServiceProvider extends ServiceProvider
             config(['app.locale' => 'id']);
 	        Carbon::setLocale('id');
 
+            $statuses = Status::all();
+            view()->share('statuses', $statuses);
+
             $countPendingAll = Applicant::where('approve_id', null)
                 ->whereNull('done')
                 ->count();

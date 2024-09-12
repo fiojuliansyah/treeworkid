@@ -10,10 +10,10 @@
         <div class="page-title page-title-small" style="margin-top: 50px">
             <div class="d-flex content mb-1">
                 <div class="flex-grow-1 mt-2">
-                    <h1 class="font-700" style="color: white"><small><span class="greeting-text"></span></small> {{ Auth::user()->name ?? 'Guest' }}</h1>
-                    {{-- <p class="mb-2" style="color: white">
+                    <h1 class="font-700" style="color: white">{{ Auth::user()->name ?? 'Guest' }}</h1>
+                    <p class="mb-2" style="color: white">
                         {{ Auth::user()->email ?? 'Guest' }}
-                    </p> --}}
+                    </p>
                 </div>
                 <a href="{{ route('mobile.setting') }}" class="fourth">
                     <img src="{{ Auth::user()->profile['avatar_url'] ?? '/assets/media/avatars/blank.png' }}" width="70"

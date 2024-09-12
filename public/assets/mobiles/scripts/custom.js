@@ -31,14 +31,14 @@ document.addEventListener('DOMContentLoaded', () => {
             var greetingExist = document.querySelectorAll('.greeting-text')[0]
             if(greetingExist){
             var greetingUser = document.querySelectorAll('.greeting-text')[0].getAttribute('data-username');
-                var greetingMorning = ('Selamat Pagi');
-                var greetingAfternoon = ('Selamat Siang');
-                var greetingEvening = ('Selamat Malam');
+                var greetingMorning = ('Good morning');
+                var greetingAfternoon = ('Good afternoon');
+                var greetingEvening = ('Good evening');
 
                 if (greetingTime >= 0 && greetingTime < 12) {greetingMessage = greetingMorning;
                 } else if (greetingTime >= 12 && greetingTime < 17) {greetingMessage = greetingAfternoon;
                 } else if (greetingTime >= 17 && greetingTime < 24) {greetingMessage = greetingEvening;}
-                document.querySelectorAll('.greeting-text')[0].insertAdjacentHTML('beforeend', greetingMessage + ',</br>');
+                document.querySelectorAll('.greeting-text')[0].insertAdjacentHTML('beforeend', greetingMessage + ',<br>' +greetingUser);
             }
         }
 
