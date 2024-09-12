@@ -1703,7 +1703,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if(window.location.protocol !== "file:"){
             const options = {
                 containers: ["#page"],
-                cache:false,
+                cache: true,
                 animateHistoryBrowsing: false,
                 plugins: [
                     new SwupPreloadPlugin()
