@@ -9,12 +9,6 @@ var CACHE_NAME = APP_NAME + '-' + APP_VER;
 // Leave REQUIRED_FILES = [] to disable offline.
 var REQUIRED_FILES = [
 	// HTML Files
-	'/mobile/home',
-	'/mobile/attendance/logs',
-	'/mobile/overtime',
-	'/mobile/minute',
-	'/mobile/leave',
-	'/mobile/reliver',
 	// Styles
 	'/assets/mobiles/styles/style.css',
 	'/assets/mobiles/styles/bootstrap.css',

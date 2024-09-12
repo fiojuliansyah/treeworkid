@@ -89,8 +89,8 @@
 
 @endsection
 @push('js')
-<script defer src="/dist/face-api.js/face-api.min.js"></script>
-<script>
+<script defer src="/dist/face-api.js/face-api.min.js" data-navigate-track></script>
+<script data-navigate-track>
     async function loadModels() {
         await faceapi.nets.tinyFaceDetector.loadFromUri('/dist/face-api.js/models');
         await faceapi.nets.faceLandmark68Net.loadFromUri('/dist/face-api.js/models');
@@ -123,7 +123,7 @@
         }
     }
 
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('livewire:navigated', function() {
         loadModels(); 
     });
 </script>

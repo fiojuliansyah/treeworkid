@@ -15,7 +15,7 @@
                         {{ Auth::user()->email ?? 'Guest' }}
                     </p>
                 </div>
-                <a href="{{ route('mobile.setting') }}" class="fourth">
+                <a href="{{ route('mobile.setting') }}" class="fourth" wire:navigate>
                     <img src="{{ Auth::user()->profile['avatar_url'] ?? '/assets/media/avatars/blank.png' }}" width="70"
                         height="70" class="bg-highlight rounded-circle shadow-xl">
                 </a>
@@ -175,7 +175,7 @@
             <div class="row me-0 ms-0 mb-0 third" style="margin-top: 20px;">
                 <div class="col-3 ps-0 pe-0">
                     <a href="{{ route('attendance.logs') }}" class="icon-user"
-                        style="display: flex; flex-direction: column; align-items: center; text-align: center;">
+                        style="display: flex; flex-direction: column; align-items: center; text-align: center;" wire:navigate>
                         <img src="https://img.icons8.com/?size=256&id=IYGgeCVcNuB1&format=png" alt="" width="50px"
                             style="margin-bottom: 5px; border: none; border: 1px solid #eef2f1; border-radius: 8px; padding: 10px; margin: 5px; box-sizing: border-box;">
                         <div style="display: flex; align-items: center;">
@@ -195,7 +195,7 @@
                 </div>
                 <div class="col-3 pe-0 ps-0">
                     <a href="{{ route('minute.index') }}" class="icon-user"
-                        style="display: flex; flex-direction: column; align-items: center; text-align: center;">
+                        style="display: flex; flex-direction: column; align-items: center; text-align: center;" wire:navigate>
                         <img src="https://img.icons8.com/color-glass/48/task.png" alt="" width="50px"
                             style="margin-bottom: 5px; border: none; border: 1px solid #eef2f1; border-radius: 8px; padding: 10px; margin: 5px; box-sizing: border-box;">
                         <div style="display: flex; align-items: center;">
@@ -205,11 +205,11 @@
                 </div>
                 <div class="col-3 pe-0 ps-0">
                     <a href="{{ route('leave.index') }}" class="icon-user"
-                        style="display: flex; flex-direction: column; align-items: center; text-align: center;">
+                        style="display: flex; flex-direction: column; align-items: center; text-align: center;" wire:navigate>
                         <img src="https://img.icons8.com/color-glass/48/exit.png" alt="" width="50px"
                             style="margin-bottom: 5px; border: none; border: 1px solid #eef2f1; border-radius: 8px; padding: 10px; margin: 5px; box-sizing: border-box;">
                         <div style="display: flex; align-items: center;">
-                            <p style="margin: 0;">Cuti</p>
+                            <p style="margin: 0;">Ketidakhadiran</p>
                         </div>
                     </a>       
                 </div>
@@ -275,7 +275,7 @@
     </div>
 @endsection
 @push('js')
-    <script>
+    <script data-navigate-track>
         introJs().setOptions({
             steps:[{
             title: 'Selamat Datang',
@@ -304,7 +304,7 @@
             dontShowAgain: true,
         }).start();
     </script>
-    <script>
+    <script data-navigate-track>
         function getServerTime() {
             return $.ajax({
                 async: false

@@ -2,7 +2,7 @@
 "version": "3.0",
 "lang" : "en",
 "name" : "Treework",
-"scope" : "/",
+"scope" : "/mobile/home",
 "display" : "standalone",
 "start_url" : "/mobile/home",
 "short_name" : "Treework",
