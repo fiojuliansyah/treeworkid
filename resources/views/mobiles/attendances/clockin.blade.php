@@ -49,7 +49,7 @@
 <script>
     let captureButtonEnabled = true;
 
-    document.addEventListener('livewire:navigated', function() {
+    document.addEventListener('DOMContentLoaded', function() {
         const video = document.getElementById('cameraFeed');
         const captureButton = document.getElementById('captureButton');
         const canvas = document.getElementById('captureCanvas');

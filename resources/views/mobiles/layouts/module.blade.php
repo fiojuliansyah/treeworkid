@@ -44,7 +44,7 @@
         </div>
 
         <script>
-            document.addEventListener('livewire:navigated', function() {
+            document.addEventListener('DOMContentLoaded', function() {
                 var toastElement = document.getElementById('notification-1');
                 if (toastElement) {
                     var toast = new bootstrap.Toast(toastElement, {

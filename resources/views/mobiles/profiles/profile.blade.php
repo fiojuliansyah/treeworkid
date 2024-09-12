@@ -123,7 +123,7 @@
         }
     }
 
-    document.addEventListener('livewire:navigated', function() {
+    document.addEventListener('DOMContentLoaded', function() {
         loadModels(); 
     });
 </script>

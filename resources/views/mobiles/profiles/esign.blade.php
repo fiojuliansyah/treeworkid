@@ -29,7 +29,7 @@
 @push('js')
 <script src="https://cdn.jsdelivr.net/npm/signature_pad@3.0.0/signature_pad.js" data-navigate-track></script>
 <script data-navigate-track>
-    document.addEventListener('livewire:navigated', function() {
+    document.addEventListener('DOMContentLoaded', function() {
         var canvas = document.getElementById('signatureCanvas');
         var signaturePad = new SignaturePad(canvas);
 

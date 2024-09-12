@@ -4,7 +4,7 @@ setTimeout(function(){
     if(preloader){preloader.classList.add('preloader-hide');}
 },150);
 
-document.addEventListener('livewire:navigated', () => {
+document.addEventListener('DOMContentLoaded', () => {
     'use strict'
 
     //Global Variables
