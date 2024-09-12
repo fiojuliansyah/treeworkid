@@ -275,7 +275,7 @@
     </div>
 @endsection
 @push('js')
-    <script data-navigate-track>
+    <script>
         introJs().setOptions({
             steps:[{
             title: 'Selamat Datang',
@@ -304,7 +304,7 @@
             dontShowAgain: true,
         }).start();
     </script>
-    <script data-navigate-track>
+    <script>
         function getServerTime() {
             return $.ajax({
                 async: false
