@@ -19,7 +19,7 @@
 
     <!-- Capture Button -->
     <div style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 20; padding: 10px;">
-        <button id="captureButton" style="padding: 10px 20px; font-size: 16px; background-color: #f84e45; color: white; border: none; border-radius: 5px; cursor: pointer;">
+        <button id="captureButton" style="padding: 10px 20px; font-size: 16px; background-color: #00B5CC; color: white; border: none; border-radius: 5px; cursor: pointer;">
             <i class="fas fa-camera"></i>
         </button>
     </div>
@@ -33,7 +33,7 @@
 
     <!-- Loader -->
     <div id="loader" style="display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 30;">
-        <div class="spinner" style="border: 8px solid #f3f3f3; border-top: 8px solid #f84e45; border-radius: 50%; width: 60px; height: 60px; animation: spin 1s linear infinite;"></div>
+        <div class="spinner" style="border: 8px solid #f3f3f3; border-top: 8px solid #00B5CC; border-radius: 50%; width: 60px; height: 60px; animation: spin 1s linear infinite;"></div>
     </div>
 </div>
 <!-- Loader CSS -->

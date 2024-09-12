@@ -176,7 +176,7 @@
                 <div class="col-3 ps-0 pe-0">
                     <a href="{{ route('attendance.logs') }}" class="icon-user"
                         style="display: flex; flex-direction: column; align-items: center; text-align: center;">
-                        <img src="https://img.icons8.com/?size=256&id=IYGgeCVcNuB1&format=png" alt="" width="50px"
+                        <img src="/assets/mobiles/images/icons/history.png" alt="" width="50px"
                             style="margin-bottom: 5px; border: none; border: 1px solid #eef2f1; border-radius: 8px; padding: 10px; margin: 5px; box-sizing: border-box;">
                         <div style="display: flex; align-items: center;">
                             <p style="margin: 0;">Riwayat</p>
@@ -186,7 +186,7 @@
                 <div class="col-3 pe-0 ps-0">
                     <a href="{{ route('overtime.index') }}" class="icon-user"
                         style="display: flex; flex-direction: column; align-items: center; text-align: center;">
-                        <img src="https://img.icons8.com/fluency/48/hourglass-sand-bottom.png" alt="" width="50px"
+                        <img src="/assets/mobiles/images/icons/overtime.png" alt="" width="50px"
                             style="margin-bottom: 5px; border: none; border: 1px solid #eef2f1; border-radius: 8px; padding: 10px; margin: 5px; box-sizing: border-box;">
                         <div style="display: flex; align-items: center;">
                             <p style="margin: 0;">Lembur</p>
@@ -196,7 +196,7 @@
                 <div class="col-3 pe-0 ps-0">
                     <a href="{{ route('minute.index') }}" class="icon-user"
                         style="display: flex; flex-direction: column; align-items: center; text-align: center;">
-                        <img src="https://img.icons8.com/color-glass/48/task.png" alt="" width="50px"
+                        <img src="/assets/mobiles/images/icons/form.png" alt="" width="50px"
                             style="margin-bottom: 5px; border: none; border: 1px solid #eef2f1; border-radius: 8px; padding: 10px; margin: 5px; box-sizing: border-box;">
                         <div style="display: flex; align-items: center;">
                             <p style="margin: 0;">Berita Acara</p>
@@ -206,7 +206,7 @@
                 <div class="col-3 pe-0 ps-0">
                     <a href="{{ route('leave.index') }}" class="icon-user"
                         style="display: flex; flex-direction: column; align-items: center; text-align: center;">
-                        <img src="https://img.icons8.com/color-glass/48/exit.png" alt="" width="50px"
+                        <img src="/assets/mobiles/images/icons/leave.png" alt="" width="50px"
                             style="margin-bottom: 5px; border: none; border: 1px solid #eef2f1; border-radius: 8px; padding: 10px; margin: 5px; box-sizing: border-box;">
                         <div style="display: flex; align-items: center;">
                             <p style="margin: 0;">Ketidakhadiran</p>
@@ -216,7 +216,7 @@
                 <div class="col-3 ps-0 pe-0 pt-3">
                     <a href="{{ route('reliver.index') }}" class="icon-user"
                         style="display: flex; flex-direction: column; align-items: center; text-align: center;">
-                        <img src="https://img.icons8.com/?size=256&id=23282&format=png" alt="" width="50px"
+                        <img src="/assets/mobiles/images/icons/reliver.png" alt="" width="50px"
                             style="margin-bottom: 5px; border: none; border: 1px solid #eef2f1; border-radius: 8px; padding: 10px; margin: 5px; box-sizing: border-box;">
                         <div style="display: flex; align-items: center;">
                             <p style="margin: 0;">Reliver</p>

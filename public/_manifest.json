@@ -8,8 +8,8 @@
 "short_name" : "Treework",
 "description" : "",
 "orientation" : "portrait",
-"background_color": "#F84E45",
-"theme_color": "#F84E45",
+"background_color": "#00B5CC",
+"theme_color": "#00B5CC",
 "generated" : "true",
   "icons": [
     {

@@ -38,7 +38,7 @@
         <a href="#" id="login-btn" onclick="submitForm();" class="btn btn-m mt-4 mb-4 btn-full bg-highlight rounded-sm text-uppercase font-900">Login</a>
     </div>
     <div id="loader" style="display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 30;">
-        <div class="spinner" style="border: 8px solid #f3f3f3; border-top: 8px solid #f84e45; border-radius: 50%; width: 60px; height: 60px; animation: spin 1s linear infinite;"></div>
+        <div class="spinner" style="border: 8px solid #f3f3f3; border-top: 8px solid #00B5CC; border-radius: 50%; width: 60px; height: 60px; animation: spin 1s linear infinite;"></div>
     </div>
 </div>
 <style>

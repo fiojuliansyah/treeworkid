@@ -137,29 +137,29 @@ body {
 
 /* Generating Color Pack*/
 .color-highlight {
-  color: #F84E45 !important;
+  color: #00B5CC !important;
 }
 
 .bg-highlight {
-  background-color: #F84E45 !important;
+  background-color: #00B5CC !important;
   color: #FFF !important;
 }
 
 .border-highlight {
-  border-color: #F84E45 !important;
+  border-color: #00B5CC !important;
 }
 
 .gradient-highlight {
-  background-image: linear-gradient(to bottom, #F84E45, #F84E45) !important;
+  background-image: linear-gradient(to bottom, #00B5CC, #00B5CC) !important;
   color: #FFF;
 }
 
 .color-highlight-light {
-  color: #F84E45 !important;
+  color: #00B5CC !important;
 }
 
 .bg-highlight-light {
-  background-color: #F84E45 !important;
+  background-color: #00B5CC !important;
   color: #FFF !important;
 }
 
@@ -174,41 +174,41 @@ body {
 }
 
 .color-highlight-dark {
-  color: #F84E45 !important;
+  color: #00B5CC !important;
 }
 
 .color-icon-highlight {
-  stroke: #F84E45 !important;
+  stroke: #00B5CC !important;
   fill: rgba(93, 156, 236, 0.3) !important;
 }
 
 .bg-highlight-dark {
-  background-color: #F84E45 !important;
+  background-color: #00B5CC !important;
   color: #FFF !important;
 }
 
 .border-highlight-light {
-  border-color: #F84E45 !important;
+  border-color: #00B5CC !important;
 }
 
 .border-highlight-dark {
-  border-color: #F84E45 !important;
+  border-color: #00B5CC !important;
 }
 
 .focus-highlight:focus {
-  border-color: #F84E45 !important;
+  border-color: #00B5CC !important;
 }
 
 .gradient-highlight {
-  background-image: linear-gradient(to bottom, #F84E45, #F84E45);
+  background-image: linear-gradient(to bottom, #00B5CC, #00B5CC);
 }
 
 [data-feather-color=highlight-dark] {
-  stroke: #F84E45;
+  stroke: #00B5CC;
 }
 
 [data-feather-color=highlight-light] {
-  stroke: #F84E45;
+  stroke: #00B5CC;
 }
 
 [data-feather-bg=highlight-fade-dark] {
@@ -610,11 +610,11 @@ body {
 }
 
 .color-blue-light {
-  color: #F84E45 !important;
+  color: #00B5CC !important;
 }
 
 .bg-blue-light {
-  background-color: #F84E45 !important;
+  background-color: #00B5CC !important;
   color: #FFF !important;
 }
 
@@ -629,41 +629,41 @@ body {
 }
 
 .color-blue-dark {
-  color: #F84E45 !important;
+  color: #00B5CC !important;
 }
 
 .color-icon-blue {
-  stroke: #F84E45 !important;
+  stroke: #00B5CC !important;
   fill: rgba(74, 137, 220, 0.3) !important;
 }
 
 .bg-blue-dark {
-  background-color: #F84E45 !important;
+  background-color: #00B5CC !important;
   color: #FFF !important;
 }
 
 .border-blue-light {
-  border-color: #F84E45 !important;
+  border-color: #00B5CC !important;
 }
 
 .border-blue-dark {
-  border-color: #F84E45 !important;
+  border-color: #00B5CC !important;
 }
 
 .focus-blue:focus {
-  border-color: #F84E45 !important;
+  border-color: #00B5CC !important;
 }
 
 .gradient-blue {
-  background-image: linear-gradient(to bottom, #F84E45, #F84E45);
+  background-image: linear-gradient(to bottom, #00B5CC, #00B5CC);
 }
 
 [data-feather-color=blue-dark] {
-  stroke: #F84E45;
+  stroke: #00B5CC;
 }
 
 [data-feather-color=blue-light] {
-  stroke: #F84E45;
+  stroke: #00B5CC;
 }
 
 [data-feather-bg=blue-fade-dark] {
@@ -1444,37 +1444,37 @@ body {
 .footer-bar-5 strong,
 .footer-bar-4 strong,
 .splide__pagination__page.is-active {
-  background-color: #F84E45 !important;
+  background-color: #00B5CC !important;
 }
 
 .footer-bar-1 .active-nav i,
 .footer-bar-1 .active-nav span,
 .footer-bar-3 .active-nav i {
-  color: #F84E45 !important;
+  color: #00B5CC !important;
 }
 
 .footer-bar-6 .circle-nav strong, .footer-bar-6 .active-nav em {
-  background-image: linear-gradient(to bottom, #F84E45, #F84E45) !important;
+  background-image: linear-gradient(to bottom, #00B5CC, #00B5CC) !important;
 }
 
 .form-floating-over > .form-control:focus ~ label {
-  color: #F84E45;
+  color: #00B5CC;
 }
 
 .form-floating-over > .form-control:not(:placeholder-shown) ~ label {
-  color: #F84E45;
+  color: #00B5CC;
 }
 
 .form-floating-over > .form-select ~ label {
-  color: #F84E45;
+  color: #00B5CC;
 }
 
 .color-highlight {
-  color: #F84E45;
+  color: #00B5CC;
 }
 
 .bg-highlight {
-  background-color: #F84E45;
+  background-color: #00B5CC;
   color: #FFF !important;
 }
 
@@ -5068,7 +5068,7 @@ input[type=number] {
 /*Range Sliders*/
 .ios-slider {
   height: 40px !important;
-  background: linear-gradient(to right, #F84E45 0%, #F84E45 100%);
+  background: linear-gradient(to right, #00B5CC 0%, #00B5CC 100%);
   background-size: 100% 3px;
   background-position: center;
   background-repeat: no-repeat;
@@ -6812,7 +6812,7 @@ input[type=number] {
 
 .interest-check input:checked ~ label {
   color: #FFF !important;
-  background-color: #F84E45 !important;
+  background-color: #00B5CC !important;
 }
 
 .interest-check input:checked ~ .fa:last-child,
