@@ -30,7 +30,6 @@ use App\Http\Controllers\mobile\MReliverController;
 use App\Http\Controllers\mobile\MOvertimeController;
 use App\Http\Controllers\mobile\MAttendanceController;
 
-Route::get('/', [DashboardController::class, 'welcome']);
 Route::get('/career', [DashboardController::class, 'career'])->name('web-career');
 Route::get('/career/{id}/detail', [DashboardController::class, 'careerDetail'])->name('web-career-detail');
 Route::get('/account/tab-account-detail', [DashboardController::class, 'indexAccount'])->name('web-account');
@@ -38,6 +37,7 @@ Route::get('/account/tab-profile-detail', [DashboardController::class, 'indexPro
 Route::get('/account/tab-document-detail', [DashboardController::class, 'indexDocument'])->name('web-document');
 
 Route::middleware(['guest', 'prevent-back-history'])->group(function () {
+    Route::get('/', [DashboardController::class, 'welcome']);
     Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
     Route::post('login', [LoginController::class, 'login']);
     Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
