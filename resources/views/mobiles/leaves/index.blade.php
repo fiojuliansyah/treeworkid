@@ -4,7 +4,7 @@
 <div class="page-content">
         
     <div class="page-title page-title-small">
-        <h2 style="color: black"><a href="#" data-back-button><i class="fa fa-arrow-left" style="color: black"></i></a>Cuti</h2>
+        <h2 style="color: black"><a href="#" data-back-button><i class="fa fa-arrow-left" style="color: black"></i></a>Ketidak Hadiran</h2>
         <div class="divider"></div>
     </div>
     {{-- <div class="card header-card" data-card-height="80">
@@ -26,7 +26,7 @@
     </div>
     <div class="ad-300x50 ad-300x50-fixed">
         <a href="{{ route('leave.create') }}" class="btn btn-full btn-m rounded-s text-uppercase font-900 shadow-xl bg-highlight">
-            <i class="fas fa-plus">&nbsp;</i>Buat Pengajuan Cuti
+            <i class="fas fa-plus">&nbsp;</i>Buat Pengajuan
         </a>
     </div>
 </div>  
