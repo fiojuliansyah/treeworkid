@@ -35,39 +35,13 @@
                     </div>
                     <div class="col-3 pt-2 second">
                         <div class="text-center">
-                            @if ($latestAttendance && $latestAttendance->clock_out != null)     
-                                <a href="{{ route('attendance.index') }}" class="btn rounded-xl bg-highlight">
-                                    <span style="display: block; text-align: center;">
-                                        <i class="fa fa-sign-in" style="font-size: 12px">&nbsp</i>
-                                    </span>
-                                </a>
-                                <p style="color: black">Masuk</p>
-                            @else
-                                @if ($latestClockIn)
-                                    <a href="{{ route('attendance.index') }}" class="btn rounded-xl bg-highlight">
-                                        <span style="display: block; text-align: center;">
-                                            <i class="fa fa-sign-out" style="font-size: 12px">&nbsp</i>
-                                        </span>
-                                    </a>
-                                    <p style="color: black">Pulang</p>
-                                @else
-                                    @if ($latestAttendance && $latestAttendance->clock_out == null)
-                                        <a href="{{ route('attendance.index') }}" class="btn rounded-xl bg-highlight">
-                                            <span style="display: block; text-align: center;">
-                                                <i class="fa fa-sign-out" style="font-size: 12px">&nbsp</i>
-                                            </span>
-                                        </a>
-                                        <p style="color: black">Pulang</p>
-                                    @else
-                                        <a href="{{ route('attendance.index') }}" class="btn rounded-xl bg-highlight">
-                                            <span style="display: block; text-align: center;">
-                                                <i class="fa fa-sign-in" style="font-size: 12px">&nbsp</i>
-                                            </span>
-                                        </a>
-                                        <p style="color: black">Masuk</p>
-                                    @endif
-                                @endif
-                            @endif
+                            {{-- <a href="{{ route('attendance.index') }}" class="btn rounded-xl bg-highlight">
+                                <span style="display: block; text-align: center;">
+                                    <i class="fa fa-sign-in" style="font-size: 12px">&nbsp</i>
+                                </span>
+                            </a>
+                            <p style="color: black">Masuk</p> --}}
+                            <a href="#" data-menu="menu-confirm" class="btn btn-xs rounded-s text-uppercase font-900 bg-red-dark fourth">OFF</a>
                         </div>
                     </div>
                 </div>
@@ -87,7 +61,7 @@
                     <div class="row mb-2">
                         <div class="col-6">
                             @if ($latestClockIn)
-                                <a href="#" class="btn btn-full btn-m rounded-s text-uppercase font-900 shadow-xl
+                                <a href="{{ route('attendance.index') }}" class="btn btn-full btn-m rounded-s text-uppercase font-900 shadow-xl
                                     @if($latestAttendance && $latestAttendance->clock_in)
                                     bg-highlight
                                     @else
@@ -107,7 +81,7 @@
                                 </a>
                             @else
                                 @if ($latestAttendance && $latestAttendance->clock_in == null)
-                                    <a href="#" class="btn btn-full btn-m rounded-s text-uppercase font-900 shadow-xl bg-secondary
+                                    <a href="{{ route('attendance.index') }}" class="btn btn-full btn-m rounded-s text-uppercase font-900 shadow-xl bg-secondary
                                         ">
                                         <span style="display: block; text-align: center;">
                                             START TIME
@@ -117,7 +91,7 @@
                                         </span>
                                     </a>
                                 @else
-                                    <a href="#" class="btn btn-full btn-m rounded-s text-uppercase font-900 shadow-xl
+                                    <a href="{{ route('attendance.index') }}" class="btn btn-full btn-m rounded-s text-uppercase font-900 shadow-xl
                                         @if($latestAttendance && $latestAttendance->clock_in)
                                         bg-highlight
                                         @else
@@ -268,6 +242,27 @@
             </div>
         @endcan
     </div>
+@endsection
+@section('modal')
+<div id="menu-confirm" class="menu menu-box-modal rounded-m"
+data-menu-height="200"
+data-menu-width="320">
+    <h1 class="text-center font-700 mt-3 pb-1">Apakah kamu yakin?</h1>
+    <p class="boxed-text-l">
+        Jika ingin melanjutkan, pastikan Anda benar-benar yakin untuk menyetujui!
+    </p>
+    <div class="row me-3 ms-3 mb-0">
+        <form class="form" action="{{ route('attendance.off') }}" method="POST" id="attendanceOff">
+            @csrf
+        </form>
+        <div class="col-6">
+            <a href="#" onclick="event.preventDefault(); document.getElementById('attendanceOff').submit();" class="close-menu btn btn-sm btn-full button-s shadow-l rounded-s text-uppercase font-900 bg-green-dark">IYA</a>
+        </div>
+        <div class="col-6">
+            <a href="#" class="close-menu btn btn-sm btn-full button-s shadow-l rounded-s text-uppercase font-900 bg-red-dark">TUTUP</a>
+        </div>
+    </div>
+</div>
 @endsection
 @push('js')
     <script>

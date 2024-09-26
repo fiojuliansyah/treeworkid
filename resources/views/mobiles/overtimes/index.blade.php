@@ -4,7 +4,7 @@
 @section('content')
 <div class="page-content">
     <div class="page-title page-title-small" style="margin-top: 50px">
-        <h2><a href="#" data-back-button><i class="fa fa-arrow-left"></i></a><span>Live Attendance</span></h2>
+        <h2><a href="{{ route('mobile.home') }}"><i class="fa fa-arrow-left"></i></a><span>Live Attendance</span></h2>
         <center class="pt-4">
             <h1 id="clock" style="color: white"></h1>
         </center>

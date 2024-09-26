@@ -4,7 +4,7 @@
 @section('content')
 <div class="page-content">  
     <div class="page-title page-title-small" style="margin-top: 50px">
-        <a href="#" data-back-button class="btn rounded-xl" style="background-color: #f9584f">
+        <a href="{{ route('mobile.home') }}" class="btn rounded-xl" style="background-color: #1CB3CA">
             <span style="display: block; text-align: center;">
                 <i class="fa fa-arrow-left" style="font-size: 12px">&nbsp</i>
             </span>
@@ -61,9 +61,6 @@
                         <span class="badge bg-success">clock in</span>
                     @endif
                 </div>
-            </div>
-            <div style="text-align: right">
-                <a href="#" data-menu="menu-confirm" class="btn btn-m rounded-s text-uppercase font-900 bg-red-dark fourth">TIME OFF</a>
             </div>
         </div>
         <div class="mb-2 pt-1 mt-2">
@@ -125,28 +122,6 @@
                     @endif
                 @endif
             @endif
-        </div>
-    </div>
-</div>
-@endsection
-
-@section('modal')
-<div id="menu-confirm" class="menu menu-box-modal rounded-m"
-data-menu-height="200"
-data-menu-width="320">
-    <h1 class="text-center font-700 mt-3 pb-1">Apakah kamu yakin?</h1>
-    <p class="boxed-text-l">
-        Jika ingin melanjutkan, passtikan Anda benar-benar yakin untuk menyetujui !
-    </p>
-    <div class="row me-3 ms-3 mb-0">
-        <form class="form" action="{{ route('attendance.off') }}" method="POST" id="attendanceOff">
-            @csrf
-        </form>
-        <div class="col-6">
-            <a href="#" onclick="event.preventDefault(); document.getElementById('attendanceOff').submit();" class="close-menu btn btn-sm btn-full button-s shadow-l rounded-s text-uppercase font-900 bg-green-dark">IYA</a>
-        </div>
-        <div class="col-6">
-            <a href="#" class="close-menu btn btn-sm btn-full button-s shadow-l rounded-s text-uppercase font-900 bg-red-dark">TUTUP</a>
         </div>
     </div>
 </div>

@@ -26,29 +26,38 @@ class MOvertimeController extends Controller
             ->whereNotIn('id', [$userId])
             ->get();
 
-        $latestOvertime = Overtime::where('attendance_id', $lastAttendance->id)
-            ->latest()
-            ->first();
+        $latestOvertime = null;
+        $clockInStatus = false;
+        $clockOutStatus = false;
+        $logs = [];
 
-        $clockInStatus = Overtime::where('attendance_id', $lastAttendance->id)
-            ->whereNotNull('clock_in')
-            ->exists();
+        if ($lastAttendance) {
+            $latestOvertime = Overtime::where('attendance_id', $lastAttendance->id)
+                ->latest()
+                ->first();
 
-        $clockOutStatus = Overtime::where('attendance_id', $lastAttendance->id)
-            ->whereNotNull('clock_out')
-            ->exists();
+            $clockInStatus = Overtime::where('attendance_id', $lastAttendance->id)
+                ->whereNotNull('clock_in')
+                ->exists();
 
-        $logs = Overtime::where('attendance_id', $lastAttendance->id)
-            ->get();
+            $clockOutStatus = Overtime::where('attendance_id', $lastAttendance->id)
+                ->whereNotNull('clock_out')
+                ->exists();
 
-        foreach ($logs as $log) {
-            $clockIn = new DateTime($log->clock_in);
-            $clockOut = new DateTime($log->clock_out);
-            
-            $diff = $clockIn->diff($clockOut);
-            
-            $log->duration = $diff->format('%H:%I:%S');
+            $logs = Overtime::where('attendance_id', $lastAttendance->id)
+                ->get();
+
+            foreach ($logs as $log) {
+                $clockIn = new DateTime($log->clock_in);
+                $clockOut = new DateTime($log->clock_out);
+                
+                $diff = $clockIn->diff($clockOut);
+                
+                $log->duration = $diff->format('%H:%I:%S');
+            }
         }
+
+
     
         return view('mobiles.overtimes.index', compact('clockInStatus', 'clockOutStatus', 'logs', 'latestOvertime', 'teams'));
     }
