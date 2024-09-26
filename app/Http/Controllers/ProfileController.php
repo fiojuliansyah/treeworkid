@@ -64,15 +64,12 @@ class ProfileController extends Controller
             $cloudinaryImage = $request->file('avatar')->storeOnCloudinary('avatars');
             $url = $cloudinaryImage->getSecurePath();
             $public_id = $cloudinaryImage->getPublicId();
-    
+
+            Cloudinary::destroy($user->avatar_public_id);
+
             $data = [
                 'avatar_url' => $url,
                 'avatar_public_id' => $public_id,
-                'avatar_encode' => $avatarEncoded ?? null,
-            ];
-        } else {
-            $data = [
-                'avatar_encode' => $avatarEncoded ?? null,
             ];
         }
     

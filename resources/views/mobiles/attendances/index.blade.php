@@ -125,19 +125,6 @@
                     @endif
                 @endif
             @endif
-            {{-- @if ($clockOutStatus)
-                
-            @else
-                @if ($clockInStatus)
-                    <a href="{{ route('attendance.clockout') }}" class="btn btn-full btn-m rounded-s text-uppercase font-900 shadow-xl bg-highlight clock-out-btn">
-                        <i class="fas fa-camera">&nbsp;</i>Clock OUT
-                    </a>
-                @else
-                    <a href="{{ route('attendance.clockin') }}" class="btn btn-full btn-m rounded-s text-uppercase font-900 shadow-xl bg-highlight clock-in-btn">
-                        <i class="fas fa-camera">&nbsp;</i>Clock IN
-                    </a>
-                @endif
-            @endif --}}
         </div>
     </div>
 </div>
@@ -253,7 +240,7 @@ data-menu-width="320">
                     zoomControl: false
                 }).setView([latitude, longitude], 16);
 
-                L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+                L.tileLayer('https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
                     maxZoom: 20,
                     subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
                 }).addTo(map);

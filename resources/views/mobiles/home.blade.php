@@ -84,11 +84,6 @@
                         @if($latestAttendance && $latestAttendance->date)
                         {{ $latestAttendance->date->format('d M Y') }}
                         @endif
-                        @if ($latestAttendance && $latestAttendance->clock_out)
-                        - 
-                        {{ $latestAttendance->clock_out->format('d M Y') }}</p>
-                        @else
-                        @endif
                     <div class="row mb-2">
                         <div class="col-6">
                             @if ($latestClockIn)
