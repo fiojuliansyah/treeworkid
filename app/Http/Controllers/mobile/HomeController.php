@@ -30,7 +30,6 @@ class HomeController extends Controller
                         ->latest()
                         ->first();
 
-
         return view('mobiles.home', compact('latestClockIn', 'latestAttendance', 'latestLeave'));
     }
 
