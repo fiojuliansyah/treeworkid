@@ -28,13 +28,30 @@ class MLeaveController extends Controller
         return view('mobiles.leaves.create', compact('types'));
     }
 
+    public function createLeave($slug)
+    {
+        $user = Auth::user();
+        $typeLeave = TypeLeave::where('slug', $slug)->firstOrFail();
+    
+        return view('mobiles.leaves.parts.leave', compact('typeLeave', 'user'));
+    }
+
     public function store(Request $request)
     {
         $user = Auth::user();
         $dateNow = Carbon::now()->toDateString();
-        $cloudinaryImage = $request->file('image')->storeOnCloudinary('leaves_logo');
-        $url = $cloudinaryImage->getSecurePath();
-        $public_id = $cloudinaryImage->getPublicId();
+        
+            // Check if the image was uploaded
+        if ($request->hasFile('image')) {
+            // Store the image on Cloudinary and get the URL and public ID
+            $cloudinaryImage = $request->file('image')->storeOnCloudinary('leaves_logo');
+            $url = $cloudinaryImage->getSecurePath();
+            $public_id = $cloudinaryImage->getPublicId();
+        } else {
+            // If no image uploaded, set URL and public ID to null
+            $url = null;
+            $public_id = null;
+        }
 
         $leave = new Leave;
         $leave->user_id = $user->id;

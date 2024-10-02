@@ -33,7 +33,56 @@
 
     <!-- Loader -->
     <div id="loader" style="display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 30;">
-        <div class="spinner" style="border: 8px solid #f3f3f3; border-top: 8px solid #00B5CC; border-radius: 50%; width: 60px; height: 60px; animation: spin 1s linear infinite;"></div>
+        <svg viewBox="0 0 200 200" width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+            <!-- Wajah berbentuk lingkaran -->
+            <circle cx="100" cy="100" r="50" stroke="blue" stroke-width="4" fill="none" />
+            
+            <!-- Garis pengenalan wajah -->
+            <rect x="50" y="50" width="100" height="100" fill="none" stroke="green" stroke-width="2" stroke-dasharray="5 5">
+              <animate attributeName="stroke-dashoffset" from="0" to="100" dur="2s" repeatCount="indefinite" />
+            </rect>
+            
+            <!-- Titik-titik wajah -->
+            <circle cx="80" cy="80" r="3" fill="red">
+              <animate attributeName="r" from="3" to="5" dur="0.5s" repeatCount="indefinite" />
+            </circle>
+            <circle cx="120" cy="80" r="3" fill="red">
+              <animate attributeName="r" from="3" to="5" dur="0.5s" repeatCount="indefinite" />
+            </circle>
+            <circle cx="100" cy="120" r="3" fill="red">
+              <animate attributeName="r" from="3" to="5" dur="0.5s" repeatCount="indefinite" />
+            </circle>
+          
+            <!-- Garis fokus di sekitar wajah -->
+            <line x1="50" y1="50" x2="30" y2="50" stroke="green" stroke-width="2">
+              <animate attributeName="x2" from="30" to="50" dur="1s" repeatCount="indefinite" />
+            </line>
+            <line x1="50" y1="50" x2="50" y2="30" stroke="green" stroke-width="2">
+              <animate attributeName="y2" from="30" to="50" dur="1s" repeatCount="indefinite" />
+            </line>
+            
+            <line x1="150" y1="50" x2="170" y2="50" stroke="green" stroke-width="2">
+              <animate attributeName="x2" from="170" to="150" dur="1s" repeatCount="indefinite" />
+            </line>
+            <line x1="150" y1="50" x2="150" y2="30" stroke="green" stroke-width="2">
+              <animate attributeName="y2" from="30" to="50" dur="1s" repeatCount="indefinite" />
+            </line>
+            
+            <line x1="50" y1="150" x2="30" y2="150" stroke="green" stroke-width="2">
+              <animate attributeName="x2" from="30" to="50" dur="1s" repeatCount="indefinite" />
+            </line>
+            <line x1="50" y1="150" x2="50" y2="170" stroke="green" stroke-width="2">
+              <animate attributeName="y2" from="170" to="150" dur="1s" repeatCount="indefinite" />
+            </line>
+            
+            <line x1="150" y1="150" x2="170" y2="150" stroke="green" stroke-width="2">
+              <animate attributeName="x2" from="170" to="150" dur="1s" repeatCount="indefinite" />
+            </line>
+            <line x1="150" y1="150" x2="150" y2="170" stroke="green" stroke-width="2">
+              <animate attributeName="y2" from="170" to="150" dur="1s" repeatCount="indefinite" />
+            </line>
+          </svg>          
+        {{-- <div class="spinner" style="border: 8px solid #f3f3f3; border-top: 8px solid #00B5CC; border-radius: 50%; width: 60px; height: 60px; animation: spin 1s linear infinite;"></div> --}}
     </div>
 </div>
 <!-- Loader CSS -->

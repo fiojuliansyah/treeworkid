@@ -6,14 +6,14 @@
     <div class="page-title page-title-small">
         <img src="{{ $general->logo_url ?? '/assets/media/logos/logo-dark.png' }}" width="200px">
         <h5 class="font-32 font-500 mt-5">Selamat datang</h5>
-        <h5 class="font-16 font-300">Ayo jelajahi treework!</h5>
+        <h5 class="font-16 font-300">Di Aplikasi Absensi SINERGI</h5>
     </div>
     <div class="content mb-0 text-center">
         <form id="login-form" class="form w-100" method="POST" action="{{ route('login') }}" onsubmit="return disableSubmit();">
             @csrf
             <div class="input-style no-borders has-icon validate-field mb-4">
-                <input type="text" name="login" class="form-control validate-name" placeholder="Email atau No ID Card" oninput="this.value = this.value.toLowerCase()">
-                <label class="color-blue-dark font-10 mt-1">Email atau Employee NIK</label>
+                <input type="text" name="login" class="form-control validate-name" placeholder="Nomor ID Card" oninput="this.value = this.value.toLowerCase()">
+                <label class="color-blue-dark font-10 mt-1">Nomor ID Card</label>
             </div>
             <div class="row">
                 <div class="col-10">

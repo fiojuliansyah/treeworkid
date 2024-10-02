@@ -15,8 +15,12 @@ class TypeLeaveController extends Controller
 
     public function store(Request $request)
     {
-        TypeLeave::create($request->all());
-
+        $data = $request->all();
+    
+        $data['slug'] = Str::slug($request->input('name'));
+    
+        TypeLeave::create($data);
+    
         return redirect()->route('types.index')
                          ->with('success', 'Type Leave created successfully.');
     }

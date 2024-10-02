@@ -138,6 +138,7 @@ Route::middleware(['auth', 'prevent-back-history'])->prefix('mobile')->group(fun
     Route::get('/minute/{id}/show', [MMinuteController::class, 'show'])->name('minute.show');
 
     Route::get('/leave', [MLeaveController::class, 'index'])->name('leave.index');
+    Route::get('/leave/create/{slug}', [MLeaveController::class, 'createLeave'])->name('leave.create.main');
     Route::get('/leave/create', [MLeaveController::class, 'create'])->name('leave.create');
     Route::post('/leave/store', [MLeaveController::class, 'store'])->name('leave.store');
     Route::get('/leave/{id}/show', [MLeaveController::class, 'show'])->name('leave.show');

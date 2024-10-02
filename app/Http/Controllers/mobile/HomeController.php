@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\mobile;
 
 use Carbon\Carbon;
+use App\Models\Leave;
 use App\Models\Attendance;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -21,11 +22,16 @@ class HomeController extends Controller
                         ->exists();
 
         $latestAttendance = Attendance::where('user_id', $userId)
+                        ->whereDate('date', $currentDate)
+                        ->latest()
+                        ->first();
+
+        $latestLeave = Leave::where('user_id', $userId)
                         ->latest()
                         ->first();
 
 
-        return view('mobiles.home', compact('latestClockIn', 'latestAttendance'));
+        return view('mobiles.home', compact('latestClockIn', 'latestAttendance', 'latestLeave'));
     }
 
     public function setting()

@@ -7,12 +7,16 @@
             <div class="card-overlay bg-highlight opacity-95"></div>
             <div class="card-bg preload-img" data-src="/assets/mobiles/images/pictures/18s.jpg"></div>
         </div>
-        <div class="page-title page-title-small" style="margin-top: 50px">
+        <div class="page-title page-title-small">
             <div class="d-flex content mb-1">
-                <div class="flex-grow-1 mt-2">
-                    <h1 class="font-700" style="color: white">{{ Auth::user()->name ?? 'Guest' }}</h1>
-                    <p class="mb-2" style="color: white">
-                        {{ Auth::user()->email ?? 'Guest' }}
+                <div class="flex-grow-1 mt-2 mb-1">
+                    <h1 class="font-700" style="color: black">{{ Auth::user()->name ?? 'Guest' }}</h1>
+                    <p class="mb-2" style="color: black">
+                        @if(!empty(Auth::user()->getRoleNames()))
+                            @foreach(Auth::user()->getRoleNames() as $v)
+                            {{ $v }}
+                            @endforeach
+                        @endif
                     </p>
                 </div>
                 <a href="{{ route('mobile.setting') }}" class="fourth">
@@ -21,30 +25,17 @@
                 </a>
             </div>
         </div>
+        <marquee behavior="" direction="left"><h6>Pastikan Anda Absen Hari ini!</h6></marquee>
         <div class="card card-style first">
             <div class="content">
-                <div class="row">
-                    <div class="col-9" style="color: black">
-                        <strong id="clock"></strong> &nbsp; | &nbsp;
-                        <strong id="date"></strong>
-                        <div>
-                            <strong><i class="fa fa-map-pin">&nbsp&nbsp</i>{{ Auth::user()->site['name'] ?? 'Guest' }}
-                            </strong>
-                            <p>No shift information available</p>
-                        </div>
-                    </div>
-                    <div class="col-3 pt-2 second">
-                        <div class="text-center">
-                            {{-- <a href="{{ route('attendance.index') }}" class="btn rounded-xl bg-highlight">
-                                <span style="display: block; text-align: center;">
-                                    <i class="fa fa-sign-in" style="font-size: 12px">&nbsp</i>
-                                </span>
-                            </a>
-                            <p style="color: black">Masuk</p> --}}
-                            <a href="#" data-menu="menu-confirm" class="btn btn-xs rounded-s text-uppercase font-900 bg-red-dark fourth">OFF</a>
-                        </div>
-                    </div>
+                <strong id="clock"></strong> &nbsp; | &nbsp;
+                <strong id="date"></strong>
+                <div>
+                    <strong><i class="fa fa-map-pin">&nbsp&nbsp</i>{{ Auth::user()->site['name'] ?? 'Guest' }}
+                    </strong>
+                    <p>No shift information available</p>
                 </div>
+                <br>
                 @if ($latestAttendance && $latestAttendance->type == 'shift_off')
                 <a href="#" class="btn btn-full btn-m rounded-s text-uppercase font-900 shadow-xl bg-red-dark">
                     <span style="display: block; text-align: center;">
@@ -52,26 +43,20 @@
                     </span>
                 </a>
                 @else
-                    <strong>Last Attendance</strong
-                    <br>
-                    <p class="mb-2">
-                        @if($latestAttendance && $latestAttendance->date)
-                        {{ $latestAttendance->date->format('d M Y') }}
-                        @endif
                     <div class="row mb-2">
                         <div class="col-6">
                             @if ($latestClockIn)
                                 <a href="{{ route('attendance.index') }}" class="btn btn-full btn-m rounded-s text-uppercase font-900 shadow-xl
                                     @if($latestAttendance && $latestAttendance->clock_in)
-                                    bg-highlight
+                                    bg-green-dark
                                     @else
                                     bg-secondary
                                     @endif
                                     ">
-                                    <span style="display: block; text-align: center;">
-                                        START TIME
+                                    <span style="display: block; text-align: center; color: black">
+                                        MASUK
                                     </span>
-                                    <span style="display: block; text-align: center;">
+                                    <span style="display: block; text-align: center; color: black">
                                         @if($latestAttendance && $latestAttendance->clock_in)
                                         {{ $latestAttendance->clock_in->format('H:i') }}
                                         @else
@@ -81,27 +66,27 @@
                                 </a>
                             @else
                                 @if ($latestAttendance && $latestAttendance->clock_in == null)
-                                    <a href="{{ route('attendance.index') }}" class="btn btn-full btn-m rounded-s text-uppercase font-900 shadow-xl bg-secondary
+                                    <a href="{{ route('attendance.index') }}" class="btn btn-full btn-m rounded-s text-uppercase font-900 shadow-xl bg-highlight
                                         ">
-                                        <span style="display: block; text-align: center;">
-                                            START TIME
+                                        <span style="display: block; text-align: center; color: black">
+                                            MASUK
                                         </span>
-                                        <span style="display: block; text-align: center;">
+                                        <span style="display: block; text-align: center; color: black">
                                                 - - : - -
                                         </span>
                                     </a>
                                 @else
                                     <a href="{{ route('attendance.index') }}" class="btn btn-full btn-m rounded-s text-uppercase font-900 shadow-xl
                                         @if($latestAttendance && $latestAttendance->clock_in)
-                                        bg-highlight
+                                        bg-green-dark
                                         @else
-                                        bg-secondary
+                                        bg-highlight
                                         @endif
                                         ">
-                                        <span style="display: block; text-align: center;">
-                                            START TIME
+                                        <span style="display: block; text-align: center; color: black">
+                                            MASUK
                                         </span>
-                                        <span style="display: block; text-align: center;">
+                                        <span style="display: block; text-align: center; color: black">
                                             @if($latestAttendance && $latestAttendance->clock_in)
                                             {{ $latestAttendance->clock_in->format('H:i') }}
                                             @else
@@ -115,15 +100,15 @@
                         <div class="col-6">
                             <a href="#" class="btn btn-full btn-m rounded-s text-uppercase font-900 shadow-xl
                                 @if($latestAttendance && $latestAttendance->clock_out != null)
-                                bg-highlight
+                                bg-green-dark
                                 @else
-                                bg-secondary
+                                bg-highlight
                                 @endif
                                 ">
-                                <span style="display: block; text-align: center;">
-                                    END TIME
+                                <span style="display: block; text-align: center; color: black">
+                                    PULANG
                                 </span>
-                                <span style="display: block; text-align: center;">
+                                <span style="display: block; text-align: center; color: black">
                                     @if($latestAttendance && $latestAttendance->clock_out != null)
                                     {{ $latestAttendance->clock_out->format('H:i') }}
                                     @else
@@ -134,21 +119,60 @@
                         </div>
                     </div>
                 @endif
+                <div class="row mb-2 mt-4">
+                    @if ($latestLeave->image_url == null)
+                    <div class="col-3" style="position: relative;">
+                        <a href="{{ route('leave.show', $latestLeave->id) }}" class="btn btn-xs rounded-s text-uppercase font-900 bg-yellow-dark fourth">
+                            <p style="color: black; margin: 0;">SAKIT</p>
+                        </a>
+                        <span style="background-color: red; width: 10px; height: 10px; border-radius: 50%; position: absolute; top: 0px; right: 9px;"></span>
+                    </div>
+                    @else
+                        <div class="col-3" style="position: relative;">
+                            <a href="#" data-menu="menu-sakit" class="btn btn-xs rounded-s text-uppercase font-900 bg-yellow-dark fourth">
+                                <p style="color: black; margin: 0;">SAKIT</p>
+                            </a>
+                        </div>
+                    @endif
+                    <div class="col-3" style="position: relative;">
+                        <a href="#" data-menu="menu-ijin" class="btn btn-xs rounded-s text-uppercase font-900 bg-yellow-dark fourth">
+                            <p style="color: black; margin: 0;">IJIN</p>
+                        </a>
+                    </div>
+                    <div class="col-3" style="position: relative;">
+                        <a href="#" data-menu="menu-cuti" class="btn btn-xs rounded-s text-uppercase font-900 bg-yellow-dark fourth">
+                            <p style="color: black; margin: 0;">CUTI</p>
+                        </a>
+                    </div>
+                    <div class="col-3" style="position: relative;">
+                        <a href="#" data-menu="menu-confirm" class="btn btn-xs rounded-s text-uppercase font-900 bg-red-dark fourth">
+                            LIBUR
+                        </a>
+                    </div>
+                </div> 
             </div>
         </div>
-        {{-- <div class="content" style="margin-top: 60px">
-            <h5 class="float-start font-16 font-600">Happy Customers</h5>
-            <div class="clearfix"></div>
-        </div> --}}
+        @if ($latestLeave->image_url == null)
+            <div class="alert me-31 ms-3 rounded-s bg-red-dark " role="alert">
+                <span class="alert-icon"><i class="fa fa-times-circle font-18"></i></span>
+                <h4 class="text-uppercase color-white">Peringatan</h4>
+                <strong class="alert-icon-text"><marquee behavior="" direction="left">Anda belum memasukan lampiran! batas maksimal upload H+3</marquee></strong>
+                <button type="button" class="close color-white opacity-60 font-16" data-bs-dismiss="alert" aria-label="Close">&times;</button>
+            </div>           
+            {{-- <div class="content" style="margin-top: 60px">
+                <h5 class="float-start font-16 font-600">Happy Customers</h5>
+                <div class="clearfix"></div>
+            </div> --}}
+            @endif
         @can('attendance-module')
             <div class="row me-0 ms-0 mb-0 third" style="margin-top: 20px;">
                 <div class="col-3 ps-0 pe-0">
-                    <a href="{{ route('attendance.logs') }}" class="icon-user"
+                    <a href="{{ route('reliver.index') }}" class="icon-user"
                         style="display: flex; flex-direction: column; align-items: center; text-align: center;">
-                        <img src="/assets/mobiles/images/icons/history.png" alt="" width="50px"
+                        <img src="/assets/mobiles/images/icons/reliver.png" alt="" width="50px"
                             style="margin-bottom: 5px; border: none; border: 1px solid #eef2f1; border-radius: 8px; padding: 10px; margin: 5px; box-sizing: border-box;">
                         <div style="display: flex; align-items: center;">
-                            <p style="margin: 0;">Riwayat</p>
+                            <p style="margin: 0;">Reliver</p>
                         </div>
                     </a>       
                 </div>
@@ -172,30 +196,19 @@
                         </div>
                     </a>      
                 </div>
-                <div class="col-3 pe-0 ps-0">
-                    <a href="{{ route('leave.index') }}" class="icon-user"
+                <div class="col-3 ps-0 pe-0">
+                    <a href="{{ route('attendance.logs') }}" class="icon-user"
                         style="display: flex; flex-direction: column; align-items: center; text-align: center;">
-                        <img src="/assets/mobiles/images/icons/leave.png" alt="" width="50px"
+                        <img src="/assets/mobiles/images/icons/history.png" alt="" width="50px"
                             style="margin-bottom: 5px; border: none; border: 1px solid #eef2f1; border-radius: 8px; padding: 10px; margin: 5px; box-sizing: border-box;">
                         <div style="display: flex; align-items: center;">
-                            <p style="margin: 0;">Ketidakhadiran</p>
-                        </div>
-                    </a>       
-                </div>
-                <div class="col-3 ps-0 pe-0 pt-3">
-                    <a href="{{ route('reliver.index') }}" class="icon-user"
-                        style="display: flex; flex-direction: column; align-items: center; text-align: center;">
-                        <img src="/assets/mobiles/images/icons/reliver.png" alt="" width="50px"
-                            style="margin-bottom: 5px; border: none; border: 1px solid #eef2f1; border-radius: 8px; padding: 10px; margin: 5px; box-sizing: border-box;">
-                        <div style="display: flex; align-items: center;">
-                            <p style="margin: 0;">Reliver</p>
+                            <p style="margin: 0;">Riwayat</p>
                         </div>
                     </a>       
                 </div>
             </div>
         @endcan
-
-        @can('work-module') 
+        {{-- @can('work-module') 
             <div class="content mb-2">
                 <h5 class="float-start font-16 font-500">App Module &nbsp;</h5><span class="badge bg-danger">soon</span>
                 <a class="float-end font-12 color-highlight mt-n1" href="#">View All</a>
@@ -240,13 +253,53 @@
                     </div>
                 </div>
             </div>
-        @endcan
+        @endcan --}}
     </div>
 @endsection
 @section('modal')
-<div id="menu-confirm" class="menu menu-box-modal rounded-m"
-data-menu-height="200"
-data-menu-width="320">
+<div id="menu-sakit" class="menu menu-box-modal rounded-m" data-menu-height="200" data-menu-width="320">
+    <h1 class="text-center font-700 mt-3 pb-1">Buat surat Sakit?</h1>
+    <p class="boxed-text-l">
+        Jika ingin melanjutkan, pastikan Anda benar-benar yakin untuk menyetujui!
+    </p>
+    <div class="row me-3 ms-3 mb-0">
+        <div class="col-6">
+            <a href="{{ route('leave.create.main', ['slug' => 'sakit']) }}" class="close-menu btn btn-sm btn-full button-s shadow-l rounded-s text-uppercase font-900 bg-green-dark">IYA</a>
+        </div>
+        <div class="col-6">
+            <a href="#" class="close-menu btn btn-sm btn-full button-s shadow-l rounded-s text-uppercase font-900 bg-red-dark">TUTUP</a>
+        </div>
+    </div>
+</div>
+<div id="menu-ijin" class="menu menu-box-modal rounded-m" data-menu-height="200" data-menu-width="320">
+    <h1 class="text-center font-700 mt-3 pb-1">Buat surat Ijin?</h1>
+    <p class="boxed-text-l">
+        Jika ingin melanjutkan, pastikan Anda benar-benar yakin untuk menyetujui!
+    </p>
+    <div class="row me-3 ms-3 mb-0">
+        <div class="col-6">
+            <a href="{{ route('leave.create.main', ['slug' => 'ijin']) }}" class="close-menu btn btn-sm btn-full button-s shadow-l rounded-s text-uppercase font-900 bg-green-dark">IYA</a>
+        </div>
+        <div class="col-6">
+            <a href="#" class="close-menu btn btn-sm btn-full button-s shadow-l rounded-s text-uppercase font-900 bg-red-dark">TUTUP</a>
+        </div>
+    </div>
+</div>
+<div id="menu-cuti" class="menu menu-box-modal rounded-m" data-menu-height="200" data-menu-width="320">
+    <h1 class="text-center font-700 mt-3 pb-1">Buat surat Cuti?</h1>
+    <p class="boxed-text-l">
+        Jika ingin melanjutkan, pastikan Anda benar-benar yakin untuk menyetujui!
+    </p>
+    <div class="row me-3 ms-3 mb-0">
+        <div class="col-6">
+            <a href="{{ route('leave.create.main', ['slug' => 'cuti']) }}" class="close-menu btn btn-sm btn-full button-s shadow-l rounded-s text-uppercase font-900 bg-green-dark">IYA</a>
+        </div>
+        <div class="col-6">
+            <a href="#" class="close-menu btn btn-sm btn-full button-s shadow-l rounded-s text-uppercase font-900 bg-red-dark">TUTUP</a>
+        </div>
+    </div>
+</div>
+<div id="menu-confirm" class="menu menu-box-modal rounded-m" data-menu-height="200" data-menu-width="320">
     <h1 class="text-center font-700 mt-3 pb-1">Apakah kamu yakin?</h1>
     <p class="boxed-text-l">
         Jika ingin melanjutkan, pastikan Anda benar-benar yakin untuk menyetujui!

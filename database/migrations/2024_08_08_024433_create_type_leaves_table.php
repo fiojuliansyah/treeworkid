@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('site_id')->nullable();
             $table->string('name')->nullable();
+            $table->string('slug')->nullable();
             $table->string('is_paid')->nullable();
             $table->string('total')->nullable();
             $table->string('max_per_month')->nullable();
