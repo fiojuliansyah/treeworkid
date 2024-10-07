@@ -6,7 +6,7 @@
     <div class="page-title page-title-small" style="position: absolute; top: 0; left: 0; width: 100%; z-index: 10; padding: 10px;">
         <h2>
             <a href="#" data-back-button><i class="fa fa-arrow-left"></i></a>
-            <span>Clock In</span>
+            <span>MASUK</span>
         </h2>
     </div>
 
