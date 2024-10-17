@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Site;
 use App\Models\Company;
+use App\Imports\SiteImport;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SiteController extends Controller
 {
@@ -67,6 +69,12 @@ class SiteController extends Controller
         $site = Site::find($id);
         return view('checkpoints.checkpoint',compact('site'));
 
+    }
+
+    public function import(Request $request)
+    {
+        Excel::import(new SiteImport, $request->file('file')->store('files'));
+        return redirect()->back();
     }
 
 }

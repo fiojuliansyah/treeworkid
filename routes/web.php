@@ -83,7 +83,6 @@ Route::middleware(['auth', 'prevent-back-history'])->prefix('manage')->group(fun
     
     Route::post('/users/personal-data/{id}',[UserController::class, 'updatePersonalData'])->name('personal-data-user');
     Route::post('/users/site-zone/{id}',[UserController::class, 'updateSiteZone'])->name('site-zone-user');
-    Route::post('/users/import',[UserController::class,'import'])->name('import-user');
     Route::get('/profile/{id}/tab-resume-detail', [UserController::class, 'indexResume'])->name('user-resume');
     Route::get('/profile/{id}/tab-account-detail', [UserController::class, 'indexAccount'])->name('user-account');
     Route::get('/profile/{id}/tab-profile-detail', [UserController::class, 'indexProfile'])->name('user-profile');
@@ -101,6 +100,8 @@ Route::middleware(['auth', 'prevent-back-history'])->prefix('manage')->group(fun
 });
 
 Route::middleware('auth')->prefix('mobile')->group(function () {
+    Route::post('/users/import',[UserController::class,'import'])->name('import-user');
+    Route::post('/sites/import',[SiteController::class,'import'])->name('import-site');
     Route::get('/employee/export', [ReportController::class, 'employeeExport'])->name('employee.export');
     Route::get('/export/excel', [ReportController::class, 'exportToExcel'])->name('export.excel');
 });
