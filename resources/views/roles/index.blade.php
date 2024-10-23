@@ -39,7 +39,7 @@
                             <!--begin::Card body-->
                             <div class="card-body pt-1">
                                 <!--begin::Users-->
-                                <div class="fw-bold text-gray-600 mb-5">Total users with this role: 5</div>
+                                <div class="fw-bold text-gray-600 mb-5">Role ID: {{ $role->id }}</div>
                                 <!--end::Users-->
                                 <!--begin::Permissions-->
                                 <div class="d-flex flex-column text-gray-600">
