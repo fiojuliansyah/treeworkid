@@ -57,13 +57,22 @@ class EmployeeImport implements ToModel, WithStartRow
         }
 
         // Role assignment using Spatie
-        $roleName = $row[22]; // Assuming role name or role ID is in column 23 (index 22)
+        $roleIdentifier = $row[22]; // Assuming role name or role ID is in column 23 (index 22)
 
-        // Find role by name or ID
-        $role = Role::findByName($roleName) ?? Role::findById($roleName);
+        // Check if the identifier is a numeric ID or string (role name)
+        if (is_numeric($roleIdentifier)) {
+            $role = Role::findById($roleIdentifier);
+        } else {
+            $role = Role::findByName($roleIdentifier, 'web'); // Ensure you're using the correct guard, e.g., 'web'
+        }
 
+        // Handle missing role case
         if ($role) {
             $user->syncRoles([$role]); // Sync roles for the user
+        } else {
+            // Log or handle the missing role case
+            // For example: Log::warning("Role not found: $roleIdentifier");
+            throw new \Exception("Role not found: $roleIdentifier");
         }
 
         // Handle Profile creation/update
