@@ -12,7 +12,7 @@
         <form id="login-form" class="form w-100" method="POST" action="{{ route('login') }}" onsubmit="return disableSubmit();">
             @csrf
             <div class="input-style no-borders has-icon validate-field mb-4">
-                <input type="text" name="login" class="form-control validate-name" placeholder="Nomor ID Card" oninput="this.value = this.value.toLowerCase()">
+                <input type="text" name="login" class="form-control validate-name" placeholder="Nomor ID Card">
                 <label class="color-blue-dark font-10 mt-1">Nomor ID Card</label>
             </div>
             <div class="row">

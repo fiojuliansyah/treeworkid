@@ -7,6 +7,7 @@ use App\Models\Profile;
 use Maatwebsite\Excel\Concerns\ToModel;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use Maatwebsite\Excel\Concerns\WithStartRow;
+use Spatie\Permission\Models\Role;
 
 class EmployeeImport implements ToModel, WithStartRow
 {
@@ -21,37 +22,48 @@ class EmployeeImport implements ToModel, WithStartRow
         }
 
         // Mencari pengguna yang sudah ada berdasarkan nik, employee_nik, dan email
-        $existingUser = User::where('nik', $row[0])
-                            ->orWhere('employee_nik', $row[1])
-                            ->orWhere('email', $row[2])
-                            ->first();
+        $user = User::where('nik', $row[0])
+                    ->orWhere('employee_nik', $row[1])
+                    ->orWhere('email', $row[2])
+                    ->first();
 
-        if ($existingUser) {
-            $existingUser->update([
+        if ($user) {
+            // Update existing user data
+            $user->update([
                 'nik' => $row[0],
-                'employee_nik' => $row[1],   // Row 1
+                'employee_nik' => $row[1],
                 'name' => $row[3],
                 'phone' => $row[4],
                 'password' => bcrypt($row[5]),
-                'department_id' => $row[6],  // Row 6
-                'leader_id' => $row[7],      // Row 7
-                'site_id' => $row[8],        // Row 8
-                'is_employee' => $row[9],    // Row 9
+                'department_id' => $row[6],
+                'leader_id' => $row[7],
+                'site_id' => $row[8],
+                'is_employee' => $row[9],
             ]);
-            $user = $existingUser;
         } else {
+            // Create a new user if not found
             $user = User::create([
                 'nik' => $row[0],
-                'employee_nik' => $row[1],   // Row 1
+                'employee_nik' => $row[1],
                 'email' => $row[2],
                 'name' => $row[3],
                 'phone' => $row[4],
                 'password' => bcrypt($row[5]),
-                'department_id' => $row[6],  // Row 6
-                'leader_id' => $row[7],      // Row 7
-                'site_id' => $row[8],        // Row 8
-                'is_employee' => $row[9],    // Row 9
+                'department_id' => $row[6],
+                'leader_id' => $row[7],
+                'site_id' => $row[8],
+                'is_employee' => $row[9],
             ]);
+        }
+
+        // Role assignment using Spatie
+        $roleName = $row[22]; // Assuming role name or role ID is in column 23 (index 22)
+
+        // Find role by name or ID
+        $role = Role::findByName($roleName) ?? Role::findById($roleName);
+
+        if ($role) {
+            $user->syncRoles([$role]); // Sync roles for the user
         }
 
         // Handle Profile creation/update
@@ -81,5 +93,3 @@ class EmployeeImport implements ToModel, WithStartRow
         return 2;
     }
 }
-
-
