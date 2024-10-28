@@ -280,7 +280,7 @@
                                         </div>
                                     </div>
                                     <div class="text-center pt-10">
-                                        <button type="submit" class="btn btn-primary">
+                                        <button type="submit" class="btn btn-primary" wire:ignore>
                                             <span class="indicator-label">Submit</span>
                                             <span class="indicator-progress">Please wait... 
                                             <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
