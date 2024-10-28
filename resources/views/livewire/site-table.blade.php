@@ -282,9 +282,9 @@
             </tbody>
         </table>
     </div>
-</div>
-<div class="d-flex justify-content-end">
-    {{ $sites->links() }}
+    <div class="d-flex justify-content-end">
+        {{ $sites->links() }}
+    </div>
 </div>
 @push('js')
 <script>
