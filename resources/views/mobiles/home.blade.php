@@ -44,6 +44,12 @@
                             LIBUR
                         </span>
                     </a>
+                @elseif ($latestLeave)
+                    <a href="#" class="btn btn-full btn-m rounded-s text-uppercase font-900 shadow-xl bg-red-dark">
+                        <span style="display: block; text-align: center;">
+                           IZIN
+                        </span>
+                    </a>
                 @else
                     <div class="row mb-2">
                         <div class="col-6">
@@ -125,19 +131,39 @@
                     @else
                         @if ($latestLeave)
                             @if ($latestLeave->image_url == null)
-                                <div class="col-3" style="position: relative;">
-                                    <a href="{{ route('leave.show', $latestLeave->id) }}"
-                                        class="btn btn-xs rounded-s text-uppercase font-900 bg-yellow-dark fourth">
-                                        <p style="color: black; margin: 0;">SAKIT</p>
-                                    </a>
-                                    <span
-                                        style="background-color: red; width: 10px; height: 10px; border-radius: 50%; position: absolute; top: 0px; right: 9px;"></span>
-                                </div>
+                                <a href="{{ route('leave.show', $latestLeave->id) }}"
+                                    class="btn btn-xs rounded-s text-uppercase font-900 bg-yellow-dark fourth">
+                                    <p style="color: black; margin: 0;">Upload Gambar Bukti</p>
+                                </a>
                             @else
                                 <div class="col-3" style="position: relative;">
                                     <a href="#" data-menu="menu-sakit"
                                         class="btn btn-xs rounded-s text-uppercase font-900 bg-yellow-dark fourth">
                                         <p style="color: black; margin: 0;">SAKIT</p>
+                                    </a>
+                                </div>
+                                <div class="col-3" style="position: relative;">
+                                    <a href="#" data-menu="menu-sakit"
+                                        class="btn btn-xs rounded-s text-uppercase font-900 bg-yellow-dark fourth">
+                                        <p style="color: black; margin: 0;">SAKIT</p>
+                                    </a>
+                                </div>
+                                <div class="col-3" style="position: relative;">
+                                    <a href="#" data-menu="menu-ijin"
+                                        class="btn btn-xs rounded-s text-uppercase font-900 bg-yellow-dark fourth">
+                                        <p style="color: black; margin: 0;">IJIN</p>
+                                    </a>
+                                </div>
+                                <div class="col-3" style="position: relative;">
+                                    <a href="#" data-menu="menu-cuti"
+                                        class="btn btn-xs rounded-s text-uppercase font-900 bg-yellow-dark fourth">
+                                        <p style="color: black; margin: 0;">CUTI</p>
+                                    </a>
+                                </div>
+                                <div class="col-3" style="position: relative;">
+                                    <a href="#" data-menu="menu-confirm"
+                                        class="btn btn-xs rounded-s text-uppercase font-900 bg-red-dark fourth">
+                                        LIBUR
                                     </a>
                                 </div>
                             @endif
@@ -148,25 +174,25 @@
                                     <p style="color: black; margin: 0;">SAKIT</p>
                                 </a>
                             </div>
+                            <div class="col-3" style="position: relative;">
+                                <a href="#" data-menu="menu-ijin"
+                                    class="btn btn-xs rounded-s text-uppercase font-900 bg-yellow-dark fourth">
+                                    <p style="color: black; margin: 0;">IJIN</p>
+                                </a>
+                            </div>
+                            <div class="col-3" style="position: relative;">
+                                <a href="#" data-menu="menu-cuti"
+                                    class="btn btn-xs rounded-s text-uppercase font-900 bg-yellow-dark fourth">
+                                    <p style="color: black; margin: 0;">CUTI</p>
+                                </a>
+                            </div>
+                            <div class="col-3" style="position: relative;">
+                                <a href="#" data-menu="menu-confirm"
+                                    class="btn btn-xs rounded-s text-uppercase font-900 bg-red-dark fourth">
+                                    LIBUR
+                                </a>
+                            </div>
                         @endif
-                        <div class="col-3" style="position: relative;">
-                            <a href="#" data-menu="menu-ijin"
-                                class="btn btn-xs rounded-s text-uppercase font-900 bg-yellow-dark fourth">
-                                <p style="color: black; margin: 0;">IJIN</p>
-                            </a>
-                        </div>
-                        <div class="col-3" style="position: relative;">
-                            <a href="#" data-menu="menu-cuti"
-                                class="btn btn-xs rounded-s text-uppercase font-900 bg-yellow-dark fourth">
-                                <p style="color: black; margin: 0;">CUTI</p>
-                            </a>
-                        </div>
-                        <div class="col-3" style="position: relative;">
-                            <a href="#" data-menu="menu-confirm"
-                                class="btn btn-xs rounded-s text-uppercase font-900 bg-red-dark fourth">
-                                LIBUR
-                            </a>
-                        </div>
                     @endif
                 </div>
             </div>
@@ -183,10 +209,6 @@
                     <button type="button" class="close color-white opacity-60 font-16" data-bs-dismiss="alert"
                         aria-label="Close">&times;</button>
                 </div>
-                {{-- <div class="content" style="margin-top: 60px">
-                <h5 class="float-start font-16 font-600">Happy Customers</h5>
-                <div class="clearfix"></div>
-            </div> --}}
             @else
             @endif
         @endif

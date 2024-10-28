@@ -124,11 +124,13 @@
                 @else
                 @endif
             </div>
+            <h4 class="mb-n1">Upload Bukti</h4>
+            <br>
+            <input type="file" name="" class="form-control" id="">
         </div>
     </div>
-
     <a href="#" class="btn btn-full btn-margins  bg-highlight btn-m text-uppercase font-900 rounded-s shadow-xl">
-        <i class="fas fa-cloud-download-alt">&nbsp;</i>Download Form
+        <i class="fas fa-upload">&nbsp;</i>Upload Image
      </a>
 </div>
 
