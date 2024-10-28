@@ -2,10 +2,10 @@
 
 @section('content')
 <div class="page-content">
+    <div class="page-title page-title-small">
+        <h2><a href="#"><i class="fa fa-arrow-left" style="color: black;">&nbsp;&nbsp;&nbsp;</i><span><img src="{{ $leave->site->company['logo_url'] }}" width="150px"></span></h2>
+    </div>
     <div class="card card-style" style="margin-top: 50px">
-        <div class="page-title page-title-small">
-            <h2><a href="#" data-back-button><i class="fa fa-arrow-left" style="color: black;">&nbsp;&nbsp;&nbsp;</i><span><img src="{{ $leave->site->company['logo_url'] }}" width="150px"></span></h2>
-        </div>
         <div class="content">
             <div class="divider mt-n4 mb-3"></div>
             <center>
