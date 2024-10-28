@@ -202,7 +202,7 @@
                             <div class="modal-body px-5 my-7">
                                 <!--begin::Form-->
                                 <form class="form" id="edit-site{{ $site->id }}" action="{{ route('sites.update', ['site' => $site->id]) }}" method="POST" enctype="multipart/form-data">
-                                    @method('PUT')
+                                    @method('PATCH')
                                     @csrf
                                     <!--begin::Scroll-->
                                     <div class="d-flex flex-column scroll-y px-5 px-lg-10" id="kt_modal_add_user_scroll" data-kt-scroll="true" data-kt-scroll-activate="true" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_user_header" data-kt-scroll-wrappers="#kt_modal_add_user_scroll" data-kt-scroll-offset="300px">
