@@ -269,9 +269,7 @@
                                         </div>
                                     </div>
                                     <div class="text-center pt-10">
-                                        <a href="#" onclick="event.preventDefault(); document.getElementById('edit-site{{ $site->id }}').submit();" class="btn btn-primary">
-                                            <span class="indicator-label">Update Site</span>
-                                        </a>
+                                        <button type="submit" class="btn btn-primary">submit</button>
                                     </div>
                                 </form>
                             </div>
