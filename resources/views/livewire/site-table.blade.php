@@ -269,7 +269,9 @@
                                         </div>
                                     </div>
                                     <div class="text-center pt-10">
-                                        <button type="submit" class="btn btn-primary">submit</button>
+                                        <a href="https://google.com" class="btn btn-primary">
+                                            <span class="indicator-label">Update Site</span>
+                                        </a>
                                     </div>
                                 </form>
                             </div>
