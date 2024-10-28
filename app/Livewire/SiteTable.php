@@ -14,6 +14,7 @@ class SiteTable extends Component
     protected $paginationTheme = 'bootstrap';
     public $search = '';
 
+    // Reset page on search
     public function updatingSearch()
     {
         $this->resetPage();
@@ -22,13 +23,9 @@ class SiteTable extends Component
     public function render()
     {
         $companies = Company::all();
-        if ($this->search != '') {
-            $data = Site::where('name', 'like', '%' . $this->search . '%')
-                ->paginate(10);
-        } else {
-            $data = Site::paginate(10);
-        }
+        $sites = Site::where('name', 'like', '%' . $this->search . '%')
+                     ->paginate(10);
 
-        return view('livewire.site-table', compact('data','companies'));
+        return view('livewire.site-table', compact('sites', 'companies'));
     }
 }

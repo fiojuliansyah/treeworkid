@@ -142,7 +142,7 @@
                 </tr>
             </thead>
             <tbody class="text-gray-600 fw-semibold">
-                @foreach ($data as $key => $site)                                    
+                @foreach ($sites as $key => $site)                                    
                 <tr>
                     <td>
                         <div class="form-check form-check-sm form-check-custom form-check-solid">
@@ -153,22 +153,11 @@
                     <td>{{ $site->company['name'] ?? '' }}</td>
                     <td>{{ $site->name }}</td>
                     <td class="text-end">
-                        <a href="#" class="btn btn-light btn-active-light-primary btn-flex btn-center btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions 
-                        <i class="ki-outline ki-down fs-5 ms-1"></i></a>
-                        <!--begin::Menu-->
-                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
-                            <div class="menu-item px-3">
-                                <a href="#" class="menu-link px-3" data-bs-toggle="modal" data-bs-target="#modal-edit{{ $site->id }}">Edit</a>
-                            </div>
-                            <div class="menu-item px-3">
-                                <a href="#" class="menu-link px-3" data-bs-toggle="modal" data-bs-target="#modal-delete{{ $site->id }}">Hapus</a>
-                            </div>
-                            <!--end::Menu item-->
-                        </div>
-                        <!--end::Menu-->
+                        <a href="#" class="btn btn-light btn-active-light-primary" data-bs-toggle="modal" data-bs-target="#modal-edit{{ $site->id }}">Edit</a>
+                        <a href="#" class="btn btn-light btn-active-light-danger" data-bs-toggle="modal" data-bs-target="#modal-delete{{ $site->id }}">Delete</a>
                     </td>
                 </tr>
-                <div class="modal fade" id="modal-delete{{ $site->id }}" tabindex="-1" aria-hidden="true">
+                <div class="modal fade" id="modal-delete{{ $site->id }}" tabindex="-1" aria-hidden="true" wire:ignore>
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -198,7 +187,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="modal fade" id="modal-edit{{ $site->id }}" tabindex="-1" aria-hidden="true">
+                <div class="modal fade" id="modal-edit{{ $site->id }}" tabindex="-1" aria-hidden="true" wire:ignore>
                     <!--begin::Modal dialog-->
                     <div class="modal-dialog modal-dialog-centered mw-650px">
                         <!--begin::Modal content-->
@@ -295,4 +284,17 @@
             </tbody>
         </table>
     </div>
+    <div class="d-flex justify-content-end">
+        {{ $sites->links() }}
+    </div>
 </div>
+@push('js')
+<script>
+    document.addEventListener('livewire:load', function () {
+        Livewire.hook('message.processed', (message, component) => {
+            var modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => new bootstrap.Modal(modal));
+        });
+    });
+</script>
+@endpush
