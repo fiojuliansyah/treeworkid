@@ -270,9 +270,6 @@
                                     </div>
                                     <div class="text-center pt-10">
                                         <a href="#" onclick="event.preventDefault(); document.getElementById('edit-site').submit();" class="btn btn-primary">
-                                            <span class="indicator-label">Submit</span>
-                                            <span class="indicator-progress">Please wait... 
-                                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                                         </a>
                                     </div>
                                 </form>
