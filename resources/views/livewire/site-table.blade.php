@@ -201,7 +201,7 @@
                             </div>
                             <div class="modal-body px-5 my-7">
                                 <!--begin::Form-->
-                                <form class="form" action="{{ route('sites.update', ['site' => $site->id]) }}" method="POST" enctype="multipart/form-data">
+                                <form class="form" id="edit-site{{ $site->id }}" action="{{ route('sites.update', ['site' => $site->id]) }}" method="POST" enctype="multipart/form-data">
                                     @method('PUT')
                                     @csrf
                                     <!--begin::Scroll-->
@@ -269,11 +269,11 @@
                                         </div>
                                     </div>
                                     <div class="text-center pt-10">
-                                        <button type="submit" class="btn btn-primary">
+                                        <a href="#" onclick="event.preventDefault(); document.getElementById('edit-site{{ $site->id }}').submit();" class="btn btn-primary">
                                             <span class="indicator-label">Submit</span>
                                             <span class="indicator-progress">Please wait... 
                                             <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                                        </button>
+                                        </a>
                                     </div>
                                 </form>
                             </div>
