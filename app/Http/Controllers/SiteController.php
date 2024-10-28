@@ -33,6 +33,13 @@ class SiteController extends Controller
                         ->with('success', 'Lokasi ' . $site->name . ' berhasil dibuat');
     }
 
+    public function edit($id)
+    {
+        $companies = Company::all();
+        $site = Site::findOrFail($id);
+        return view('sites.edit', compact('site', 'companies'));
+    }
+
     public function update(Request $request, $id)
     {
         $site = Site::findOrFail($id);
@@ -48,7 +55,7 @@ class SiteController extends Controller
 
         $site->update();
 
-        return redirect()->back()
+        return redirect()->route('sites.index')
                         ->with('success', 'Lokasi ' . $site->name . ' berhasil diperbarui');
     }
 

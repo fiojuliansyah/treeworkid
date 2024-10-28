@@ -6,12 +6,6 @@
         <h2 style="color: black"><a href="#" data-back-button><i class="fa fa-arrow-left" style="color: black"></i></a></h2>
         <div class="divider"></div>
     </div>
-    {{-- <div class="card header-card" data-card-height="80">
-        <div class="card-overlay bg-highlight opacity-95"></div>
-        <div class="card-overlay dark-mode-tint"></div>
-        <div class="card-bg preload-img" data-src="images/pictures/20s.jpg"></div>
-    </div> --}}
-
     <div class="content mt-0 mb-0">
         <form id="formStore" method="POST" action="{{ route('minute.store') }}" enctype="multipart/form-data">
             @csrf
