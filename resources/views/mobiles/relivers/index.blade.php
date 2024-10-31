@@ -18,11 +18,11 @@
     <div class="content" style="margin-top: 360px">
         <div class="row">
             <div class="col-2 pt-2">
-                <a href="{{ route('reliver.index') }}" class="btn rounded-xl bg-green-dark">
+                <div class="btn rounded-xl bg-green-dark">
                     <span style="display: block; text-align: center;">
                         <i class="fa fa-sign-in" style="font-size: 12px">&nbsp</i>
                     </span>
-                </a>
+                </div>
             </div>
             <div class="col-8">
                 <strong id="date" style="color: black"></strong>
@@ -265,7 +265,7 @@
                         zoomControl: false
                     }).setView([latitude, longitude], 16);
     
-                    L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+                    L.tileLayer('https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
                         maxZoom: 20,
                         subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
                     }).addTo(map);

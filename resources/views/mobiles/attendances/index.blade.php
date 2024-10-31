@@ -18,11 +18,11 @@
     <div class="content" style="margin-top: 360px">
         <div class="row">
             <div class="col-2 pt-2">
-                <a href="{{ route('attendance.index') }}" class="btn rounded-xl bg-blue-dark">
+                <div class="btn rounded-xl bg-blue-dark">
                     <span style="display: block; text-align: center;">
                         <i class="fas fa-calendar-check" style="font-size: 15px"></i>
                     </span>
-                </a>
+                </div>
             </div>
             <div class="col-8">
                 <strong id="date" style="color: black"></strong>
