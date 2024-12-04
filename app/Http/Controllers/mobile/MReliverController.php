@@ -19,7 +19,7 @@ class MReliverController extends Controller
         $user = Auth::user();
         $userId = $user->id;
         $users = User::where('site_id', $user->site_id)->get();
-        $sites = Site::all()->orderBy('ASC');
+        $sites = Site::orderBy('name', 'ASC')->get();
         $currentDate = Carbon::now()->toDateString();
         $latestAttendance = Attendance::where('user_id', $userId)
             ->latest()
