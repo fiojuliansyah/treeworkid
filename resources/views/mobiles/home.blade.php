@@ -51,14 +51,44 @@
                         </span>
                     </a>
                 @else
-                    <div class="row mb-2">
-                        <div class="col-6">
-                            @if ($latestClockIn)
-                                <a href="{{ route('attendance.index') }}"
+                <div class="row mb-2">
+                    <div class="col-6">
+                        @if ($latestClockIn)
+                            <a href="{{ Auth::user()->department_id == 3 ? route('reliver.index') : route('attendance.index') }}"
+                                class="btn btn-full btn-m rounded-s text-uppercase font-900 shadow-xl
+                                @if ($latestAttendance && $latestAttendance->clock_in) bg-green-dark
+                                @else
+                                bg-secondary @endif
+                                ">
+                                <span style="display: block; text-align: center; color: black">
+                                    MASUK
+                                </span>
+                                <span style="display: block; text-align: center; color: black">
+                                    @if ($latestAttendance && $latestAttendance->clock_in)
+                                        {{ $latestAttendance->clock_in->format('H:i') }}
+                                    @else
+                                        - - : - -
+                                    @endif
+                                </span>
+                            </a>
+                        @else
+                            @if ($latestAttendance && $latestAttendance->clock_in == null)
+                                <a href="{{ Auth::user()->department_id == 3 ? route('reliver.index') : route('attendance.index') }}"
+                                    class="btn btn-full btn-m rounded-s text-uppercase font-900 shadow-xl bg-highlight
+                                    ">
+                                    <span style="display: block; text-align: center; color: black">
+                                        MASUK
+                                    </span>
+                                    <span style="display: block; text-align: center; color: black">
+                                        - - : - -
+                                    </span>
+                                </a>
+                            @else
+                                <a href="{{ Auth::user()->department_id == 3 ? route('reliver.index') : route('attendance.index') }}"
                                     class="btn btn-full btn-m rounded-s text-uppercase font-900 shadow-xl
                                     @if ($latestAttendance && $latestAttendance->clock_in) bg-green-dark
                                     @else
-                                    bg-secondary @endif
+                                    bg-highlight @endif
                                     ">
                                     <span style="display: block; text-align: center; color: black">
                                         MASUK
@@ -71,59 +101,29 @@
                                         @endif
                                     </span>
                                 </a>
-                            @else
-                                @if ($latestAttendance && $latestAttendance->clock_in == null)
-                                    <a href="{{ route('attendance.index') }}"
-                                        class="btn btn-full btn-m rounded-s text-uppercase font-900 shadow-xl bg-highlight
-                                        ">
-                                        <span style="display: block; text-align: center; color: black">
-                                            MASUK
-                                        </span>
-                                        <span style="display: block; text-align: center; color: black">
-                                            - - : - -
-                                        </span>
-                                    </a>
-                                @else
-                                    <a href="{{ route('attendance.index') }}"
-                                        class="btn btn-full btn-m rounded-s text-uppercase font-900 shadow-xl
-                                        @if ($latestAttendance && $latestAttendance->clock_in) bg-green-dark
-                                        @else
-                                        bg-highlight @endif
-                                        ">
-                                        <span style="display: block; text-align: center; color: black">
-                                            MASUK
-                                        </span>
-                                        <span style="display: block; text-align: center; color: black">
-                                            @if ($latestAttendance && $latestAttendance->clock_in)
-                                                {{ $latestAttendance->clock_in->format('H:i') }}
-                                            @else
-                                                - - : - -
-                                            @endif
-                                        </span>
-                                    </a>
-                                @endif
                             @endif
-                        </div>
-                        <div class="col-6">
-                            <a href="{{ route('attendance.index') }}"
-                                class="btn btn-full btn-m rounded-s text-uppercase font-900 shadow-xl
-                                @if ($latestAttendance && $latestAttendance->clock_out != null) bg-green-dark
-                                @else
-                                bg-highlight @endif
-                                ">
-                                <span style="display: block; text-align: center; color: black">
-                                    PULANG
-                                </span>
-                                <span style="display: block; text-align: center; color: black">
-                                    @if ($latestAttendance && $latestAttendance->clock_out != null)
-                                        {{ $latestAttendance->clock_out->format('H:i') }}
-                                    @else
-                                        - - : - -
-                                    @endif
-                                </span>
-                            </a>
-                        </div>
+                        @endif
                     </div>
+                    <div class="col-6">
+                        <a href="{{ Auth::user()->department_id == 3 ? route('reliver.index') : route('attendance.index') }}"
+                            class="btn btn-full btn-m rounded-s text-uppercase font-900 shadow-xl
+                            @if ($latestAttendance && $latestAttendance->clock_out != null) bg-green-dark
+                            @else
+                            bg-highlight @endif
+                            ">
+                            <span style="display: block; text-align: center; color: black">
+                                PULANG
+                            </span>
+                            <span style="display: block; text-align: center; color: black">
+                                @if ($latestAttendance && $latestAttendance->clock_out != null)
+                                    {{ $latestAttendance->clock_out->format('H:i') }}
+                                @else
+                                    - - : - -
+                                @endif
+                            </span>
+                        </a>
+                    </div>
+                </div>
                 @endif
                 <div class="row mb-2 mt-4">
                     @if ($latestAttendance && $latestAttendance->clock_in)
