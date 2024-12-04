@@ -146,6 +146,7 @@ class MAttendanceController extends Controller
     {
         $userId = Auth::id();
         $logs = Attendance::where('user_id', $userId)
+                           ->whereNotNull('clock_in')
                            ->where('created_at', '>=', now()->subDays(7))
                            ->orderBy('created_at', 'DESC')
                            ->get();

@@ -128,8 +128,21 @@
     <div class="content">
         <img id="image-preview" src="/assets/mobiles/images/empty.png" alt="Preview" class="preload-img img-fluid bottom-20 mt-3">
     </div>
-        <label for="file-upload" class="btn btn-full btn-margins  bg-highlight btn-m text-uppercase font-900 rounded-s shadow-xl"><i class="fas fa-upload" style="color: white;"></i> Upload Image</label>  
+    
+    <!-- Form untuk upload file -->
+    <form id="upload-form" action="{{ route('leave.update', $leave->id) }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        @method('PUT') <!-- Mengganti metode form menjadi PUT -->
+    
+        <label for="file-upload" id="upload-label" class="btn btn-full btn-margins bg-highlight btn-m text-uppercase font-900 rounded-s shadow-xl">
+            <i class="fas fa-upload" style="color: white;"></i> Upload Image
+        </label>  
         <input type="file" id="file-upload" name="image" style="display: none;" onchange="previewImage()">
+    
+        <button id="submit-button" type="submit" class="btn btn-full btn-margins bg-success btn-m text-uppercase font-900 rounded-s shadow-xl" style="display: none;">
+            <i class="fas fa-paper-plane" style="color: white;"></i> Submit
+        </button>
+    </form>
 </div>
 
 @endsection
@@ -137,18 +150,32 @@
 @push('js')
 <script>
     function previewImage() {
-      var input = document.getElementById('file-upload');
-      var imageContainer = document.getElementById('image-preview');
-      var files = input.files;
-      var file = files[files.length - 1];
+        var input = document.getElementById('file-upload');
+        var imageContainer = document.getElementById('image-preview');
+        var files = input.files;
 
-      var reader = new FileReader();
+        if (files.length === 0) return; // Jika tidak ada file, keluar dari fungsi
 
-      reader.onload = function(e) {
-        imageContainer.src = e.target.result;
-      };
+        var file = files[0]; // Ambil file pertama
 
-      reader.readAsDataURL(file);
+        // Periksa apakah file adalah gambar
+        if (!file.type.startsWith('image/')) {
+            alert('Please upload a valid image file.');
+            input.value = ''; // Reset input file jika tidak valid
+            return;
+        }
+
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+            imageContainer.src = e.target.result;
+        };
+
+        reader.readAsDataURL(file); // Tampilkan preview gambar
+
+        // Ganti tombol upload dengan tombol submit
+        document.getElementById('upload-label').style.display = 'none';
+        document.getElementById('submit-button').style.display = 'block';
     }
 </script>
 @endpush

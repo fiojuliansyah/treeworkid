@@ -9,6 +9,7 @@ use App\Models\Attendance;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 class MLeaveController extends Controller
 {
@@ -74,6 +75,35 @@ class MLeaveController extends Controller
 
         return redirect()->route('leave.index')
                         ->with('success', 'Pengajuan permohonan cuti berhasil diajukan');
+    }
+ 
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'image' => 'nullable|image|max:2048',
+        ]);
+
+        $leave = Leave::findOrFail($id);
+        $leave->user_id = $request->user_id;
+        $leave->site_id = $request->site_id;
+        $leave->start_date = $request->start_date;
+        $leave->end_date = $request->end_date;
+        $leave->reason = $request->reason;
+        $leave->contact = $request->contact;
+
+        if ($request->hasFile('image')) {
+            if ($leave->image_public_id) {
+                Cloudinary::destroy($leave->image_public_id); // Pastikan public_id ada
+            }
+            $cloudinaryImage = $request->file('image')->storeOnCloudinary('leaves_images');
+            $leave->image_url = $cloudinaryImage->getSecurePath();
+            $leave->image_public_id = $cloudinaryImage->getPublicId();
+        }
+
+        $leave->save();
+
+        return redirect()->route('mobile.home')
+                        ->with('success', 'Leave successfully updated.');
     }
 
     public function show($id)

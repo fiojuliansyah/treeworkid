@@ -146,6 +146,7 @@ Route::middleware(['auth', 'prevent-back-history'])->prefix('mobile')->group(fun
     Route::get('/leave/create', [MLeaveController::class, 'create'])->name('leave.create');
     Route::post('/leave/store', [MLeaveController::class, 'store'])->name('leave.store');
     Route::get('/leave/{id}/show', [MLeaveController::class, 'show'])->name('leave.show');
+    Route::put('/leave/{id}/update', [MLeaveController::class, 'update'])->name('leave.update');
 
     Route::get('/reliver', [MReliverController::class, 'index'])->name('reliver.index');
     Route::post('/reliver/update-site', [MReliverController::class, 'updateSite'])->name('reliver.updateSite');
