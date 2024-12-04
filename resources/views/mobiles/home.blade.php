@@ -136,36 +136,7 @@
                                     <p style="color: black; margin: 0;">Upload Gambar Bukti</p>
                                 </a>
                             @else
-                                <div class="col-3" style="position: relative;">
-                                    <a href="#" data-menu="menu-sakit"
-                                        class="btn btn-xs rounded-s text-uppercase font-900 bg-yellow-dark fourth">
-                                        <p style="color: black; margin: 0;">SAKIT</p>
-                                    </a>
-                                </div>
-                                <div class="col-3" style="position: relative;">
-                                    <a href="#" data-menu="menu-sakit"
-                                        class="btn btn-xs rounded-s text-uppercase font-900 bg-yellow-dark fourth">
-                                        <p style="color: black; margin: 0;">SAKIT</p>
-                                    </a>
-                                </div>
-                                <div class="col-3" style="position: relative;">
-                                    <a href="#" data-menu="menu-ijin"
-                                        class="btn btn-xs rounded-s text-uppercase font-900 bg-yellow-dark fourth">
-                                        <p style="color: black; margin: 0;">IJIN</p>
-                                    </a>
-                                </div>
-                                <div class="col-3" style="position: relative;">
-                                    <a href="#" data-menu="menu-cuti"
-                                        class="btn btn-xs rounded-s text-uppercase font-900 bg-yellow-dark fourth">
-                                        <p style="color: black; margin: 0;">CUTI</p>
-                                    </a>
-                                </div>
-                                <div class="col-3" style="position: relative;">
-                                    <a href="#" data-menu="menu-confirm"
-                                        class="btn btn-xs rounded-s text-uppercase font-900 bg-red-dark fourth">
-                                        LIBUR
-                                    </a>
-                                </div>
+
                             @endif
                         @else
                             <div class="col-3" style="position: relative;">
@@ -256,7 +227,7 @@
                 </div>
             </div>
         @endcan
-        {{-- @can('work-module') 
+        @can('work-module') 
             <div class="content mb-2">
                 <h5 class="float-start font-16 font-500">App Module &nbsp;</h5><span class="badge bg-danger">soon</span>
                 <a class="float-end font-12 color-highlight mt-n1" href="#">View All</a>
@@ -276,7 +247,7 @@
                                 </div>
                             </div>
                         @endcan
-                        @can('security-app')
+                        {{-- @can('security-app')
                         <div class="splide__slide ps-3">
                             <div class="bg-theme rounded-m shadow-m text-center">
                             <img src="https://img.icons8.com/?size=256&id=jOAIkIGgvYmp&format=png" alt="" width="80px"" class="mt-3">
@@ -297,11 +268,11 @@
                             </p>
                             </div>
                         </div>
-                        @endcan
+                        @endcan --}}
                     </div>
                 </div>
             </div>
-        @endcan --}}
+        @endcan
     </div>
 @endsection
 @section('modal')

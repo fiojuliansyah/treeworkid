@@ -35,7 +35,8 @@
             <span class="notification-icon color-white bg-dark rounded-s">
                 <i class="fa fa-bell"></i>
                 <em>Treework</em>
-                <i data-bs-dismiss="toast" class="fa fa-times-circle"></i>
+                <!-- Perbaikan pada dismiss button -->
+                <i id="dismiss-toast" class="fa fa-times-circle" style="cursor: pointer;"></i>
             </span>
             <h1 class="font-18 color-white mb-n3">All Good</h1>
             <p class="pt-1">
@@ -46,12 +47,21 @@
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 var toastElement = document.getElementById('notification-1');
+                var dismissButton = document.getElementById('dismiss-toast');
+                
                 if (toastElement) {
                     var toast = new bootstrap.Toast(toastElement, {
                         autohide: true,
                         delay: 3000
                     });
                     toast.show();
+
+                    // Menambahkan event listener untuk dismiss button
+                    if (dismissButton) {
+                        dismissButton.addEventListener('click', function() {
+                            toast.hide(); // Menutup toast ketika tombol dismiss ditekan
+                        });
+                    }
                 }
             });
         </script>

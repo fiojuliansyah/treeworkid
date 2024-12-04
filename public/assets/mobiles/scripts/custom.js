@@ -171,7 +171,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if(doubleSlider.length){
                 doubleSlider.forEach(function(e){
                      var double = new Splide( '#'+e.id, {
-                        type:'loop',
+                        type:'',
                         autoplay:true,
                         interval:4000,
                         arrows:false,

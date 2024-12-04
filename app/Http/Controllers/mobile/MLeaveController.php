@@ -82,28 +82,32 @@ class MLeaveController extends Controller
         $request->validate([
             'image' => 'nullable|image|max:2048',
         ]);
-
+    
         $leave = Leave::findOrFail($id);
-        $leave->user_id = $request->user_id;
-        $leave->site_id = $request->site_id;
-        $leave->start_date = $request->start_date;
-        $leave->end_date = $request->end_date;
-        $leave->reason = $request->reason;
-        $leave->contact = $request->contact;
-
+    
+        // Update hanya input yang tersedia dalam request
+        $leave->update($request->only([
+            'user_id',
+            'site_id',
+            'start_date',
+            'end_date',
+            'reason',
+            'contact'
+        ]));
+    
+        // Periksa apakah ada file gambar yang diunggah
         if ($request->hasFile('image')) {
-            if ($leave->image_public_id) {
-                Cloudinary::destroy($leave->image_public_id); // Pastikan public_id ada
+            if (!empty($leave->image_public_id)) {
+                Cloudinary::destroy($leave->image_public_id); // Hapus gambar lama jika ada
             }
             $cloudinaryImage = $request->file('image')->storeOnCloudinary('leaves_images');
             $leave->image_url = $cloudinaryImage->getSecurePath();
             $leave->image_public_id = $cloudinaryImage->getPublicId();
+            $leave->save(); // Simpan ulang jika ada perubahan pada gambar
         }
-
-        $leave->save();
-
+    
         return redirect()->route('mobile.home')
-                        ->with('success', 'Leave successfully updated.');
+                         ->with('success', 'Leave successfully updated.');
     }
 
     public function show($id)
