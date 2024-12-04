@@ -33,7 +33,8 @@
                 <strong id="clock"></strong> &nbsp; | &nbsp;
                 <strong id="date"></strong>
                 <div>
-                    <strong><i class="fa fa-map-pin">&nbsp&nbsp</i>{{ Auth::user()->site['name'] ?? 'Guest' }}
+                    <strong><i class="fa fa-map-pin">&nbsp&nbsp</i>{{ Auth::user()->site['name'] ?? 'Guest' }} 
+                        {{ Auth::user()->department_id == 3 ?? '(Reliver)' : '' }}
                     </strong>
                     <p>No shift information available</p>
                 </div>
