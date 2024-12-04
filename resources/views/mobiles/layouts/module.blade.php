@@ -15,6 +15,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/mobiles/app/icons/icon-192x192.png">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/signature_pad/1.5.3/signature_pad.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.2.0/introjs.min.css">
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 @livewireStyles
 </head>
     

@@ -46,7 +46,7 @@
         </form>
     </div>
     <div class="ad-300x50 ad-300x50-fixed">
-        <a href="#" onclick="event.preventDefault(); document.getElementById('formStore').submit();" class="btn btn-full btn-m rounded-s text-uppercase font-900 shadow-xl bg-highlight">
+        <a href="#" onclick="event.preventDefault(); submitForm();" id="submit-btn" class="btn btn-full btn-m rounded-s text-uppercase font-900 shadow-xl bg-highlight">
             Submit
         </a>
     </div>
@@ -57,18 +57,27 @@
 @push('js')
 <script>
     function previewImage() {
-      var input = document.getElementById('file-upload');
-      var imageContainer = document.getElementById('image-preview');
-      var files = input.files;
-      var file = files[files.length - 1];
+        var input = document.getElementById('file-upload');
+        var imageContainer = document.getElementById('image-preview');
+        var files = input.files;
+        var file = files[files.length - 1];
 
-      var reader = new FileReader();
+        var reader = new FileReader();
 
-      reader.onload = function(e) {
-        imageContainer.src = e.target.result;
-      };
+        reader.onload = function(e) {
+            imageContainer.src = e.target.result;
+        };
 
-      reader.readAsDataURL(file);
+        reader.readAsDataURL(file);
+    }
+
+    function submitForm() {
+        // Disable the submit button to prevent multiple clicks
+        var submitButton = document.getElementById('submit-btn');
+        submitButton.disabled = true;
+
+        // Submit the form
+        document.getElementById('formStore').submit();
     }
 </script>
 @endpush

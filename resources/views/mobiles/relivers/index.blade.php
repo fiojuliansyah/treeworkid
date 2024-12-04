@@ -60,12 +60,13 @@
                 @csrf
                 <div class="mt-3">
                     <div class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
-                        <select name="type" id="reliverTypeSelect" class="form-select">
+                        <select name="site_id" class="form-select select2">
                             <option value="default" disabled selected>pilih</option>
-                            <option value="backup">backup</option>
-                            <option value="standby">standby</option>
+                            @foreach ($sites as $site)    
+                                <option value="{{ $site->id }}"  {{ $user->site_id == $site->id ? 'selected' : '' }}>{{ $site->name }}</option>
+                            @endforeach
                         </select>
-                        <label for="form2" class="color-highlight font-400 font-13">Tipe</label>
+                        <label for="form2" class="color-highlight font-400 font-13">Pilih Lokasi</label>
                         <em><i class="fa fa-angle-down"></i></em>
                     </div>
                 </div>
@@ -169,6 +170,17 @@
 @push('js')
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Apply Select2 to your select element
+            $('.select2').select2({
+                width: '100%', // Optional, to ensure full width
+                placeholder: "Pilih Lokasi", // Placeholder text
+                allowClear: true // Optional, to allow clearing the selection
+            });
+        });
+    </script>
     <script>
         document.querySelector('select[name="site_id"]').addEventListener('change', function() {
             var siteId = this.value;
