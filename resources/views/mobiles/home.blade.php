@@ -187,12 +187,12 @@
         @can('attendance-module')
             <div class="row me-0 ms-0 mb-0 third" style="margin-top: 20px;">
                 <div class="col-3 ps-0 pe-0">
-                    <a href="{{ route('reliver.index') }}" class="icon-user"
+                    <a href="{{ route('attendance.logs') }}" class="icon-user"
                         style="display: flex; flex-direction: column; align-items: center; text-align: center;">
-                        <img src="/assets/mobiles/images/icons/reliver.png" alt="" width="50px"
+                        <img src="/assets/mobiles/images/icons/history.png" alt="" width="50px"
                             style="margin-bottom: 5px; border: none; border: 1px solid #eef2f1; border-radius: 8px; padding: 10px; margin: 5px; box-sizing: border-box;">
                         <div style="display: flex; align-items: center;">
-                            <p style="margin: 0;">Reliver</p>
+                            <p style="margin: 0;">Riwayat</p>
                         </div>
                     </a>
                 </div>
@@ -213,16 +213,6 @@
                             style="margin-bottom: 5px; border: none; border: 1px solid #eef2f1; border-radius: 8px; padding: 10px; margin: 5px; box-sizing: border-box;">
                         <div style="display: flex; align-items: center;">
                             <p style="margin: 0;">Berita Acara</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-3 ps-0 pe-0">
-                    <a href="{{ route('attendance.logs') }}" class="icon-user"
-                        style="display: flex; flex-direction: column; align-items: center; text-align: center;">
-                        <img src="/assets/mobiles/images/icons/history.png" alt="" width="50px"
-                            style="margin-bottom: 5px; border: none; border: 1px solid #eef2f1; border-radius: 8px; padding: 10px; margin: 5px; box-sizing: border-box;">
-                        <div style="display: flex; align-items: center;">
-                            <p style="margin: 0;">Riwayat</p>
                         </div>
                     </a>
                 </div>
