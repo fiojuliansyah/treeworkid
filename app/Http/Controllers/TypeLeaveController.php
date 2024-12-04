@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\TypeLeave;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class TypeLeaveController extends Controller

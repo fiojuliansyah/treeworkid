@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('is_paid')->nullable();
             $table->string('image_url')->nullable();
             $table->string('image_public_id')->nullable();
+            $table->string('contact')->nullable();
             $table->timestamps();
         });
     }

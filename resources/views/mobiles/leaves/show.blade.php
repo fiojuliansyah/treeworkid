@@ -3,7 +3,9 @@
 @section('content')
 <div class="page-content">
     <div class="page-title page-title-small">
-        <h2><a href="#"><i class="fa fa-arrow-left" style="color: black;">&nbsp;&nbsp;&nbsp;</i><span><img src="{{ $leave->site->company['logo_url'] }}" width="150px"></span></h2>
+        <h2>
+            <a href="#"><i class="fa fa-arrow-left" style="color: black;">&nbsp;&nbsp;&nbsp;</i><span><img src="{{ $leave->site->company['logo_url'] }}" width="150px"></span></a>
+        </h2>
     </div>
     <div class="card card-style" style="margin-top: 50px">
         <div class="content">
@@ -66,11 +68,7 @@
                         @endforeach
                     @endif
                 </div>
-
             </div>
-            <center class="mb-4">
-                <img src="{{ $leave->image_url }}" alt="" width="100px">
-            </center>
             <h4 class="mb-n1">Deskripsi</h4>
             <p>
                 {{ $leave->reason }}
@@ -124,14 +122,33 @@
                 @else
                 @endif
             </div>
-            <h4 class="mb-n1">Upload Bukti</h4>
-            <br>
-            <input type="file" name="" class="form-control" id="">
+            <br>    
         </div>
     </div>
-    <a href="#" class="btn btn-full btn-margins  bg-highlight btn-m text-uppercase font-900 rounded-s shadow-xl">
-        <i class="fas fa-upload">&nbsp;</i>Upload Image
-     </a>
+    <div class="content">
+        <img id="image-preview" src="/assets/mobiles/images/empty.png" alt="Preview" class="preload-img img-fluid bottom-20 mt-3">
+    </div>
+        <label for="file-upload" class="btn btn-full btn-margins  bg-highlight btn-m text-uppercase font-900 rounded-s shadow-xl"><i class="fas fa-upload" style="color: white;"></i> Upload Image</label>  
+        <input type="file" id="file-upload" name="image" style="display: none;" onchange="previewImage()">
 </div>
 
 @endsection
+
+@push('js')
+<script>
+    function previewImage() {
+      var input = document.getElementById('file-upload');
+      var imageContainer = document.getElementById('image-preview');
+      var files = input.files;
+      var file = files[files.length - 1];
+
+      var reader = new FileReader();
+
+      reader.onload = function(e) {
+        imageContainer.src = e.target.result;
+      };
+
+      reader.readAsDataURL(file);
+    }
+</script>
+@endpush
