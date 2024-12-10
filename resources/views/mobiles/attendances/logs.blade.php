@@ -41,6 +41,13 @@
                         <strong class="color-theme">Date:</strong>
                         <p class="font-12"><i class="far fa-calendar me-2"></i>{{ $log->date->format('d-M-Y') }}</p>
                     </div>
+                    @if ($log->type == 'shift_off')
+                    <div class="col-8">
+                        <a href="#" 
+                        class="float-end btn btn-xs bg-danger rounded-xl shadow-xl text-uppercase font-900 mt-2 font-11" ">OFF
+                        </a>
+                    </div> 
+                    @else 
                     <div class="col-4">
                         <strong class="color-theme">Time IN:</strong>
                         <p class="font-12"><i class="far fa-clock me-2"></i>
@@ -61,6 +68,7 @@
                             @endif
                         </p>
                     </div>
+                    @endif
                 </div>
             </div>
         </div>  
