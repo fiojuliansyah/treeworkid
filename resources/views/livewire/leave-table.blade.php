@@ -93,11 +93,11 @@
                             <input class="form-check-input" type="checkbox" value="1" />
                         </div>
                     </td>
-                    <td>{{ $leave->start_date }}</td>
-                    <td>{{ $leave->end_date }}</td>
+                    <td>{{ $leave->start_date ?? '' }}</td>
+                    <td>{{ $leave->end_date ?? '' }}</td>
                     <td>{{ $leave->user->name ?? 'N/A' }}</td>
-                    <td>{{ $leave->type['name'] }}</td>
-                    <td>{{ $leave->reason }}</td>
+                    <td>{{ $leave->type['name'] ?? '' }}</td>
+                    <td>{{ $leave->reason ?? '' }}</td>
                     <td class="text-end">
                         <a href="#" class="btn btn-light btn-active-light-primary btn-flex btn-center btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
                             <i class="ki-outline ki-down fs-5 ms-1"></i>
