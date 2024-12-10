@@ -44,7 +44,7 @@
                     @if ($log->type == 'shift_off')
                     <div class="col-8">
                         <a href="#" 
-                        class="float-end btn btn-xs bg-danger rounded-xl shadow-xl text-uppercase font-900 mt-2 font-11" ">OFF
+                        class="float-end btn btn-xs bg-danger rounded-xl shadow-xl text-uppercase font-900 mt-2 font-11" ">LIBUR
                         </a>
                     </div> 
                     @else 
