@@ -103,8 +103,9 @@ class AttendanceController extends Controller
                          ->with('success', 'Attendance updated successfully.');
     }
 
-    public function destroy(Attendance $attendance)
+    public function destroy($id)
     {
+        $attendance = Attendance::findOrFail($id);
         Cloudinary::destroy($attendance->imagein_public_id);
         Cloudinary::destroy($attendance->imageout_public_id);
         $attendance->delete();
