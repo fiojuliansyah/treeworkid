@@ -51,9 +51,12 @@
         </form>
     </div>
     <div class="ad-300x50 ad-300x50-fixed">
-        <a href="#" onclick="submitFormWithLocation(event)" class="btn btn-full btn-m rounded-s text-uppercase font-900 shadow-xl bg-highlight">
+        <a href="#" onclick="submitFormWithLocation(event)" class="btn btn-full btn-m rounded-s text-uppercase font-900 shadow-xl bg-highlight" id="submitButton">
             Submit
         </a>
+        <div id="loadingSpinner" class="d-none">
+            <i class="fa fa-spinner fa-spin"></i> Loading...
+        </div>
     </div>
 </div>
 
@@ -78,17 +81,32 @@
 
     function submitFormWithLocation(event) {
         event.preventDefault();
+
+        // Show the loading spinner and disable the submit button
+        document.getElementById('submitButton').disabled = true;
+        document.getElementById('loadingSpinner').classList.remove('d-none');
+        
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
                 const latlong = `${position.coords.latitude},${position.coords.longitude}`;
                 document.getElementById('latlongInput').value = latlong;
+                
+                // Submit the form
                 document.getElementById('formStore').submit();
             }, function(error) {
                 console.error('Error getting location:', error);
                 alert('Could not get your location. Please enable location services.');
+
+                // Hide the loading spinner and re-enable the button
+                document.getElementById('loadingSpinner').classList.add('d-none');
+                document.getElementById('submitButton').disabled = false;
             });
         } else {
             alert('Geolocation is not supported by your browser.');
+            
+            // Hide the loading spinner and re-enable the button
+            document.getElementById('loadingSpinner').classList.add('d-none');
+            document.getElementById('submitButton').disabled = false;
         }
     }
 </script>
