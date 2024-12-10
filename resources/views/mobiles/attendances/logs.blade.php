@@ -16,7 +16,7 @@
             <div style="border: none; border: 1px solid #eef2f1; border-radius: 8px; padding: 10px; box-sizing: border-box;">
                 <div class="float-start">
                     <h1 class="mb-0">{{ $log->site['name'] }}</h1>
-                    @if ($log->type == 'time_off')
+                    @if ($log->type == 'shift_off')
                        OFF 
                     @else    
                     <p class="font-10" id="address-{{ $index }}">
@@ -24,7 +24,7 @@
                     </p>
                     @endif
                 </div>
-                    @if ($log->type == 'time_off')
+                    @if ($log->type == 'shift_off')
                         
                     @else                  
                         <a href="#" 
