@@ -27,6 +27,7 @@ class HomeController extends Controller
                         ->first();
 
         $latestLeave = Leave::where('user_id', $userId)
+                        ->whereDate('date', $currentDate)
                         ->latest()
                         ->first();
 
