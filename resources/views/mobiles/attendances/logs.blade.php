@@ -16,14 +16,22 @@
             <div style="border: none; border: 1px solid #eef2f1; border-radius: 8px; padding: 10px; box-sizing: border-box;">
                 <div class="float-start">
                     <h1 class="mb-0">{{ $log->site['name'] }}</h1>
+                    @if ($log->type == 'time_off')
+                       OFF 
+                    @else    
                     <p class="font-10" id="address-{{ $index }}">
                         <i class="fa fa-map-marker-alt me-2"></i>Loading address...
                     </p>
+                    @endif
                 </div>
-                <a href="#" 
-                   class="float-end btn btn-xs bg-highlight rounded-xl shadow-xl text-uppercase font-900 mt-2 font-11" 
-                   onclick="viewOnMap({{ $index }}); return false;">View on Map
-                </a>
+                    @if ($log->type == 'time_off')
+                        
+                    @else                  
+                        <a href="#" 
+                        class="float-end btn btn-xs bg-highlight rounded-xl shadow-xl text-uppercase font-900 mt-2 font-11" 
+                        onclick="viewOnMap({{ $index }}); return false;">View on Map
+                        </a>
+                    @endif
                 
                 <div class="clearfix"></div>                
                 <div class="divider mt-2 mb-3"></div>
