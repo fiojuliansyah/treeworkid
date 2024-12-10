@@ -133,7 +133,7 @@
             let lngCenter = latlngs.reduce((acc, loc) => acc + loc.lng, 0) / latlngs.length;
             map = L.map('map').setView([latCenter, lngCenter], 13);
 
-            L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+            L.tileLayer('https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
                 maxZoom: 18,
                 subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
             }).addTo(map);

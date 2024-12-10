@@ -57,9 +57,10 @@
 
         <!-- Spinner - Hidden by default -->
     </div>
-    <div id="loadingSpinner" class="d-none spinner" style="border: 8px solid #f3f3f3; border-top: 8px solid #00B5CC; border-radius: 50%; width: 60px; height: 60px; animation: spin 1s linear infinite;"></div>
+    <div id="loader" style="display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 30;">
+        <div id="loadingSpinner" class="d-none spinner" style="border: 8px solid #f3f3f3; border-top: 8px solid #00B5CC; border-radius: 50%; width: 60px; height: 60px; animation: spin 1s linear infinite;"></div>
+    </div>
 </div>
-
 <style>
     @keyframes spin {
         0% { transform: rotate(0deg); }
@@ -88,31 +89,36 @@
     function submitFormWithLocation(event) {
         event.preventDefault();
 
-        // Show the loading spinner and disable the submit button
-        document.getElementById('submitButton').disabled = true;
-        document.getElementById('loadingSpinner').classList.remove('d-none');
-        
+        // Disable the submit button immediately and show the loading spinner
+        const submitButton = document.getElementById('submitButton');
+        const loadingSpinner = document.getElementById('loadingSpinner');
+
+        submitButton.disabled = true;
+        loadingSpinner.classList.remove('d-none');
+
+        console.log("Form submission started");
+
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
                 const latlong = `${position.coords.latitude},${position.coords.longitude}`;
                 document.getElementById('latlongInput').value = latlong;
                 
-                // Submit the form
+                // Submit the form after setting the latlong
                 document.getElementById('formStore').submit();
             }, function(error) {
                 console.error('Error getting location:', error);
                 alert('Could not get your location. Please enable location services.');
 
-                // Hide the loading spinner and re-enable the button
-                document.getElementById('loadingSpinner').classList.add('d-none');
-                document.getElementById('submitButton').disabled = false;
+                // Hide the loading spinner and re-enable the button on error
+                loadingSpinner.classList.add('d-none');
+                submitButton.disabled = false;
             });
         } else {
             alert('Geolocation is not supported by your browser.');
             
-            // Hide the loading spinner and re-enable the button
-            document.getElementById('loadingSpinner').classList.add('d-none');
-            document.getElementById('submitButton').disabled = false;
+            // Hide the loading spinner and re-enable the button if geolocation is not supported
+            loadingSpinner.classList.add('d-none');
+            submitButton.disabled = false;
         }
     }
 </script>
