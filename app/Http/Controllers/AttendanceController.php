@@ -106,11 +106,23 @@ class AttendanceController extends Controller
     public function destroy($id)
     {
         $attendance = Attendance::findOrFail($id);
-        Cloudinary::destroy($attendance->imagein_public_id);
-        Cloudinary::destroy($attendance->imageout_public_id);
+        
+        // Check if imagein_public_id exists and delete the image from Cloudinary
+        if ($attendance->imagein_public_id) {
+            Cloudinary::destroy($attendance->imagein_public_id);
+        }
+    
+        // Check if imageout_public_id exists and delete the image from Cloudinary
+        if ($attendance->imageout_public_id) {
+            Cloudinary::destroy($attendance->imageout_public_id);
+        }
+    
+        // Delete the attendance record
         $attendance->delete();
-
+    
+        // Redirect back with success message
         return redirect()->route('attendances.index')
                          ->with('success', 'Attendance deleted successfully.');
     }
+    
 }
